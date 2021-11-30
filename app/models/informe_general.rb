@@ -1,0 +1,2 @@
+class InformeGeneral < ApplicationRecord
+end

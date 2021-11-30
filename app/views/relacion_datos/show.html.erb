@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Herramienta:</strong>
+  <%= @relacion_dato.herramienta_id %>
+</p>
+
+<p>
+  <strong>Dato:</strong>
+  <%= @relacion_dato.dato_id %>
+</p>
+
+<p>
+  <strong>Valo:</strong>
+  <%= @relacion_dato.valo %>
+</p>
+
+<%= link_to 'Edit', edit_relacion_dato_path(@relacion_dato) %> |
+<%= link_to 'Back', relacion_datos_path %>

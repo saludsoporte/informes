@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Herramienta:</strong>
+  <%= @plantilla.herramienta_id %>
+</p>
+
+<p>
+  <strong>Dato:</strong>
+  <%= @plantilla.dato_id %>
+</p>
+
+<%= link_to 'Edit', edit_plantilla_path(@plantilla) %> |
+<%= link_to 'Back', plantillas_path %>

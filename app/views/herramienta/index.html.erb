@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Herramienta</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Conexion bd</th>
+      <th>Dato</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @herramienta.each do |herramientum| %>
+      <tr>
+        <td><%= herramientum.conexion_bd_id %></td>
+        <td><%= herramientum.dato_id %></td>
+        <td><%= link_to 'Show', herramientum %></td>
+        <td><%= link_to 'Edit', edit_herramientum_path(herramientum) %></td>
+        <td><%= link_to 'Destroy', herramientum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Herramientum', new_herramientum_path %>

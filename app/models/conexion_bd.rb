@@ -1,0 +1,2 @@
+class ConexionBd < ApplicationRecord
+end

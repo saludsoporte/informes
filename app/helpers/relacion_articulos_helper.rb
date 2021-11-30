@@ -1,0 +1,2 @@
+module RelacionArticulosHelper
+end

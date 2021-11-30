@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Articulo:</strong>
+  <%= @relacion_articulo.articulo_id %>
+</p>
+
+<p>
+  <strong>Herramienta:</strong>
+  <%= @relacion_articulo.herramienta_id %>
+</p>
+
+<%= link_to 'Edit', edit_relacion_articulo_path(@relacion_articulo) %> |
+<%= link_to 'Back', relacion_articulos_path %>

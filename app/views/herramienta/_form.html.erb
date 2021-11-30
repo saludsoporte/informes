@@ -1,0 +1,27 @@
+<%= form_with(model: herramientum) do |form| %>
+  <% if herramientum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(herramientum.errors.count, "error") %> prohibited this herramientum from being saved:</h2>
+
+      <ul>
+        <% herramientum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :conexion_bd_id %>
+    <%= form.text_field :conexion_bd_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dato_id %>
+    <%= form.text_field :dato_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

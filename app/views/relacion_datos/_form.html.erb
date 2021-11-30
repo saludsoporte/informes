@@ -1,0 +1,32 @@
+<%= form_with(model: relacion_dato) do |form| %>
+  <% if relacion_dato.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(relacion_dato.errors.count, "error") %> prohibited this relacion_dato from being saved:</h2>
+
+      <ul>
+        <% relacion_dato.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :herramienta_id %>
+    <%= form.text_field :herramienta_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dato_id %>
+    <%= form.text_field :dato_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valo %>
+    <%= form.text_area :valo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

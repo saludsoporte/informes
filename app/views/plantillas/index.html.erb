@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Plantillas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Herramienta</th>
+      <th>Dato</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plantillas.each do |plantilla| %>
+      <tr>
+        <td><%= plantilla.herramienta_id %></td>
+        <td><%= plantilla.dato_id %></td>
+        <td><%= link_to 'Show', plantilla %></td>
+        <td><%= link_to 'Edit', edit_plantilla_path(plantilla) %></td>
+        <td><%= link_to 'Destroy', plantilla, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plantilla', new_plantilla_path %>

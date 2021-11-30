@@ -1,0 +1,27 @@
+<%= form_with(model: relacion_herramientum) do |form| %>
+  <% if relacion_herramientum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(relacion_herramientum.errors.count, "error") %> prohibited this relacion_herramientum from being saved:</h2>
+
+      <ul>
+        <% relacion_herramientum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :informe_general_id %>
+    <%= form.text_field :informe_general_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :herramienta_id %>
+    <%= form.text_field :herramienta_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

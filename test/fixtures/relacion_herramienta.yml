@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  informe_general: one
+  herramienta: one
+
+two:
+  informe_general: two
+  herramienta: two

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Informe general:</strong>
+  <%= @relacion_herramientum.informe_general_id %>
+</p>
+
+<p>
+  <strong>Herramienta:</strong>
+  <%= @relacion_herramientum.herramienta_id %>
+</p>
+
+<%= link_to 'Edit', edit_relacion_herramientum_path(@relacion_herramientum) %> |
+<%= link_to 'Back', relacion_herramienta_path %>

@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @conexion_bd.nombre %>
+</p>
+
+<%= link_to 'Edit', edit_conexion_bd_path(@conexion_bd) %> |
+<%= link_to 'Back', conexion_bds_path %>
