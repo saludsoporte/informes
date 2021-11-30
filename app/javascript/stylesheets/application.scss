@@ -1,0 +1,18 @@
+@import "bootstrap";
+footer {
+    /* Like the header, the footer will have a static height - it shouldn't grow or shrink.  */
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer {
+    background-color: rgba(17, 67, 142, 0.849);
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    padding: 20px;
+    color: white;
+}

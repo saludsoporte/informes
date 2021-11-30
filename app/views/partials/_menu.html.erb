@@ -1,0 +1,54 @@
+<nav class="navbar navbar-light bg-dark p-2   ">
+  <div class="container-fluid">
+    <button class="navbar-toggler boton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <%= image_tag 'menu_book_white_24dp' %>
+    </button>
+    <%= render "partials/imagen_logo" %>
+    <a class="navbar-brand" style="position:absolute;left:80px;color: azure;" href="#">Informes Generales</a>       
+    
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Informes Generales</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <%= link_to raw("#{image_tag("house-door.svg")} Inicio"),root_path,class: :"nav-link active","aria-current": :"page" %>
+          </li>  
+
+          <li class="nav-item dropdown">
+            <%= link_to raw("#{image_tag("person-bounding-box.svg")} Personal"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+              <li >
+                <%= link_to "Catalógo de Usuarios",root_path,class: :"dropdown-item","aria-current": :"page" %>
+              </li> 
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <%= link_to "Catalógo de Personal",root_path,class: :"dropdown-item","aria-current": :"page" %>
+              </li>    
+            </ul>
+          </li>   
+                         
+          <li class="nav-item dropdown">
+            <%= link_to  raw("#{image_tag("gear.svg")} Configuración"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex">         
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
