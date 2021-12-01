@@ -1,0 +1,2 @@
+class Subdireccion < ApplicationRecord
+end

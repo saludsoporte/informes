@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_192952) do
+ActiveRecord::Schema.define(version: 2021_12_01_213858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "articulos", force: :cascade do |t|
     t.string "nombre"
@@ -38,6 +44,18 @@ ActiveRecord::Schema.define(version: 2021_11_29_192952) do
   end
 
   create_table "datos", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "departamentos", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "direccions", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -101,10 +119,48 @@ ActiveRecord::Schema.define(version: 2021_11_29_192952) do
     t.index ["informe_general_id"], name: "index_relacion_herramienta_on_informe_general_id"
   end
 
+  create_table "rols", force: :cascade do |t|
+    t.string "nombre"
+    t.text "descripcion"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subdireccions", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "unidads", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: ""
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "username", null: false
+    t.bigint "unidad_id"
+    t.bigint "area_id"
+    t.bigint "direccion_id"
+    t.bigint "subdireccion_id"
+    t.bigint "departamento_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "rol_id"
+    t.index ["area_id"], name: "index_users_on_area_id"
+    t.index ["departamento_id"], name: "index_users_on_departamento_id"
+    t.index ["direccion_id"], name: "index_users_on_direccion_id"
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["rol_id"], name: "index_users_on_rol_id"
+    t.index ["subdireccion_id"], name: "index_users_on_subdireccion_id"
+    t.index ["unidad_id"], name: "index_users_on_unidad_id"
   end
 
   add_foreign_key "herramienta", "conexion_bds"
@@ -117,4 +173,5 @@ ActiveRecord::Schema.define(version: 2021_11_29_192952) do
   add_foreign_key "relacion_datos", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "informe_generals"
+  add_foreign_key "users", "rols"
 end

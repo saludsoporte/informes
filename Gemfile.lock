@@ -64,6 +64,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
+    bootbox-rails (0.5.0)
     bootsnap (1.9.3)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -218,6 +219,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bootbox-rails (~> 0.4)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)

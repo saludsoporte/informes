@@ -1,5 +1,7 @@
 class InformeGeneralsController < ApplicationController
+
   before_action :set_informe_general, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /informe_generals or /informe_generals.json
   def index
