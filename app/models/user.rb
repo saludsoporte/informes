@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  belongs_to :rol
   
   validate :validate_username
  # validate :roles
@@ -31,13 +33,6 @@ class User < ApplicationRecord
     end
   end
 
-  def roles=(roles)
-    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
-  end
-
-  def roles
-    Rol.all
-  end
-
+ 
   
 end

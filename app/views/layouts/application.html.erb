@@ -12,14 +12,8 @@
    
   </head>
   <body>
-    <%= render "partials/menu" ,style: :"padding-bot:100px" %>
-    <% if current_user %>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-<% else %>
-    <%= link_to 'Login', new_user_session_path %>
-<% end %>
+    <%= render "partials/menu" ,style: :"padding-bot:100px" %>    
     <%= yield %>
-
   </body>  
   <footer class="py-3 my-4 ">
    <%= render "partials/paginacion" %>

@@ -12,6 +12,8 @@ gem "devise"
 gem 'will_paginate', '~> 3.3'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
 gem 'bootbox-rails', '~>0.4'
+gem "cancancan"
+
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

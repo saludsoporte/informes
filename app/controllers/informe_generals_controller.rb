@@ -1,15 +1,16 @@
 class InformeGeneralsController < ApplicationController
-
+  #load_and_authorize_resource
   before_action :set_informe_general, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
   # GET /informe_generals or /informe_generals.json
-  def index
-    @informe_generals = InformeGeneral.paginate(page:params[:page]).all
+  def index    
+    @informe_generals = InformeGeneral.paginate(page:params[:page]).all   
   end
 
   # GET /informe_generals/1 or /informe_generals/1.json
   def show
+    authorize! :read, @infomrme_acc
   end
 
   # GET /informe_generals/new

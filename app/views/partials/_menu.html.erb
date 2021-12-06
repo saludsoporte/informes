@@ -12,6 +12,10 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
+        <form class="d-flex">         
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <%= link_to raw("#{image_tag("house-door.svg")} Inicio"),root_path,class: :"nav-link active","aria-current": :"page" %>
@@ -21,7 +25,7 @@
             <%= link_to raw("#{image_tag("person-bounding-box.svg")} Personal"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
               <li >
-                <%= link_to "Catalógo de Usuarios",root_path,class: :"dropdown-item","aria-current": :"page" %>
+                <%= link_to "Catalógo de Usuarios",users_path,class: :"dropdown-item","aria-current": :"page" %>
               </li> 
               <li>
                 <hr class="dropdown-divider">
@@ -43,11 +47,12 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+          <% if current_user %>
+            <li class="nav-item dropdown"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete,class: :"btn btn-sm btn-outline-danger "  %></li>
+          <% else %>
+            <li class="nav-item dropdown"><%= link_to 'Iniciar Sesión', new_user_session_path,class: :"btn btn-sm btn-primary "%></li>
+          <% end %>
         </ul>
-        <form class="d-flex">         
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </div>
