@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_213858) do
+ActiveRecord::Schema.define(version: 2021_12_07_190510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,26 @@ ActiveRecord::Schema.define(version: 2021_12_01_213858) do
 
   create_table "perfils", force: :cascade do |t|
     t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "rol_id"
+    t.bigint "user_id"
+    t.index ["rol_id"], name: "index_perfils_on_rol_id"
+    t.index ["user_id"], name: "index_perfils_on_user_id"
+  end
+
+  create_table "personals", force: :cascade do |t|
+    t.string "nombre"
+    t.string "apellido_p"
+    t.string "apellido_m"
+    t.string "nombre_completo"
+    t.string "telefono"
+    t.string "calle"
+    t.string "numero"
+    t.string "colonia"
+    t.integer "cp"
+    t.string "curp"
+    t.date "fecha_nacimiento"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -152,13 +172,13 @@ ActiveRecord::Schema.define(version: 2021_12_01_213858) do
     t.bigint "departamento_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "rol_id"
+    t.bigint "personal_id"
     t.index ["area_id"], name: "index_users_on_area_id"
     t.index ["departamento_id"], name: "index_users_on_departamento_id"
     t.index ["direccion_id"], name: "index_users_on_direccion_id"
     t.index ["email"], name: "index_users_on_email"
+    t.index ["personal_id"], name: "index_users_on_personal_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["rol_id"], name: "index_users_on_rol_id"
     t.index ["subdireccion_id"], name: "index_users_on_subdireccion_id"
     t.index ["unidad_id"], name: "index_users_on_unidad_id"
   end
@@ -173,5 +193,4 @@ ActiveRecord::Schema.define(version: 2021_12_01_213858) do
   add_foreign_key "relacion_datos", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "informe_generals"
-  add_foreign_key "users", "rols"
 end

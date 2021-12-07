@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :rol
+  #belongs_to :rol
   
   validate :validate_username
  # validate :roles
@@ -16,6 +16,14 @@ class User < ApplicationRecord
   scope :ultimos, ->{order("id asc")}
   def login
     @login || self.username || self.email
+  end
+
+  def perfiles?
+    if Perfil.where(user_id:self.id).count > 0
+      true
+    else
+      false
+    end
   end
 
   def self.find_for_database_authentication(warden_conditions)

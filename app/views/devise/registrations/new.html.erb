@@ -1,33 +1,36 @@
-<h2>Sign up</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= image_tag('Logo_SALUD.png',size:"250x70") %>  
+  <h1 class="h3 mb-3 fw-normal">Registración</h1>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "Nombre de Usuario" %>
-  </div>  
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "Correo" %>
+  
+  <div class="form-floating">       
+    <%= f.text_field :username, autofocus: true, autocomplete: "Nombre de Usuario",class: :"form-control",id: :"floatingUser",placeholder: :"name@example.com"%>
+    <%= f.label :"Nombre de Usuario", for: :"floatingUser" %>
+  </div>
+  
+  
+  <div class="form-floating">   
+    <%= f.email_field :email, autofocus: true, autocomplete: "Correo",class: :"form-control",id: :"floatingEmail",placeholder: :"name@example.com" %>
+    <%= f.label :email ,for: :"floatingEmail"%>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="form-floating">
+    <%= f.password_field :password, autocomplete: "new-password",class: :"form-control",id: :"floatingPassword",placeholder: :"Password"  %>
+    <%= f.label :Contraseña ,for: :"floatingPassword" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %> minimo de caracteres)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-floating">
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: :"form-control",id: :"floatingConf",placeholder: :"confirmación" %>
+    <%= f.label :"Confirmación de Contraseña",for: :"floatingConf" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+    <%= f.submit "Registrarse",class: :"btn btn-sm btn-success form-control" %></br>
+  </div></br>
+  <%= render "devise/shared/links" %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+<%= javascript_pack_tag 'signin.js' %>

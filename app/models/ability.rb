@@ -4,12 +4,14 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-    user ||= User.new
-    
+    user ||=User.new
+    #Rails.logger.debug "dasdasdasdas "+user.id.to_s
 
-    if user.rol_id==4
-      can :manage,  :all
-
+    if user.id.to_i ==1
+      #can :manage,  Articulo
+      can :read, InformeGeneral
+      can :create, InformeGeneral      
+      #can :read , InformeGeneral,:id => user.id
     end
     #
     # The first argument to `can` is the action you are giving the user 

@@ -4,7 +4,8 @@
             <thead>
                 <th>Nombre de Usuario</th>
                 <th>Email</th>
-                <th>Rol</th>
+                <th>Perfil</th>
+                <th>Información Personal</th>
             </thead> 
             <tbody>
                 <% @users.each do |u| %>
@@ -12,10 +13,17 @@
                         <td ><%= link_to u.username, user_path(u.id) ,class: :"btn btn-sm btn-light",title: :"Ver Usuario"%></td>
                         <td><%= u.email %></td>
                         <td> 
-                            <% if u.nil? %>
-                                Sin rol especifico
+                            <% if !u.perfiles? %>
+                                Sin perfiles
                             <% else %>
-                                <%= u.rol.nombre %>
+                                <%= link_to "perfiles", perfils_path(user_id:u.id),class: :"btn btn-sm btn-light",title: :"Ver roles del usuario" %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <% if u.personal_id.nil? %>
+                                Sin datos personales
+                            <% else %>
+                                <%= link_to "Datos Personales" , personal_path(u.personal_id),class: :"btn btn-sm btn-light", title: :"ver información del usuario" %>
                             <% end %>
                         </td>
                     </tr>

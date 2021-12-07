@@ -1,5 +1,10 @@
-<h1>New Informe General</h1>
-
-<%= render 'form', informe_general: @informe_general %>
-
-<%= link_to 'Back', informe_generals_path %>
+<div class="container">
+<% if can? :create, InformeGeneral%>
+    
+    <h3>Nuevo Informe General</h3>
+    <%= render 'form', informe_general: @informe_general %>
+    <%= link_to 'Back', informe_generals_path %>
+<% else %>
+    <h5>No tienes el rol para crear Informes</h5>
+<% end %>
+</div>

@@ -1,0 +1,72 @@
+<%= form_with(model: personal) do |form| %>
+  <% if personal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(personal.errors.count, "error") %> prohibited this personal from being saved:</h2>
+
+      <ul>
+        <% personal.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :apellido_p %>
+    <%= form.text_field :apellido_p %>
+  </div>
+
+  <div class="field">
+    <%= form.label :apellido_m %>
+    <%= form.text_field :apellido_m %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nombre_completo %>
+    <%= form.text_field :nombre_completo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefono %>
+    <%= form.text_field :telefono %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calle %>
+    <%= form.text_field :calle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero %>
+    <%= form.text_field :numero %>
+  </div>
+
+  <div class="field">
+    <%= form.label :colonia %>
+    <%= form.text_field :colonia %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cp %>
+    <%= form.number_field :cp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :curp %>
+    <%= form.text_field :curp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_nacimiento %>
+    <%= form.date_select :fecha_nacimiento %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
