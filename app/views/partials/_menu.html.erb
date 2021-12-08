@@ -42,12 +42,9 @@
           <li class="nav-item dropdown">
             <%= link_to  raw("#{image_tag("gear.svg")} Configuración"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><%= link_to "Perfiles",perfils_path,class: :"dropdown-item"%></li>             
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Roles",rols_path,class: :"dropdown-item" %></li>
             </ul>
           </li>
           <% if current_user %>

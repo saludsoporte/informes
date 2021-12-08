@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2021_12_07_190510) do
   end
 
   create_table "perfils", force: :cascade do |t|
-    t.string "nombre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "rol_id"
@@ -185,6 +184,8 @@ ActiveRecord::Schema.define(version: 2021_12_07_190510) do
 
   add_foreign_key "herramienta", "conexion_bds"
   add_foreign_key "herramienta", "datos"
+  add_foreign_key "perfils", "rols"
+  add_foreign_key "perfils", "users"
   add_foreign_key "plantillas", "datos"
   add_foreign_key "plantillas", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_articulos", "articulos"
@@ -193,4 +194,5 @@ ActiveRecord::Schema.define(version: 2021_12_07_190510) do
   add_foreign_key "relacion_datos", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_herramienta", "informe_generals"
+  add_foreign_key "users", "personals"
 end

@@ -6,12 +6,22 @@ class Ability
     #
     user ||=User.new
     #Rails.logger.debug "dasdasdasdas "+user.id.to_s
+    #alias_action :create, :read, :update, :to => :cru
+    alias_action :create, :read, to: :cr
+    can :read, InformeGeneral
+    can :cr ,Perfil     
 
-    if user.id.to_i ==1
-      #can :manage,  Articulo
-      can :read, InformeGeneral
-      can :create, InformeGeneral      
-      #can :read , InformeGeneral,:id => user.id
+    @perfiles=Perfil.where(user_id:user.id)
+    unless @perfiles.nil?
+      #case @perfiles..to_h
+       # when 
+      #end   
+      if user.id.to_i ==1
+        #can :manage,  Articulo        
+        can :create, InformeGeneral   
+        can :manage, User   
+        #can :read , InformeGeneral,:id => user.id
+      end
     end
     #
     # The first argument to `can` is the action you are giving the user 

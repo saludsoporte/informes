@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   #belongs_to :rol
+  has_many :perfils
+  #belongs_to :perfil
   
   validate :validate_username
  # validate :roles

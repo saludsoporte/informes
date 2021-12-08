@@ -1,3 +1,3 @@
 class Rol < ApplicationRecord
-    has_many :users
+    has_one :perfil
 end
