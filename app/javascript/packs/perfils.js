@@ -1,7 +1,10 @@
 import $ from 'jquery'
-import 'select2'
-import 'select2/dist/css/select2.css'
+$(document).on('turbolinks:load', function() {
 
-window.addEventListener('DOMContentLoaded', () => {
-    $('.js-states').select2()
+    //$(".perfiles").val(null).trigger("change");
+    $('.perfiles').select2({
+        placeholder: "Selecciona uno",
+        allowClear: true
+    });
+
 })

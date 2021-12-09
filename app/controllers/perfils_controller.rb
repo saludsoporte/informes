@@ -3,7 +3,11 @@ class PerfilsController < ApplicationController
 
   # GET /perfils or /perfils.json
   def index
-    @perfils = Perfil.all
+    if params[:user_id].nil?
+      @perfils = Perfil.all
+    else
+      @perfils=Perfil.where(user_id:params[:user_id])
+    end
   end
 
   # GET /perfils/1 or /perfils/1.json
@@ -17,6 +21,7 @@ class PerfilsController < ApplicationController
 
   # GET /perfils/1/edit
   def edit
+    #@perfil = Perfil.find(params[:id])
   end
 
   # POST /perfils or /perfils.json
@@ -38,7 +43,7 @@ class PerfilsController < ApplicationController
   def update
     respond_to do |format|
       if @perfil.update(perfil_params)
-        format.html { redirect_to @perfil, notice: "Perfil was successfully updated." }
+        format.html { redirect_to @perfil, notice: "El perfil ha sido actualizado." }
         format.json { render :show, status: :ok, location: @perfil }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +56,7 @@ class PerfilsController < ApplicationController
   def destroy
     @perfil.destroy
     respond_to do |format|
-      format.html { redirect_to perfils_url, notice: "Perfil was successfully destroyed." }
+      format.html { redirect_to perfils_url, notice: "El perfil fue destruido satisfactoriamente." }
       format.json { head :no_content }
     end
   end
@@ -64,6 +69,7 @@ class PerfilsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def perfil_params
-      params.require(:perfil).permit(:nombre)
+      logger.debug "dasdasdasdasdasdqweqw31123**********/"+params[:user_id].to_s
+      params.require(:perfil).permit(:rol_id,:user_id)
     end
 end

@@ -1,9 +1,17 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nombre:</strong>
-  <%= @perfil.nombre %>
-</p>
-
-<%= link_to 'Edit', edit_perfil_path(@perfil) %> |
-<%= link_to 'Back', perfils_path %>
+<div class="container">
+  <p id="notice"><%= notice %></p>  
+  <div class="row">
+    <div class="col-sm">
+      <strong>Rol:</strong>
+      <%= @perfil.rol.nombre %>
+    </div>
+    <div class="col-sm">
+      <strong>Nombre de usuario:</strong>      
+      <%= link_to @perfil.user.username,user_path(@perfil.user_id), class: :"btn btn-outline-dark btn-sm" %>
+    </div>
+    <div class="col-sm">
+      <%= link_to 'Editar', edit_perfil_path(@perfil),class: :"btn btn-outline-dark btn-sm"  %> |
+      <%= link_to 'Regresar', perfils_path,class: :"btn btn-outline-dark btn-sm"  %>
+    </div>
+  </div>
+</div>

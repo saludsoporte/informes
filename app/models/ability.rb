@@ -16,12 +16,13 @@ class Ability
       #case @perfiles..to_h
        # when 
       #end   
-      if user.id.to_i ==1
-        #can :manage,  Articulo        
-        can :create, InformeGeneral   
-        can :manage, User   
-        #can :read , InformeGeneral,:id => user.id
-      end
+      array=Array.new
+      @perfiles.each { |x| array.push(x.rol.nombre)}
+      
+      if array.include?("admin")         #can :manage,  Articulo        
+        can :manage, :all
+      end  
+      
     end
     #
     # The first argument to `can` is the action you are giving the user 

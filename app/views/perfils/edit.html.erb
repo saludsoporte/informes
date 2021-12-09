@@ -1,6 +1,13 @@
-<h1>Editing Perfil</h1>
-
-<%= render 'form', perfil: @perfil %>
-
-<%= link_to 'Show', @perfil %> |
-<%= link_to 'Back', perfils_path %>
+<div class="container">
+    <div class=col>
+        <h3> Editando el Perfil</h3>
+    </div>
+    <div class="col">
+        <%= link_to 'Ver perfil', @perfil,class: :"btn btn-outline-dark btn-sm"  %> |
+        <%= link_to 'Regrsar', perfils_path,class: :"btn btn-outline-dark btn-sm"  %>
+    </div>
+    
+        <%= render 'form', perfil: @perfil %>
+    
+</div>
+<%= javascript_pack_tag 'perfils',media: 'all', 'data-turbolinks-track': 'reload' %>

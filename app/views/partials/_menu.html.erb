@@ -6,7 +6,7 @@
    
     <a class="navbar-brand" style="position:absolute;left:80px;color: azure;" href="#">Informes Generales</a>       
     <% if current_user%>
-      <p class="navbar-brand"  style="color: azure; position:absolute;left:300px;top:25px" >Usuario: <%= current_user.username%></p>
+      <p class="navbar-brand"  style="color: azure; position:absolute;left:300px;top:25px" >Usuario: <%= link_to current_user.username , user_path(current_user.id)%></p>
     <% else %>
     <% end %> 
     <%= render "partials/imagen_logo" %>

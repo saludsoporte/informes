@@ -18,9 +18,9 @@
         <tr>
           <td><%= perfil.user.username %></td>
           <td><%= perfil.rol.nombre %></td>
-          <td><%= link_to 'Show', perfil %></td>
-          <td><%= link_to 'Edit', edit_perfil_path(perfil) %></td>
-          <td><%= link_to 'Destroy', perfil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Ver', perfil %></td>
+          <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_perfil_path(perfil) %></td>
+          <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), perfil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,18 +1,5 @@
 <div class="container">
 <%= form_with(model: perfil) do |form| %>
-  
-
-       <%= form.label :nombre,for: :"Rol" %>
-      <%= form.text_field :nombre %>
-<div class="form-group" data-controller='select2'>
-  <%= form.select :user_id, Rol.all.map { |rol| rol.nombre }, {include_blank: false, required: true, include_hidden: false}, class: 'form-control content-search' %>
-</div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<form>
   <div class="mb-3">
     <% if perfil.errors.any? %>
       <div id="error_explanation">
@@ -26,31 +13,19 @@
       </div>
     <% end %>   
   </div>
-</div>
-  <div class="mb-3">
-    <div class="field">
- 
-    </div>
-
-
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <div class="mb-3">  
+    <%= form.label :Roles,for: :rol,class: :"form-label" %>
+    <%= form.select(:rol_id, Rol.all.order(id: :asc).collect { |rol| [rol.informacion,rol.id ]},{include_blank: true,selected:perfil.rol_id },id: :rol,class: 'form-control content-search perfiles')%>
   </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<select class="js-states" name="state">
-  <option value="AL">Alabama</option>
+  <div class="mb-3">  
+    <%= form.label :Usuarios,for: :"users",class: :"form-label" %>
+    <%= form.select :user_id, User.all.collect { |user| [user.username,user.id] }, {include_blank: false,selected:perfil.user_id}, id: :user , class: 'form-control content-search perfiles'%>    
+  </div>  
   
-  <option value="WY">Wyoming</option>
-</select>
-<%= javascript_pack_tag 'perfils.js' %>
+  <%= form.submit "Guardar Perfil",class: :"btn btn-sm btn-primary" %>
+  
+<% end %>
+
+
+
+
