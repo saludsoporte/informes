@@ -13,9 +13,23 @@ if Rol.all.count==0
         {nombre:"director",descripcion:"con este rol se puede acceder a los informes para poder crearlos y editarlos ademas de tener acceso a modulos especificos"}
     ])
 end
-User.create([{email:"salud.aplicaciones@gmail.com",username:"salud",password:"admin_"}])
-@user=User.last
-@rol=Rol.find_by(nombre:"admin")
-unless @rol.nil?
-    Perfil.create([{rol_id:@rol.id,user_id:@user.id}])
+if User.find_by(username:"salud").nil?
+    User.create([{email:"salud.aplicaciones@gmail.com",username:"salud",password:"admin_"}])
+    @user=User.last
+    @rol=Rol.find_by(nombre:"admin")
+    unless @rol.nil?
+        Perfil.create([{rol_id:@rol.id,user_id:@user.id}])
+    end
+end
+if ConexionBd.all.count==0
+    ConexionBd.create(
+        [
+            {nombre_herramienta:"seg_pac",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
+            {nombre_herramienta:"covid",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
+            {nombre_herramienta:"seg_pac_sinba",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
+            {nombre_herramienta:"ctrldocum",puerto:"5435",host:"10.24.1.3",usuario:"postgres",password:"12345"},
+            {nombre_herramienta:"sisolc_prod",puerto:"5433",host:"10.24.1.3",usuario:"sisolc",password:"sisloco"},
+            {nombre_herramienta:"activo_fijo",puerto:"5433",host:"10.24.1.3",usuario:"sisolc",password:"sisloco"}            
+        ]
+    )
 end

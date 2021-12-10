@@ -1,6 +1,7 @@
+<div>
 <p id="notice"><%= notice %></p>
-
 <h1>Conexion Bds</h1>
+<%= link_to 'Nueva entrada de conexión', new_conexion_bd_path, class: :"btn btn-sm btn-outline-dark" %>
 
 <table>
   <thead>
@@ -13,7 +14,7 @@
   <tbody>
     <% @conexion_bds.each do |conexion_bd| %>
       <tr>
-        <td><%= conexion_bd.nombre %></td>
+        <td><%= conexion_bd.nombre_herramienta %></td>
         <td><%= link_to 'Show', conexion_bd %></td>
         <td><%= link_to 'Edit', edit_conexion_bd_path(conexion_bd) %></td>
         <td><%= link_to 'Destroy', conexion_bd, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -24,4 +25,5 @@
 
 <br>
 
-<%= link_to 'New Conexion Bd', new_conexion_bd_path %>
+
+</div>

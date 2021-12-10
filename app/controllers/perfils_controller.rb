@@ -68,8 +68,7 @@ class PerfilsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def perfil_params
-      logger.debug "dasdasdasdasdasdqweqw31123**********/"+params[:user_id].to_s
+    def perfil_params      
       params.require(:perfil).permit(:rol_id,:user_id)
     end
 end

@@ -1,9 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nombre:</strong>
-  <%= @informe_general.nombre %>
-</p>
-
-<%= link_to 'Edit', edit_informe_general_path(@informe_general) %> |
-<%= link_to 'Back', informe_generals_path %>
+<div class="container">
+<% if can? :read, InformeGeneral%>
+  <p id="notice"><%= notice %></p>
+  <div class="mb-3">
+    <p>
+      <strong>Nombre:</strong>
+      <%= @informe_general.nombre %>
+    </p>
+    <%= link_to 'editar', edit_informe_general_path(@informe_general),class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'regresar', informe_generals_path,class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+<% else %>
+  <h5>No tienes el rol para leer Informes</h5>
+<% end %>
+</div>

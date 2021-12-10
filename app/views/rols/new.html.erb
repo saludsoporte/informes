@@ -1,5 +1,7 @@
-<h1>New Rol</h1>
-
-<%= render 'form', rol: @rol %>
-
-<%= link_to 'Back', rols_path %>
+<div class="container">
+    <div class="mb-3">
+        <h3>Nuevo Rol</h3>
+        <%= link_to 'Regresar', rols_path,class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', rol: @rol %>
+</div>

@@ -10,13 +10,12 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :nombre %>
-    <%= form.text_field :nombre %>
+  <div class="mb-3">
+    <%= form.label :nombre,for: :nombre %>
+    <%= form.text_field :nombre,id: :nombre,class: :"form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Guardar Informe" ,class: :"btn-sm btn btn-primary"%>
   </div>
 <% end %>

@@ -45,12 +45,14 @@
               <li><%= link_to "Perfiles",perfils_path,class: :"dropdown-item"%></li>             
               <li><hr class="dropdown-divider"></li>
               <li><%= link_to "Roles",rols_path,class: :"dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Conexiones a BD", conexion_bds_path,class: :"dropdown-item" %></li>
             </ul>
           </li>
           <% if current_user %>
-            <li class="nav-item dropdown"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete,class: :"btn btn-sm btn-outline-danger "  %></li>
+            <li class="nav-item dropdown" style="padding-top:20px" ><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete,class: :"btn btn-sm btn-outline-danger "%></li>
           <% else %>
-            <li class="nav-item dropdown"><%= link_to 'Iniciar Sesión', new_user_session_path,class: :"btn btn-sm btn-primary "%></li>
+            <li class="nav-item dropdown" style="padding-top:20px"><%= link_to 'Iniciar Sesión', new_user_session_path,class: :"btn btn-sm btn-primary" %></li>
           <% end %>
         </ul>
       </div>

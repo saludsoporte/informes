@@ -1,14 +1,23 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nombre:</strong>
-  <%= @rol.nombre %>
-</p>
-
-<p>
-  <strong>Descripcion:</strong>
-  <%= @rol.descripcion %>
-</p>
-
-<%= link_to 'Edit', edit_rol_path(@rol) %> |
-<%= link_to 'Back', rols_path %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <% if can? :read , Rol%>
+    <div class="mb-3">
+    <%= link_to 'Editar', edit_rol_path(@rol), class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'Regresar', rols_path, class: :"btn btn-sm btn-outline-dark" %>
+  </div>  
+  <div class="mb-3">
+    <p>
+      <strong>Nombre:</strong>
+      <%= @rol.nombre %>
+    </p>
+  </div>
+  <div class="mb-3">
+    <p>
+      <strong>Descripcion:</strong>
+      <%= @rol.descripcion %>
+    </p>
+  </div>
+  <% else %>
+    <h5>No tienes el rol para poder ver los Roles</h5>
+  <% end %>
+</div>

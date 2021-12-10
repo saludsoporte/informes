@@ -1,10 +1,8 @@
-<div class="container">
 <%= form_with(model: perfil) do |form| %>
   <div class="mb-3">
     <% if perfil.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(perfil.errors.count, "error") %> prohibited this perfil from being saved:</h2>
-
         <ul>
           <% perfil.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -19,12 +17,12 @@
   </div>
   <div class="mb-3">  
     <%= form.label :Usuarios,for: :"users",class: :"form-label" %>
-    <%= form.select :user_id, User.all.collect { |user| [user.username,user.id] }, {include_blank: false,selected:perfil.user_id}, id: :user , class: 'form-control content-search perfiles'%>    
+    <%= form.select :user_id, User.all.collect { |user| [user.username,user.id] }, {include_blank: true,selected:perfil.user_id}, id: :user, class: 'form-control content-search perfiles'%>    
   </div>  
   
   <%= form.submit "Guardar Perfil",class: :"btn btn-sm btn-primary" %>
-  
 <% end %>
+
 
 
 

@@ -1,13 +1,12 @@
-<script>
-    $(document).ready(function(){        
-        $(".perfiles").empty();
-    });
-</script>
 <div class="container">
+<% if can? :create && :new ,Perfil%>
     <div class="mb-3">
         <h3>Nuevo Perfil</h3>
         <%= link_to 'Regresar', perfils_path, class: :"btn btn-sm btn-outline-dark" %>
     </div>
     <%= render 'form', perfil: @perfil %>
+<% else %>
+    <h5>No tienes el rol para poder crear el Perfil</h5>
+<% end %>
 </div>
 <%= javascript_pack_tag 'perfils',media: 'all', 'data-turbolinks-track': 'reload' %>

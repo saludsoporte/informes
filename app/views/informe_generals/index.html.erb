@@ -6,7 +6,7 @@
 </div>
 
 <% if can? :read, InformeGeneral %>
-<table class="table table-stripedless">
+<table class="table table-stripedless table-dark">
   <thead class="table-dark">
     <tr>
       <th>Nombre</th>
@@ -18,9 +18,9 @@
     <% @informe_generals.each do |informe_general| %>
       <tr>
         <td><%= informe_general.nombre %></td>
-        <td><%= link_to 'Show', informe_general %></td>
-        <td><%= link_to 'Edit', edit_informe_general_path(informe_general) %></td>
-        <td><%= link_to 'Destroy', informe_general, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+        <td><%= link_to 'Ver', informe_general %></td>
+        <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_informe_general_path(informe_general) %></td>
+        <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), informe_general, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
       </tr>
     <% end %>  
   </tbody>

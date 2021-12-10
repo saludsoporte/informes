@@ -4,7 +4,7 @@ class RolsController < ApplicationController
 
   # GET /rols or /rols.json
   def index
-    @rols = Rol.all
+    @rols = Rol.paginate(page:params[:page]).all
   end
 
   # GET /rols/1 or /rols/1.json

@@ -1,5 +1,6 @@
 <div class="container">
   <p id="notice"><%= notice %></p>  
+  <% if can? :read , Perfil %>
   <div class="row">
     <div class="col-sm">
       <strong>Rol:</strong>
@@ -14,4 +15,7 @@
       <%= link_to 'Regresar', perfils_path,class: :"btn btn-outline-dark btn-sm"  %>
     </div>
   </div>
+  <% else %>
+    <h5>No tienes el rol para poder ver el Perfil</h5>
+  <% end %>
 </div>

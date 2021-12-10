@@ -1,13 +1,15 @@
 <div class="container">
+<% if can? :edit && :update , Perfil%>
     <div class=col>
         <h3> Editando el Perfil</h3>
     </div>
     <div class="col">
         <%= link_to 'Ver perfil', @perfil,class: :"btn btn-outline-dark btn-sm"  %> |
         <%= link_to 'Regrsar', perfils_path,class: :"btn btn-outline-dark btn-sm"  %>
-    </div>
-    
-        <%= render 'form', perfil: @perfil %>
-    
+    </div>    
+    <%= render 'form', perfil: @perfil %>    
+<% else %>
+    <h5>No tiens el rol para poder editar los perfiles</h5>
+<% end %>
 </div>
 <%= javascript_pack_tag 'perfils',media: 'all', 'data-turbolinks-track': 'reload' %>

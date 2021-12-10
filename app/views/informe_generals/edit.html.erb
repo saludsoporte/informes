@@ -1,6 +1,12 @@
-<h1>Editing Informe General</h1>
+<div class="container">
+<% if can? :edit && :update, InformeGeneral %>
+    <div class="mb-3">
+        <h3>Editando el Informe General</h3>
+        <%= link_to 'ver', @informe_general,class: :"btn btn-sm btn-outline-dark" %> |
+        <%= link_to 'regresar', informe_generals_path,class: :"btn btn-sm btn-outline-dark" %>
+    </div>
 
-<%= render 'form', informe_general: @informe_general %>
-
-<%= link_to 'Show', @informe_general %> |
-<%= link_to 'Back', informe_generals_path %>
+    <%= render 'form', informe_general: @informe_general %>
+<% else %>
+<% end %>
+</div>

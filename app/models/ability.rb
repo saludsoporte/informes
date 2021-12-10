@@ -8,6 +8,7 @@ class Ability
     #Rails.logger.debug "dasdasdasdas "+user.id.to_s
     #alias_action :create, :read, :update, :to => :cru
     alias_action :create, :read, to: :cr
+    alias_action :read, :edit, to: :re
     can :read, InformeGeneral
     can :cr ,Perfil     
 
@@ -22,7 +23,17 @@ class Ability
       if array.include?("admin")         #can :manage,  Articulo        
         can :manage, :all
       end  
-      
+      if array.include?("operador")
+        can :cr ,InformeGeneral                
+        can :re , User
+        can :read, Perfil
+      end
+      if array.include?("general")
+        can :cr, InformeGeneral
+      end
+      if array.include?("director")
+        can :manage, InformeGeneral
+      end      
     end
     #
     # The first argument to `can` is the action you are giving the user 

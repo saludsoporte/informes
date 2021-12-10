@@ -1,5 +1,6 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
+  <% if can? :read ,Rol %>
   <div class="mb-3">  
     <h3>Roles</h3>
   </div>
@@ -26,4 +27,9 @@
       <% end %>
     </tbody>
   </table>
+  <% @obje= @rols%>
+  
+  <% else %>
+     <h5>No tienes el rol para poder ver los Roles</h5>
+  <% end %>
 </div>

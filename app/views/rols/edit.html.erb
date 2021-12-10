@@ -1,6 +1,10 @@
-<h1>Editing Rol</h1>
-
-<%= render 'form', rol: @rol %>
-
-<%= link_to 'Show', @rol %> |
-<%= link_to 'Back', rols_path %>
+<div class="container">
+    <div class="col">
+        <h3>Editando el Rol</h3>
+    </div>
+    <div class="col">
+        <%= link_to 'ver', @rol,class: :"btn btn-sm btn-outline-dark" %> |
+        <%= link_to 'regresar', rols_path,class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', rol: @rol %>
+</div>
