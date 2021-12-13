@@ -17,8 +17,8 @@
       </div>
       <div class="offcanvas-body">
         <form class="d-flex">         
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
@@ -27,7 +27,7 @@
           <li class="nav-item dropdown">
             <%= link_to raw("#{image_tag("person-bounding-box.svg")} Personal"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li >
+              <li>
                 <%= link_to "Catalógo de Usuarios",users_path,class: :"dropdown-item","aria-current": :"page" %>
               </li> 
               <li>
@@ -38,7 +38,22 @@
               </li>    
             </ul>
           </li>   
-                         
+
+          <li class="nav-item dropdown">
+            <%= link_to raw("#{image_tag("cms.png",size:"16x16")} Herramientas"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+              <li>
+                <%= link_to "Catalógo de Herramientas",herramienta_path,class: :"dropdown-item","aria-current": :"page" %>
+              </li> 
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <%= link_to "Catalógo de Personal",root_path,class: :"dropdown-item","aria-current": :"page" %>
+              </li>    
+            </ul>
+          </li>   
+
           <li class="nav-item dropdown">
             <%= link_to  raw("#{image_tag("gear.svg")} Configuración"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">

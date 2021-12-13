@@ -1,14 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <div class="">
+  </div>
+  <p>
+    <strong>Conexion de base de datos:</strong>
+    <%= @herramientum.conexion_bd.nombre_herramienta %>
+  </p>
 
 <p>
-  <strong>Conexion bd:</strong>
-  <%= @herramientum.conexion_bd_id %>
-</p>
-
-<p>
-  <strong>Dato:</strong>
-  <%= @herramientum.dato_id %>
+  <strong>Nombre del sistema</strong>
+  <%= @herramientum.nombre_sistema %>
 </p>
 
 <%= link_to 'Edit', edit_herramientum_path(@herramientum) %> |
 <%= link_to 'Back', herramienta_path %>
+</div>

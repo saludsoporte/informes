@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_190510) do
+ActiveRecord::Schema.define(version: 2021_12_13_213625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,11 +63,10 @@ ActiveRecord::Schema.define(version: 2021_12_07_190510) do
 
   create_table "herramienta", force: :cascade do |t|
     t.bigint "conexion_bd_id", null: false
-    t.bigint "dato_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "nombre_sistema"
     t.index ["conexion_bd_id"], name: "index_herramienta_on_conexion_bd_id"
-    t.index ["dato_id"], name: "index_herramienta_on_dato_id"
   end
 
   create_table "informe_generals", force: :cascade do |t|
@@ -183,7 +182,6 @@ ActiveRecord::Schema.define(version: 2021_12_07_190510) do
   end
 
   add_foreign_key "herramienta", "conexion_bds"
-  add_foreign_key "herramienta", "datos"
   add_foreign_key "perfils", "rols"
   add_foreign_key "perfils", "users"
   add_foreign_key "plantillas", "datos"

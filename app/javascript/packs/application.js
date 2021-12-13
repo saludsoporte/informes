@@ -10,6 +10,7 @@ import "../packs/sidebars.js"
 import "../stylesheets/navbar"
 import "../stylesheets/headers"
 import "../packs/perfils"
+import "../packs/herramientum"
 import 'select2'
 import 'select2/dist/css/select2.css'
 import Rails from "@rails/ujs"

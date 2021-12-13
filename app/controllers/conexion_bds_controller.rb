@@ -3,7 +3,7 @@ class ConexionBdsController < ApplicationController
 
   # GET /conexion_bds or /conexion_bds.json
   def index
-    @conexion_bds = ConexionBd.all
+    @conexion_bds = ConexionBd.paginate(page:params[:page]).all
   end
 
   # GET /conexion_bds/1 or /conexion_bds/1.json
@@ -17,6 +17,7 @@ class ConexionBdsController < ApplicationController
 
   # GET /conexion_bds/1/edit
   def edit
+    @conexion_bd.password=""
   end
 
   # POST /conexion_bds or /conexion_bds.json
@@ -37,6 +38,10 @@ class ConexionBdsController < ApplicationController
   # PATCH/PUT /conexion_bds/1 or /conexion_bds/1.json
   def update
     respond_to do |format|
+      if params[:conexion_bd][:password]==""
+        @password=ConexionBd.find(params[:id])
+        params[:conexion_bd][:password]=@password.password
+      end
       if @conexion_bd.update(conexion_bd_params)
         format.html { redirect_to @conexion_bd, notice: "Conexion bd was successfully updated." }
         format.json { render :show, status: :ok, location: @conexion_bd }
@@ -64,6 +69,6 @@ class ConexionBdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def conexion_bd_params
-      params.require(:conexion_bd).permit(:nombre)
+      params.require(:conexion_bd).permit(:nombre_herramienta,:puerto,:host,:usuario,:password)
     end
 end

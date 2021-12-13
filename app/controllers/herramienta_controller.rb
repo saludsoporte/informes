@@ -64,6 +64,6 @@ class HerramientaController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def herramientum_params
-      params.require(:herramientum).permit(:conexion_bd_id, :dato_id)
+      params.require(:herramientum).permit(:conexion_bd_id, :nombre_sistema)
     end
 end

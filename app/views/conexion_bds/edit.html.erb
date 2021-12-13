@@ -1,6 +1,8 @@
-<h1>Editing Conexion Bd</h1>
-
-<%= render 'form', conexion_bd: @conexion_bd %>
-
-<%= link_to 'Show', @conexion_bd %> |
-<%= link_to 'Back', conexion_bds_path %>
+<div class="container">
+    <div class="mb-3">
+        <h3>Eidtar la Conexion a la Base de Datos</h3>
+        <%= link_to 'Ver', @conexion_bd, class: :"btn btn-sm btn-outline-dark" %> |
+        <%= link_to 'Regresar', conexion_bds_path , class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', conexion_bd: @conexion_bd %>
+</div>

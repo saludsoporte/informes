@@ -1,5 +1,8 @@
-<h1>New Herramientum</h1>
-
-<%= render 'form', herramientum: @herramientum %>
-
-<%= link_to 'Back', herramienta_path %>
+<div class="container">
+    <div class="mb-3">
+        <h3>Nueva Herramienta</h3>
+        <%= link_to 'Regresar', herramienta_path, class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', herramientum: @herramientum %>    
+</div>
+<%= javascript_pack_tag 'herramientum.js' %>
