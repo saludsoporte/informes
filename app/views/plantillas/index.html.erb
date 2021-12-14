@@ -1,7 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Plantillas</h1>
-
+<div class="container">
+  <div class="mb-3">
+    <p id="notice"><%= notice %></p>
+    <h3>Plantillas</h3>
+    <%= link_to 'Nueva entrada de plantilla', new_plantilla_path, class: :"btn btn-sm btn-outline-dark" %>    
+  </div>
+  <div class="mb-3">  
+    <%= select(:herramienta_id,:herramientum,Herramientum.all.collect{ |h| [h.nombre_sistema,h.id]},{include_blank: true},id: :herramienta,class: :"form-control content-search herramientas")%>  
+  </div>
+  <div id="parcial">
+    <%= render :partial => "herr_index" , :obj => @plantilla %>
+  </div>
 <table>
   <thead>
     <tr>
@@ -26,4 +34,5 @@
 
 <br>
 
-<%= link_to 'New Plantilla', new_plantilla_path %>
+
+</div>

@@ -3,7 +3,7 @@ class HerramientaController < ApplicationController
 
   # GET /herramienta or /herramienta.json
   def index
-    @herramienta = Herramientum.all
+    @herramienta = Herramientum.paginate(page:params[:page]).all
   end
 
   # GET /herramienta/1 or /herramienta/1.json
@@ -25,7 +25,7 @@ class HerramientaController < ApplicationController
 
     respond_to do |format|
       if @herramientum.save
-        format.html { redirect_to @herramientum, notice: "Herramientum was successfully created." }
+        format.html { redirect_to @herramientum, notice: "La herramienta ah sido creada." }
         format.json { render :show, status: :created, location: @herramientum }
       else
         format.html { render :new, status: :unprocessable_entity }

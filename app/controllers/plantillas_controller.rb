@@ -19,6 +19,11 @@ class PlantillasController < ApplicationController
   def edit
   end
 
+  def cargar_plantilla
+    @plantilla=Plantilla.where(herramienta_id:params[:herramienta_id])
+    render :partial => "herr_index" , :object => @plantilla 
+  end
+
   # POST /plantillas or /plantillas.json
   def create
     @plantilla = Plantilla.new(plantilla_params)

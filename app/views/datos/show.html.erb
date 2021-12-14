@@ -1,9 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nombre:</strong>
-  <%= @dato.nombre %>
-</p>
-
-<%= link_to 'Edit', edit_dato_path(@dato) %> |
-<%= link_to 'Back', datos_path %>
+<div class="container" >
+  <p id="notice"><%= notice %></p>  
+  <p>
+    <strong>Nombre:</strong>
+    <%= @dato.nombre %>   
+  </p>
+   <%= link_to 'Editar', edit_dato_path(@dato),class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'Regresar', datos_path, class: :"btn btn-sm btn-outline-dark" %>
+</div>

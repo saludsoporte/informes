@@ -17,7 +17,7 @@
   
   <div class="mb-3">   
     <%= form.label :conexion_bd_id, "Conexion a la Base de Datos" %>
-    <%= form.select(:conexion_bd_id,ConexionBd.all.collect {|cnx| [cnx.nombre_herramienta,cnx.id]},{include_blank:true,selected:herramientum.conexion_bd_id} ,id: :conexion_bd,class: :"form-control herramientas",placeholder: :"conexion")%>
+    <%= form.select(:conexion_bd_id,ConexionBd.all.collect {|cnx| [cnx.nombre_herramienta,cnx.id]},{include_blank:true,selected:herramientum.conexion_bd_id} ,id: :conexion_bd,class: :"form-control BD",placeholder: :"conexion")%>
   </div>
   <div class="actions">
     <%= form.submit "Guardar" ,class: :"btn btn-sm btn-primary"%>

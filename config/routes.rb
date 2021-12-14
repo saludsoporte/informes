@@ -1,29 +1,33 @@
 Rails.application.routes.draw do
-  resources :personals
+  
   get 'users/index'
   get 'users/new'
   get 'users/show'
   get 'users/edit'
-  resources :rols
+  get "plantillas/cargar_plantilla", to: "plantillas#cargar_plantilla"
+  
   devise_for :users
-  resources :departamentos
-  resources :direccions
-  resources :subdireccions
-  resources :areas
+  
   root "informe_generals#index"
 
-  resources :relacion_herramienta
-  resources :informe_generals
-  resources :relacion_datos
-  resources :relacion_articulos
-  resources :plantillas
-  resources :herramienta
-  resources :perfils
-  resources :datos
-  resources :conexion_bds
-  resources :clues
-  resources :unidads
-  resources :articulos
-  resources :users
+  resources :relacion_herramienta,
+            :personals,
+            :informe_generals,
+            :relacion_datos,
+            :relacion_articulos,
+            :plantillas,
+            :herramienta,
+            :perfils,
+            :datos,
+            :conexion_bds,
+            :clues,
+            :unidads,
+            :articulos,
+            :users,
+            :rols,
+            :departamentos,
+            :direccions,
+            :subdireccions,
+            :areas
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,6 +1,11 @@
-<h1>Editing Dato</h1>
-
-<%= render 'form', dato: @dato %>
-
-<%= link_to 'Show', @dato %> |
-<%= link_to 'Back', datos_path %>
+<div class="container">
+    <div class="mb-3">
+        <h3>Editando el Dato</h3>
+    </div>
+    <div class="mb-3">
+        <%= link_to 'ver', @dato, class: :"btn btn-sm btn-outline-dark" %> |
+        <%= link_to 'regresar', datos_path, class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', dato: @dato %>
+   
+</div>

@@ -11,11 +11,12 @@ import "../stylesheets/navbar"
 import "../stylesheets/headers"
 import "../packs/perfils"
 import "../packs/herramientum"
+import "../packs/plantillas"
 import 'select2'
 import 'select2/dist/css/select2.css'
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
+//import Rails from "@rails/ujs"
+//import Turbolinks from "turbolinks"
+//import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 require("@rails/ujs").start();

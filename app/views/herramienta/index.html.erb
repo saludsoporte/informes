@@ -6,28 +6,26 @@
   <div class="mb-3">
     <%= link_to 'Nueva Herramienta', new_herramientum_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <table class="table table-dark">
+  <table class="table table-dark table-sm">
     <thead>
         <tr>
-          <th>Conexion bd</th>
-          <th>Dato</th>
-          <th colspan="3"></th>
+          <th>Nombre de la Herramienta</th>
+          <th>Base de datos</th>
+          <th colspan="3">Columnas de Informe</th>          
         </tr>
       </thead>
 
       <tbody>
         <% @herramienta.each do |herramientum| %>
           <tr>
-            <td><%= herramientum.conexion_bd_id %></td>
-            <td><%= herramientum.dato_id %></td>
-            <td><%= link_to 'Show', herramientum %></td>
-            <td><%= link_to 'Edit', edit_herramientum_path(herramientum) %></td>
-            <td><%= link_to 'Destroy', herramientum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= herramientum.nombre_sistema %></td>
+            <td><%= link_to herramientum.conexion_bd.nombre_herramienta, conexion_bd_path(herramientum.conexion_bd_id),class: :"btn btn-sm btn-light" %></td>           
+            <td><%= link_to 'Ver', herramientum,class: :"btn btn-sm btn-light" %></td>
+            <td><%= link_to 'Editar', edit_herramientum_path(herramientum) %></td>
+            <td><%= link_to 'Eliminar', herramientum, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-
-    <br>
-
 </div>
+<% @obje=@herramienta%>

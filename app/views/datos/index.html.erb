@@ -1,27 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Datos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @datos.each do |dato| %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <div class="mb-3">
+    <h3>Columnas de Datos de las Herramientas</h3>
+    <%= link_to 'Nueva entrada', new_dato_path, class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+  <table class="table table-sm table-dark">
+    <thead>
       <tr>
-        <td><%= dato.nombre %></td>
-        <td><%= link_to 'Show', dato %></td>
-        <td><%= link_to 'Edit', edit_dato_path(dato) %></td>
-        <td><%= link_to 'Destroy', dato, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nombre</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Dato', new_dato_path %>
+    </thead>
+    <tbody>
+      <% @datos.each do |dato| %>
+        <tr>
+          <td><%= dato.nombre %></td>
+          <td><%= link_to 'Ver', dato ,class: :"btn btn-sm btn-outline-dark" %></td>
+          <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_dato_path(dato) %></td>
+          <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), dato, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
