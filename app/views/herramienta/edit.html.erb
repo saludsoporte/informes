@@ -1,6 +1,10 @@
-<h1>Editing Herramientum</h1>
+<div class="container">
+    <div class="mb-3">
+        <h3>Editando la Herramienta</h3>
+        <%= link_to 'ver', @herramientum ,class: :"btn btn-sm btn-outline-dark"%> |
+        <%= link_to 'regresar', herramienta_path ,class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', herramientum: @herramientum %>
 
-<%= render 'form', herramientum: @herramientum %>
 
-<%= link_to 'Show', @herramientum %> |
-<%= link_to 'Back', herramienta_path %>
+</div>

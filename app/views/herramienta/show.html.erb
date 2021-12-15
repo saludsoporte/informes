@@ -1,17 +1,17 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
-  <div class="">
+  <div class="mb-3">
+    <%= link_to 'Editar', edit_herramientum_path(@herramientum),class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'Regresar', herramienta_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <p>
-    <strong>Conexion de base de datos:</strong>
-    <%= @herramientum.conexion_bd.nombre_herramienta %>
-  </p>
-
-<p>
-  <strong>Nombre del sistema</strong>
-  <%= @herramientum.nombre_sistema %>
-</p>
-
-<%= link_to 'Edit', edit_herramientum_path(@herramientum) %> |
-<%= link_to 'Back', herramienta_path %>
+  <div class="row" >
+    <div class="col">
+      <strong>Conexion de base de datos:</strong>
+      <%= @herramientum.conexion_bd.nombre_herramienta %>
+  </div>
+    <div class="col">
+      <strong>Nombre del sistema</strong>
+      <%= @herramientum.nombre_sistema %>
+    </div>
+  </div>
 </div>

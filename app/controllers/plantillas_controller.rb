@@ -20,13 +20,15 @@ class PlantillasController < ApplicationController
   end
 
   def cargar_plantilla
-    @plantilla=Plantilla.where(herramienta_id:params[:herramienta_id])
+    @plantilla=Plantilla.where(herramientum_id:params[:herramienta_id])
     render :partial => "herr_index" , :object => @plantilla 
   end
 
   # POST /plantillas or /plantillas.json
   def create
-    @plantilla = Plantilla.new(plantilla_params)
+    @herramienta=Herramientum.find(plantilla_params[:herramientum_id])    
+    @plantilla=@herramienta.plantillas.create(plantilla_params)
+    #@plantilla = Plantilla.new(plantilla_params)
 
     respond_to do |format|
       if @plantilla.save
@@ -69,6 +71,7 @@ class PlantillasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plantilla_params
-      params.require(:plantilla).permit(:herramienta_id, :dato_id)
+      #params[:plantilla][:herramientum_id]=params[:herramienta_id]
+      params.require(:plantilla).permit(:herramientum_id, :dato_id)
     end
 end

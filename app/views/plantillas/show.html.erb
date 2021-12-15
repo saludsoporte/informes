@@ -1,14 +1,17 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Herramienta:</strong>
-  <%= @plantilla.herramienta_id %>
-</p>
-
-<p>
-  <strong>Dato:</strong>
-  <%= @plantilla.dato_id %>
-</p>
-
-<%= link_to 'Edit', edit_plantilla_path(@plantilla) %> |
-<%= link_to 'Back', plantillas_path %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <div class="mb-3">
+    <%= link_to 'editar', edit_plantilla_path(@plantilla),class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'regresar', plantillas_path,class: :"btn btn-sm btn-outline-dark"  %>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong>Herramienta:</strong>
+      <%= @plantilla.herramientum.nombre_sistema %>
+    </div>    
+    <div class="col">
+      <strong>Dato:</strong>
+      <%= @plantilla.dato.nombre %>  
+    </div>
+  </div>  
+</div>

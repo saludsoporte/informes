@@ -11,17 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field mb-3">
     <%= form.label :herramienta_id %>
-    <%= form.text_field :herramienta_id %>
+    <% if @edit %>
+      <%= form.select(:herramientum_id,Herramientum.all.collect {|h| [h.nombre_sistema,h.id]},{include_blank: true,selected: plantilla.herramientum_id},class: :"form-control herramientas",disabled:true )%>
+    <% else %>
+      <%= form.select(:herramientum_id,Herramientum.all.collect {|h| [h.nombre_sistema,h.id]},{include_blank: true,selected: plantilla.herramientum_id},class: :"form-control herramientas" )%>
+    <% end %>    
   </div>
 
-  <div class="field">
+  <div class="field mb-3">
     <%= form.label :dato_id %>
-    <%= form.text_field :dato_id %>
+    <%= form.select(:dato_id,Dato.all.collect {|d| [d.nombre,d.id]},{include_blank:true,selected: plantilla.dato_id},class: :"form-control datos" )%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Guardar Plantilla", class: :"btn btn-sm btn-primary" %>
   </div>
 <% end %>

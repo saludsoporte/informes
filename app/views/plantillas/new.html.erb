@@ -1,5 +1,8 @@
-<h1>New Plantilla</h1>
+<div class="container">
+    <div class="mb-3">
+        <h3>Nueva entrada de Plantilla</h3>
+        <%= link_to 'Regresar', plantillas_path, class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <%= render 'form', plantilla: @plantilla %>
 
-<%= render 'form', plantilla: @plantilla %>
-
-<%= link_to 'Back', plantillas_path %>
+</div>

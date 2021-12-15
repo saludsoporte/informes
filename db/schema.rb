@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_213625) do
+ActiveRecord::Schema.define(version: 2021_12_15_154642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,12 +101,12 @@ ActiveRecord::Schema.define(version: 2021_12_13_213625) do
   end
 
   create_table "plantillas", force: :cascade do |t|
-    t.bigint "herramienta_id", null: false
     t.bigint "dato_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "herramientum_id"
     t.index ["dato_id"], name: "index_plantillas_on_dato_id"
-    t.index ["herramienta_id"], name: "index_plantillas_on_herramienta_id"
+    t.index ["herramientum_id"], name: "index_plantillas_on_herramientum_id"
   end
 
   create_table "relacion_articulos", force: :cascade do |t|
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_213625) do
   add_foreign_key "perfils", "rols"
   add_foreign_key "perfils", "users"
   add_foreign_key "plantillas", "datos"
-  add_foreign_key "plantillas", "herramienta", column: "herramienta_id"
+  add_foreign_key "plantillas", "herramienta"
   add_foreign_key "relacion_articulos", "articulos"
   add_foreign_key "relacion_articulos", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_datos", "datos"

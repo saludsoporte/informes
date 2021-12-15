@@ -3,6 +3,25 @@
 <% elsif  @plantilla.count==0  %>
     <strong><p>No hay plantilla de la herramienta seleccionada</p></strong> 
 <% else %>
-<%# @plantilla[0].conexion_bd.nombre_herramienta %>
-   
+    <table class="table table-sm table-dark">
+      <thead>
+        <tr>
+          <th>Herramienta</th>
+          <th>Dato</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @plantilla.each do |plantilla| %>
+          <tr>
+            <td><%= plantilla.herramientum.nombre_sistema %></td>
+            <td><%= plantilla.dato.nombre %></td>
+            <td><%= link_to 'ver', plantilla %></td>
+            <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_plantilla_path(plantilla) %></td>
+            <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), plantilla, method: :delete, data: { confirm: '¿Esta seguro de eliminar esta entrada de la plantilla?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>   
 <% end %>

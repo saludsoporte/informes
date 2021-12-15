@@ -1,6 +1,9 @@
-<h1>Editing Plantilla</h1>
-
-<%= render 'form', plantilla: @plantilla %>
-
-<%= link_to 'Show', @plantilla %> |
-<%= link_to 'Back', plantillas_path %>
+<div class="container">
+    <h3>Editar entrada de la Plantilla <%= Plantilla.find(params[:id]).herramientum.nombre_sistema %></h3>
+    <div class="mb-3">
+        <%= link_to 'ver', @plantilla, class: :"btn btn-sm btn-outline-dark" %> |    
+        <%= link_to 'regresar', plantillas_path,class: :"btn btn-sm btn-outline-dark" %>
+    </div>
+    <% @edit=true%>
+    <%= render 'form', plantilla: @plantilla %>
+</div>
