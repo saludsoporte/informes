@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="mb-3">
+    <p id="notice"><%= notice %></p>
+    <h3>Partidas</h3>
+    <%= link_to 'Nueva Partida', new_partida_path, class: :"btn btn-sm btn-outline-dark" %>
+  </div>  
+  <table class="table table-dark table-sm">
+    <thead>
+      <tr>
+        <th>Partida</th>
+        <th>Indice</th>
+        <th>Cog2011</th>
+        <th>Descripcion</th>
+        <th>Descripcion2</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @partidas.each do |partida| %>
+        <tr>
+          <td><%= partida.partida %></td>
+          <td><%= partida.indice %></td>
+          <td><%= partida.cog2011 %></td>
+          <td><%= partida.descripcion %></td>
+          <td><%= partida.descripcion2 %></td>
+          <td><%= link_to 'Ver', partida,class: :"btn btn-sm btn-light"  %></td>
+          <td><%= link_to raw("#{image_tag('pencil-square.svg')}  Editar"), edit_partida_path(partida) %></td>
+          <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), partida, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% @obje=@partidas %>

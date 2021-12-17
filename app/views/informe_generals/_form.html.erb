@@ -11,10 +11,24 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.label :nombre,for: :nombre %>
-    <%= form.text_field :nombre,id: :nombre,class: :"form-control" %>
+    <%# form.label :nombre,for: :nombre %>
+    <%# form.text_field :nombre,id: :nombre,class: :"form-control" %>
   </div>
-
+  <div class="mb-3 form-floating">
+    <%= form.text_field :user_id ,value:current_user.id ,class: :"form-control",placeholder: :"Usuario",hidden: :true %>
+    <%= form.label :"Usuario actual",for: :nombre %>
+  </div>
+   <div class="mb-3 form-floating">
+    <%= form.number_field :usuario_informe_id ,value:0, min:0 ,class: :"form-control",placeholder: :"Id de Usuario"%>
+    <%= form.label :"Id de usuario del Informe",for: :nombre %>
+  </div>
+  <div class="mb-3">
+    <%= form.select(:herramientum_id,Herramientum.all.collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas") %>    
+  </div>
+  <div class="mb-3">
+    <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
+  </div>
+  
   <div class="actions">
     <%= form.submit "Guardar Informe" ,class: :"btn-sm btn btn-primary"%>
   </div>

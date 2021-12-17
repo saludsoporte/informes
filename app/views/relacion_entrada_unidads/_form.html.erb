@@ -1,0 +1,57 @@
+<%= form_with(model: relacion_entrada_unidad) do |form| %>
+  <% if relacion_entrada_unidad.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(relacion_entrada_unidad.errors.count, "error") %> prohibited this relacion_entrada_unidad from being saved:</h2>
+
+      <ul>
+        <% relacion_entrada_unidad.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :informe_general_id %>
+    <%= form.text_field :informe_general_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unidad_id %>
+    <%= form.text_field :unidad_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :caducado %>
+    <%= form.text_field :caducado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :necesita %>
+    <%= form.text_field :necesita %>
+  </div>
+
+  <div class="field">
+    <%= form.label :por_caducar %>
+    <%= form.text_field :por_caducar %>
+  </div>
+
+  <div class="field">
+    <%= form.label :existencia_fisica %>
+    <%= form.text_field :existencia_fisica %>
+  </div>
+
+  <div class="field">
+    <%= form.label :buen_estado %>
+    <%= form.text_field :buen_estado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :extra %>
+    <%= form.text_field :extra %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

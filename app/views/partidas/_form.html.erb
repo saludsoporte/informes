@@ -1,0 +1,41 @@
+<%= form_with(model: partida) do |form| %>
+  <% if partida.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(partida.errors.count, "error") %> prohibited this partida from being saved:</h2>
+      <ul>
+        <% partida.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-floating">
+    <%= form.number_field :partida,min: 0 ,class: :"form-control",placeholder: :"partida"%>
+    <%= form.label :partida ,for: :"partida"%>
+  </div>
+
+  <div class="field form-floating">    
+    <%= form.text_field :indice,class: :"form-control",placeholder: :"indice" %>
+    <%= form.label :indice %>
+  </div>
+
+  <div class="field form-floating">
+    <%= form.number_field :cog2011,min:0,class: :"form-control",placeholder: :"cog2011" %>
+    <%= form.label :cog2011 %>
+  </div>
+
+  <div class="field form-floating">
+    <%= form.text_area :descripcion,class: :"form-control",placeholder: :"descripcion" %>
+    <%= form.label :descripcion %>
+  </div>
+
+  <div class="field form-floating mb-3">
+    <%= form.text_area :descripcion2,class: :"form-control",placeholder: :"descripcion2" %>
+    <%= form.label :descripcion2 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guardar" ,class: :"btn btn-sm btn-primary" %>
+  </div>
+<% end %>

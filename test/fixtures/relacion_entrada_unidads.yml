@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  informe_general: one
+  unidad: one
+  caducado: MyString
+  necesita: MyString
+  por_caducar: MyString
+  existencia_fisica: MyString
+  buen_estado: MyString
+  extra: MyString
+
+two:
+  informe_general: two
+  unidad: two
+  caducado: MyString
+  necesita: MyString
+  por_caducar: MyString
+  existencia_fisica: MyString
+  buen_estado: MyString
+  extra: MyString

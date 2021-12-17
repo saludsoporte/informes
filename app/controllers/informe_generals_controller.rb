@@ -12,7 +12,36 @@ class InformeGeneralsController < ApplicationController
 
   # GET /informe_generals/1 or /informe_generals/1.json
   def show
-    authorize! :read, @infomrme_acc
+    @herramienta=Herramientum.find(@informe_general.herramientum_id)
+    @host=@herramienta.conexion_bd.host
+    @port=@herramienta.conexion_bd.puerto
+    @user=@herramienta.conexion_bd.usuario
+    @password=@herramienta.conexion_bd.password
+    @dbname=@herramienta.conexion_bd.nombre_herramienta
+
+    #busca informe segun la herramienta, *agregar un case when para cada una
+    @consulta="SELECT * from dblink('host="+@host+
+    " port="+@port+" user="+@user+" password="+@password+" dbname="+@dbname+" ',"+
+    "'select * from registros.inventarios_informe_caducados_tabla( "+@informe_general.usuario_informe_id.to_s+
+    ","+@informe_general.partida.partida.to_s+", now()::date); ') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text)" 
+    @arreglo=ActiveRecord::Base.connection.execute(@consulta)
+
+    #crea la relaciones de los datos 
+  
+    @plantilla=Plantilla.where(herramientum_id:@herramienta.id)
+=begin    @arreglo.each do |i|
+      @plantilla.each do |pl|
+        logger.debug "/*/*/*/*/*/*/*/*   **** "+i[pl.dato.nombre.to_s].to_s
+        logger.debug "/*/*/*/*/*/*/*/*   **** "+i[pl.dato.nombre.to_s].to_s        
+        @relacion_datos.push(
+          dato_id:pl.dato.id,
+          valo:i[pl.dato.nombre.to_s],
+          herramientum_id:@herramienta.id,
+          informe_general_id:@informe_general.id
+        )          
+      end 
+    end
+=end
   end
 
   # GET /informe_generals/new
@@ -69,6 +98,6 @@ class InformeGeneralsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def informe_general_params
-      params.require(:informe_general).permit(:nombre)
+      params.require(:informe_general).permit(:nombre,:user_id,:herramientum_id,:partida_id,:usuario_informe_id)
     end
 end

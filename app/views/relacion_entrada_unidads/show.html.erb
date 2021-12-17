@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Informe general:</strong>
+  <%= @relacion_entrada_unidad.informe_general_id %>
+</p>
+
+<p>
+  <strong>Unidad:</strong>
+  <%= @relacion_entrada_unidad.unidad_id %>
+</p>
+
+<p>
+  <strong>Caducado:</strong>
+  <%= @relacion_entrada_unidad.caducado %>
+</p>
+
+<p>
+  <strong>Necesita:</strong>
+  <%= @relacion_entrada_unidad.necesita %>
+</p>
+
+<p>
+  <strong>Por caducar:</strong>
+  <%= @relacion_entrada_unidad.por_caducar %>
+</p>
+
+<p>
+  <strong>Existencia fisica:</strong>
+  <%= @relacion_entrada_unidad.existencia_fisica %>
+</p>
+
+<p>
+  <strong>Buen estado:</strong>
+  <%= @relacion_entrada_unidad.buen_estado %>
+</p>
+
+<p>
+  <strong>Extra:</strong>
+  <%= @relacion_entrada_unidad.extra %>
+</p>
+
+<%= link_to 'Edit', edit_relacion_entrada_unidad_path(@relacion_entrada_unidad) %> |
+<%= link_to 'Back', relacion_entrada_unidads_path %>

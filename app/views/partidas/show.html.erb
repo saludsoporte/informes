@@ -1,0 +1,28 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <%= link_to 'Editar', edit_partida_path(@partida),class: :"btn btn-sm btn-outline-dark" %> |
+  <%= link_to 'Regresar', partidas_path,class: :"btn btn-sm btn-outline-dark" %>
+  <p>
+    <strong>Partida:</strong>
+    <%= @partida.partida %>
+  </p>
+  <p>
+  <strong>Indice:</strong>
+  <%= @partida.indice %>
+  </p>
+
+  <p>
+    <strong>Cog2011:</strong>
+    <%= @partida.cog2011 %>
+  </p>
+
+  <p>
+    <strong>Descripcion:</strong>
+    <%= @partida.descripcion %>
+  </p>
+
+  <p>
+    <strong>Descripcion2:</strong>
+    <%= @partida.descripcion2 %>
+  </p>
+</div>  

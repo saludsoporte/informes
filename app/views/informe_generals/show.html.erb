@@ -9,6 +9,24 @@
     <%= link_to 'editar', edit_informe_general_path(@informe_general),class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'regresar', informe_generals_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
+  <table class="table">
+  <thead>
+    <% @plantilla.each do |pl|%>
+      <th><%= pl.dato.nombre %></th>
+    <% end %>
+  </thead>
+  
+  <% @arreglo.each do |a| %>
+    <tr>
+    <% @plantilla.each do |pl|%>
+      <td>
+        <%= a[pl.dato.nombre.to_s] %>
+      </td>
+    <% end %>
+    </tr>
+  <% end %>
+  </table>
+
 <% else %>
   <h5>No tienes el rol para leer Informes</h5>
 <% end %>

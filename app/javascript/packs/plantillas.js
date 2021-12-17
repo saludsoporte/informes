@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
         cargar_datos_plantilla(herramienta)
     });
 
-    $('.herramientas').val(1).trigger("change");
+    //$('.herramientas').val(1).trigger("change");
 
 })
 

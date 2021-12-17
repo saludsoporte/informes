@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="mb-3">
+        <h3>Nueva Partida</h3>
+        <%= link_to 'Regresar', partidas_path ,class: :"btn btn-sm btn-outline-dark"%>
+    </div>
+    <%= render 'form', partida: @partida %>    
+</div>

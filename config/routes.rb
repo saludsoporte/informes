@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :relacion_entrada_unidads
+  resources :partidas
   get 'users/index'
   get 'users/new'
   get 'users/show'

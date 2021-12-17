@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_15_154642) do
+ActiveRecord::Schema.define(version: 2021_12_17_200054) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "dblink"
   enable_extension "plpgsql"
 
   create_table "areas", force: :cascade do |t|
@@ -73,6 +74,23 @@ ActiveRecord::Schema.define(version: 2021_12_15_154642) do
     t.string "nombre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "herramientum_id"
+    t.bigint "partida_id"
+    t.integer "usuario_informe_id"
+    t.index ["herramientum_id"], name: "index_informe_generals_on_herramientum_id"
+    t.index ["partida_id"], name: "index_informe_generals_on_partida_id"
+    t.index ["user_id"], name: "index_informe_generals_on_user_id"
+  end
+
+  create_table "partidas", force: :cascade do |t|
+    t.integer "partida"
+    t.float "indice"
+    t.integer "cog2011"
+    t.text "descripcion"
+    t.text "descripcion2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "perfils", force: :cascade do |t|
@@ -119,21 +137,38 @@ ActiveRecord::Schema.define(version: 2021_12_15_154642) do
   end
 
   create_table "relacion_datos", force: :cascade do |t|
-    t.bigint "herramienta_id", null: false
     t.bigint "dato_id", null: false
     t.text "valo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "herramientum_id"
+    t.bigint "informe_general_id"
     t.index ["dato_id"], name: "index_relacion_datos_on_dato_id"
-    t.index ["herramienta_id"], name: "index_relacion_datos_on_herramienta_id"
+    t.index ["herramientum_id"], name: "index_relacion_datos_on_herramientum_id"
+    t.index ["informe_general_id"], name: "index_relacion_datos_on_informe_general_id"
+  end
+
+  create_table "relacion_entrada_unidads", force: :cascade do |t|
+    t.bigint "informe_general_id", null: false
+    t.bigint "unidad_id", null: false
+    t.string "caducado"
+    t.string "necesita"
+    t.string "por_caducar"
+    t.string "existencia_fisica"
+    t.string "buen_estado"
+    t.string "extra"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["informe_general_id"], name: "index_relacion_entrada_unidads_on_informe_general_id"
+    t.index ["unidad_id"], name: "index_relacion_entrada_unidads_on_unidad_id"
   end
 
   create_table "relacion_herramienta", force: :cascade do |t|
     t.bigint "informe_general_id", null: false
-    t.bigint "herramienta_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["herramienta_id"], name: "index_relacion_herramienta_on_herramienta_id"
+    t.bigint "herramientum_id"
+    t.index ["herramientum_id"], name: "index_relacion_herramienta_on_herramientum_id"
     t.index ["informe_general_id"], name: "index_relacion_herramienta_on_informe_general_id"
   end
 
@@ -182,6 +217,9 @@ ActiveRecord::Schema.define(version: 2021_12_15_154642) do
   end
 
   add_foreign_key "herramienta", "conexion_bds"
+  add_foreign_key "informe_generals", "herramienta"
+  add_foreign_key "informe_generals", "partidas"
+  add_foreign_key "informe_generals", "users"
   add_foreign_key "perfils", "rols"
   add_foreign_key "perfils", "users"
   add_foreign_key "plantillas", "datos"
@@ -189,8 +227,11 @@ ActiveRecord::Schema.define(version: 2021_12_15_154642) do
   add_foreign_key "relacion_articulos", "articulos"
   add_foreign_key "relacion_articulos", "herramienta", column: "herramienta_id"
   add_foreign_key "relacion_datos", "datos"
-  add_foreign_key "relacion_datos", "herramienta", column: "herramienta_id"
-  add_foreign_key "relacion_herramienta", "herramienta", column: "herramienta_id"
+  add_foreign_key "relacion_datos", "herramienta"
+  add_foreign_key "relacion_datos", "informe_generals"
+  add_foreign_key "relacion_entrada_unidads", "informe_generals"
+  add_foreign_key "relacion_entrada_unidads", "unidads"
+  add_foreign_key "relacion_herramienta", "herramienta"
   add_foreign_key "relacion_herramienta", "informe_generals"
   add_foreign_key "users", "personals"
 end
