@@ -9,25 +9,64 @@
     <%= link_to 'editar', edit_informe_general_path(@informe_general),class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'regresar', informe_generals_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <table class="table">
-  <thead>
+  <% @unidades=Array.new %>
+  <% @contador=0 %>
+<table class="table">
+    <thead>
+        <th></th><th></th><th></th>
+    </thead>
+
+    <tbody>
+        <tr data-toggle="collapse" data-target="#accordion" class="clickable">
+            <td>Some Stuff</td>
+            <td>Some more stuff</td>
+            <td>And some more</td>
+        </tr>        
+    </tbody>
+    <tbody id="accordion" class="collapse">
+        <tr >
+            <td>Some Stuff</td>
+            <td>Some more stuff</td>
+            <td>And some more</td>
+        </tr>        
+    </tbody>
+</table>
+
+
+  <table  class="letra container table table-striped">
+    <thead class="table-dark">
     <% @plantilla.each do |pl|%>
       <th><%= pl.dato.nombre %></th>
     <% end %>
-  </thead>
-  
-  <% @arreglo.each do |a| %>
-    <tr>
-    <% @plantilla.each do |pl|%>
-      <td>
-        <%= a[pl.dato.nombre.to_s] %>
-      </td>
-    <% end %>
-    </tr>
-  <% end %>
-  </table>
-
+    </thead>  
+    <% @arreglo.each_with_index do |a,index| %> 
+      <% unless index == 0 %>        
+        <tbody>                
+            <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-<%=@contador%>" >
+              <% @plantilla.each do |pl|%>
+                <% if pl.dato.nombre.to_s == "columnas" %>
+                  <% @unidades.push(index:index,unidad:a[pl.dato.nombre.to_s].split(/{|}|\[|\]/))%>      
+                  <% @unidades[0][:index].to_s %>        
+                <% end %>       
+                <td>                
+                  <%= a[pl.dato.nombre.to_s] %>
+                </td>
+              <% end %>              
+            </tr>             
+        </tbody>   
+        <tbody id="group-of-rows-<%=@contador%>" class="collapse" >
+          <% @unidades.each do |u|%>
+          <tr>
+            <td>asdasdasd</td>
+          </tr>
+          <% end %> 
+        </tbody> 
+        <% @contador=@contador+1%> 
+      <% end %> 
+    <% end %>      
+   </table>  
 <% else %>
   <h5>No tienes el rol para leer Informes</h5>
 <% end %>
 </div>
+<% @obje=@arreglo %>

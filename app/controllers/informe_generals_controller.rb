@@ -24,7 +24,9 @@ class InformeGeneralsController < ApplicationController
     " port="+@port+" user="+@user+" password="+@password+" dbname="+@dbname+" ',"+
     "'select * from registros.inventarios_informe_caducados_tabla( "+@informe_general.usuario_informe_id.to_s+
     ","+@informe_general.partida.partida.to_s+", now()::date); ') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text)" 
-    @arreglo=ActiveRecord::Base.connection.execute(@consulta)
+    @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    #@arreglo=User.paginate(page:params[:page]).find_by_sql(@consulta)
+    @arreglo=@arreglo.paginate(:page=>params[:page],:per_page => 10)
 
     #crea la relaciones de los datos 
   
@@ -55,6 +57,8 @@ class InformeGeneralsController < ApplicationController
 
   # POST /informe_generals or /informe_generals.json
   def create
+    @herr=Herramienta.find(informe_general_params[:herramientum_id])
+    informe_general_params[:nombre]=@herr.nombre_sistema
     @informe_general = InformeGeneral.new(informe_general_params)
 
     respond_to do |format|
