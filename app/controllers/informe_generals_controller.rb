@@ -26,8 +26,16 @@ class InformeGeneralsController < ApplicationController
     ","+@informe_general.partida.partida.to_s+", now()::date); ') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text)" 
     @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
     #@arreglo=User.paginate(page:params[:page]).find_by_sql(@consulta)
+    @unidades_nombre= @arreglo[0]["columnas"].split(/{|}/)
+    
+    @unidades_arr=Array.new
+    @unidades_nombre.each do |un|
+      unless un == "" || un == ","
+        @unidades_arr.push(un)
+      end
+    end
     @arreglo=@arreglo.paginate(:page=>params[:page],:per_page => 10)
-
+    @unidades=Array.new
     #crea la relaciones de los datos 
   
     @plantilla=Plantilla.where(herramientum_id:@herramienta.id)
@@ -57,10 +65,14 @@ class InformeGeneralsController < ApplicationController
 
   # POST /informe_generals or /informe_generals.json
   def create
-    @herr=Herramienta.find(informe_general_params[:herramientum_id])
+    @herr=Herramientum.find(informe_general_params[:herramientum_id])
     informe_general_params[:nombre]=@herr.nombre_sistema
+    
+    logger.debug "/*/*/*****************"+@herr.nombre_sistema.to_s
+    logger.debug "/*/*/*****************"+informe_general_params[:nombre].to_s    
+    
     @informe_general = InformeGeneral.new(informe_general_params)
-
+    @informe_general.nombre=@herr.nombre_sistema
     respond_to do |format|
       if @informe_general.save
         format.html { redirect_to @informe_general, notice: "Informe general was successfully created." }

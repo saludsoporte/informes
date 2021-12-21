@@ -26,6 +26,7 @@ if ConexionBd.all.count==0
         [
             {nombre_herramienta:"seg_pac",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
             {nombre_herramienta:"covid",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
+            {nombre_herramienta:"covid_test",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
             {nombre_herramienta:"seg_pac_sinba",puerto:"57361",host:"10.24.1.3",usuario:"postgres",password:"12345"},
             {nombre_herramienta:"ctrldocum",puerto:"5435",host:"10.24.1.3",usuario:"postgres",password:"12345"},
             {nombre_herramienta:"sisolc_prod",puerto:"5433",host:"10.24.1.3",usuario:"sisolc",password:"sisloco"},
