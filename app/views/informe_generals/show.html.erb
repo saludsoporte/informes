@@ -1,13 +1,13 @@
 <div class="container">
-  <% if can? :read, InformeGeneral%>
+  <% if can? :read, InformeGeneral %>
     <p id="notice"><%= notice %></p>
     <div class="mb-3">
       <p>
         <strong>Nombre:</strong>
         <%= @informe_general.nombre %>
       </p>
-      <%= link_to 'editar', edit_informe_general_path(@informe_general),class: :"btn btn-sm btn-outline-dark" %> |
-      <%= link_to 'regresar', informe_generals_path,class: :"btn btn-sm btn-outline-dark" %>
+      <%= link_to "editar", edit_informe_general_path(@informe_general), class: :"btn btn-sm btn-outline-dark" %> |
+      <%= link_to "regresar", informe_generals_path, class: :"btn btn-sm btn-outline-dark" %>
     </div>
     <table class="table table-dark">
       <thead>
@@ -26,80 +26,83 @@
     <br>
     <table  class="letra container table table-striped">
       <thead class="table-dark">
-        <% @plantilla.each do |pl|%>
+        <% @plantilla.each do |pl| %>
           <% unless pl.dato.nombre.to_s == "columnas" %>
             <th><%= pl.dato.nombre %></th>
           <% end %>
         <% end %>
       </thead>
       <tbody>
-        <% @arreglo.each_with_index do |a,index| %>
+        <% @arreglo.each_with_index do |a, index| %>
           <% unless index == 0 %>
             <tr>
-              <% @columnas_cont=0%>
-              <% @plantilla.each do |pl|%>
-                <%  if pl.dato.nombre.to_s != "columnas" %>
+              <% @columnas_cont = 0 %>
+              <% @plantilla.each do |pl| %>
+                <% if pl.dato.nombre.to_s != "columnas" %>
                   <td>
-                    <% @columnas_cont=@columnas_cont+1%>
+                    <% @columnas_cont = @columnas_cont + 1 %>
                     <%= a[pl.dato.nombre.to_s] %>
                   </td>
                 <% else %>
-                  <% @arreglo_unidades=a[pl.dato.nombre.to_s].split(/{|}|\[|\]/)%>
-                  <% contador = 0%>
-                  <% @arreglo_unidades.each_with_index  do |ar,i|%>
-                    <% unless ar =="" || ar==","%>
-                      <% @unidades.push(ar)%>
+                  <% @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/) %>
+                  <% contador = 0 %>
+                  <% @arreglo_unidades.each_with_index do |ar, i| %>
+                    <% unless ar == "" || ar == "," %>
+                      <% @unidades.push(ar) %>
                     <% end %>
                   <% end %>
                 <% end %>
               <% end %>
             </tr>
             <tr>
-              <td colspan="<%= @columnas_cont%>" >
-                <% contador = 0%>
-                <% @unidades_nombre.each_with_index do |un,unidad_i| %>
-                  <% unless un == "" || un == ","%>
+              <td colspan="<%= @columnas_cont %>" >
+                <% contador = 0 %>                
+                <% @unidades_arr.each_with_index do |un, unidad_i| %>
+                  <% unless un == "" || un == "," %>
                     <div class="accordion" id="accordionExample">
                       <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading<%=index%><%=unidad_i%>">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=index%><%=unidad_i%>" aria-expanded="false" aria-controls="collapse<%=index%><%=unidad_i%>">
-                            <% @cad_nombre_f=un.split('|') %>
-                            Unidad : <%= @cad_nombre_f[0] %> - <strong> <%= @cad_nombre_f[1] %></strong>
+                        <h2 class="accordion-header" id="heading<%= index %><%= unidad_i %>">                          
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %><%= unidad_i %>" aria-expanded="false" aria-controls="collapse<%= index %><%= unidad_i %>">
+                            <%# @cad_nombre_f = un.split("|") %>
+                            Unidad : <%= Unidad.find(un).nombre %> - <strong> <%= Unidad.find(un).fecha %></strong>
                           </button>
                         </h2>
-                        <div id="collapse<%=index%><%=unidad_i%>" class="accordion-collapse collapse" aria-labelledby="heading<%=index%><%=unidad_i%>" data-bs-parent="#accordionExample">
+                        <div id="collapse<%= index %><%= unidad_i %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %><%= unidad_i %>" data-bs-parent="#accordionExample">
                           <div class="accordion-body">
-                            <% @arreglo_caducidades=@unidades[contador].split("|") %>
-                            <% if @arreglo_caducidades.count>0%>
+                            <% @arreglo_caducidades = @unidades[contador].split("|") %>
+                            <% if @arreglo_caducidades.count > 0 %>
                               <div class="row row-cols-2  ">
-                                <% if @informe_general.herramientum.conexion_bd.nombre_herramienta=="covid_test" %>
+                                <% if @informe_general.herramientum.conexion_bd.nombre_herramienta == "covid_test" %>
                                   <div class="col border bg-light"><b>Caducado</b></div>
-                                  <div class="col border bg-light"><b> cantidad:</b> <%= @arreglo_caducidades[1]%>   <b>fecha:</b>  <%= @arreglo_caducidades[0]%> </div>
-                                <% else%>
+                                  <div class="col border bg-light"><b> cantidad:</b> <%= @arreglo_caducidades[1] %>   <b>fecha:</b>  <%= @arreglo_caducidades[0] %> </div>
+                                <% else %>
+                                 
                                 <% end %>
                                 <div class="col border bg-light"><b>Por Caducar</b></div>
-                                <div class="col border bg-light"><%= @arreglo_caducidades[2]%></div>
+                                <div class="col border bg-light"><%= @arreglo_caducidades[2] %></div>
                                 <div class="col border bg-light"><b>Buen Estado</b></div>
-                                <div class="col border bg-light"><%= @arreglo_caducidades[3]%></div>
+                                <div class="col border bg-light"><%= @arreglo_caducidades[3] %></div>
                               </div>
                               <div class="row row row-cols-2 ">
                                 <div class="col border bg-light"><b>Necesita</b></div>
-                                <div class="col border bg-light"><%= @arreglo_caducidades[4]%></div>
+                                <div class="col border bg-light"><%= @arreglo_caducidades[4] %></div>
                                 <div class="col border bg-light"><b>Ex. Fisica</b></div>
-                                <div class="col border bg-light"><%= @arreglo_caducidades[5]%></div>
+                                <div class="col border bg-light"><%= @arreglo_caducidades[5] %></div>
                                 <div class="col border bg-light"><b>Extra</b></div>
-                                <div class="col border bg-light"><%= @arreglo_caducidades[6]%></div>
+                                <div class="col border bg-light"><%= @arreglo_caducidades[6] %></div>
                               </div>
+                            <% else %>
+                               <div class="col border bg-light">No hay datos</div>
                             <% end %>
-                            <% contador = contador +1%>
+                            <% contador = contador + 1 %>
                           </div>
                         </div>
                       </div>
                     </div>
                   <% end %>
                 <% end %>
-                <% @unidades=Array.new %>
-                <% contador = 0%>
+                <% @unidades = Array.new %>
+                <% contador = 0 %>
               </td>
             </tr>
           <% end %>
@@ -110,4 +113,4 @@
     <h5>No tienes el rol para leer Informes</h5>
   <% end %>
 </div>
-<% @obje=@arreglo %>
+<% @obje = @arreglo %>

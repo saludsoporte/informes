@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'users/edit'
   get "plantillas/cargar_plantilla", to: "plantillas#cargar_plantilla"
+  get "informe_generals/cargar_usuarios_h", to: "informe_generals#cargar_usuarios_h"
   
   devise_for :users
   

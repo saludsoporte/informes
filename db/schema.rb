@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_200054) do
+ActiveRecord::Schema.define(version: 2021_12_22_204809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 2021_12_17_200054) do
 
   create_table "direccions", force: :cascade do |t|
     t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "entidads", force: :cascade do |t|
+    t.string "nombre"
+    t.string "abreviatura"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -185,10 +192,25 @@ ActiveRecord::Schema.define(version: 2021_12_17_200054) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tipo_unidads", force: :cascade do |t|
+    t.string "abreviatura"
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "unidads", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "clues"
+    t.text "domicilio"
+    t.string "telefono", limit: 10
+    t.bigint "tipo_unidad_id"
+    t.bigint "entidad_id"
+    t.date "fecha"
+    t.index ["entidad_id"], name: "index_unidads_on_entidad_id"
+    t.index ["tipo_unidad_id"], name: "index_unidads_on_tipo_unidad_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -233,5 +255,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_200054) do
   add_foreign_key "relacion_entrada_unidads", "unidads"
   add_foreign_key "relacion_herramienta", "herramienta"
   add_foreign_key "relacion_herramienta", "informe_generals"
+  add_foreign_key "unidads", "entidads"
+  add_foreign_key "unidads", "tipo_unidads"
   add_foreign_key "users", "personals"
 end
