@@ -19,5 +19,11 @@ $(document).on('turbolinks:load', function() {
         clear: true,
         remove: true
     });
+    $('.herramientas_informe').select2({
+        placeholder: "Seleccione una herramienta",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
 
 })

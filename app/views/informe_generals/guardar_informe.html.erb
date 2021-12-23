@@ -21,8 +21,8 @@
     <%= form.label :"Usuario actual",for: :nombre %>
   </div>
    <div class="mb-3 form-floating">
-    <%# form.number_field :usuario_informe_id ,value:0, min:0 ,class: :"form-control",placeholder: :"Id de Usuario"%>
-    <%# form.label :"Id de usuario del Informe",for: :nombre %>
+    <%= form.number_field :usuario_informe_id ,value:0, min:0 ,class: :"form-control",placeholder: :"Id de Usuario"%>
+    <%= form.label :"Id de usuario del Informe",for: :nombre %>
   </div>
   <div class="mb-3">
     <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>

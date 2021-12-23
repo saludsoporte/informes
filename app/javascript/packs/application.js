@@ -13,6 +13,7 @@ import "../packs/perfils"
 import "../packs/herramientum"
 import "../packs/plantillas"
 import "../packs/partidas"
+import "../packs/informe_generals"
 import 'select2'
 import 'select2/dist/css/select2.css'
 //import Rails from "@rails/ujs"

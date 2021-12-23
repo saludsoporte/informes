@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_204809) do
+ActiveRecord::Schema.define(version: 2021_12_23_144419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_204809) do
     t.bigint "herramientum_id"
     t.bigint "partida_id"
     t.integer "usuario_informe_id"
+    t.string "tipo_informe"
     t.index ["herramientum_id"], name: "index_informe_generals_on_herramientum_id"
     t.index ["partida_id"], name: "index_informe_generals_on_partida_id"
     t.index ["user_id"], name: "index_informe_generals_on_user_id"

@@ -1,0 +1,10 @@
+<% if !@arreglo.nil? %>
+    <select id="select_arr" name="usuario" class="select form-control" >
+        <% @arreglo.each do |a| %>
+            <option value="<%= a["id_usuario"] %>">Id: <%= a["id_usuario"] %> - Login: <%= a["login"] %></option>            
+        <% end %>
+    </select>
+<% else %>
+
+<% end %>
+<%= javascript_pack_tag "informe_generals.js" %>

@@ -17,7 +17,8 @@ class InformeGeneralsController < ApplicationController
     @user = @herramienta.conexion_bd.usuario
     @password = @herramienta.conexion_bd.password
     @dbname = @herramienta.conexion_bd.nombre_herramienta
-
+    @parametro = "12334553534534423"
+    
     case @herramienta.nombre_sistema
     when "Covid_test"
       covid_test(@host, @port, @user, @password, @dbname)
@@ -70,7 +71,7 @@ class InformeGeneralsController < ApplicationController
   end
 
   def cargar_usuarios_h
-    @herramienta=Herramientum.find(params[:herramientum_id])
+    @herramienta=Herramientum.find(params[:herramienta_id])
 #    @conexion=ConexionBd.find(@herramienta.conexion_bd_id)
     @host = @herramienta.conexion_bd.host
     @port = @herramienta.conexion_bd.puerto
@@ -83,18 +84,17 @@ class InformeGeneralsController < ApplicationController
       covid_test_user(@host, @port, @user, @password, @dbname)
     when "Sesalud"
     end
-  
-
-    #busca informe segun la herramienta, *agregar un case when para cada una
-    @consulta = "SELECT * from dblink('host=" + host +
-    " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " '," +
-    "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
-    "," + @informe_general.partida.partida.to_s + ", now()::date); ') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text)"
-    @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
   end
 
   def covid_test_user(host, port, user, password, dbname)
-    @consulta=""
+    @consulta="select * from dblink('host=#{host} port=#{port} user=#{user} "+
+    "password=#{password} dbname=#{dbname}',"+
+    "'select * from registros.cat_usuarios order by id_usuario asc')as newTable(id_usuario integer,id_unidad integer,"+
+    "curp character varying,login character varying,passwd character varying,"+
+    "rol character varying,fecha_agr date ,cat_modulo character varying)"
+    
+    @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
+    render :partial => "select_usuarios" , :obj => @arreglo 
   end
 
   # GET /informe_generals/1/edit
@@ -111,6 +111,7 @@ class InformeGeneralsController < ApplicationController
 
     @informe_general = InformeGeneral.new(informe_general_params)
     @informe_general.nombre = @herr.nombre_sistema
+    @informe_general.usuario_informe_id=params[:usuario]
     respond_to do |format|
       if @informe_general.save
         format.html { redirect_to @informe_general, notice: "Informe general was successfully created." }
