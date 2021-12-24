@@ -17,8 +17,7 @@ class InformeGeneralsController < ApplicationController
     @user = @herramienta.conexion_bd.usuario
     @password = @herramienta.conexion_bd.password
     @dbname = @herramienta.conexion_bd.nombre_herramienta
-    @parametro = "12334553534534423"
-    
+        
     case @herramienta.nombre_sistema
     when "Covid_test"
       covid_test(@host, @port, @user, @password, @dbname)
@@ -56,6 +55,7 @@ class InformeGeneralsController < ApplicationController
         end
       end
     end
+    @parametro = "12334553534534423"
 
     @arreglo = @arreglo.paginate(:page => params[:page], :per_page => 10)
     @unidades = Array.new
