@@ -20,7 +20,12 @@ class InformeGeneralsController < ApplicationController
         
     case @herramienta.nombre_sistema
     when "Covid_test"
-      covid_test(@host, @port, @user, @password, @dbname)
+      begin
+       covid_test(@host, @port, @user, @password, @dbname)
+      rescue
+        @excepcion="No se ha podido conectar al servidor, revise su conexion"
+       logger.debug "****************************** se rescato  "
+      end  
     when "Sesalud"
     end
   end
@@ -30,11 +35,12 @@ class InformeGeneralsController < ApplicationController
     @consulta = "SELECT * from dblink('host=" + host +
                 " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " '," +
                 "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
-                "," + @informe_general.partida.partida.to_s + ", now()::date); ') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text)"
+                "," + @informe_general.partida.partida.to_s + ", now()::date,1)') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text,resumen text)"
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
-    #@arreglo=User.paginate(page:params[:page]).find_by_sql(@consulta)
-    @unidades_nombre = @arreglo[0]["columnas"].split(/{|}/)
 
+    
+    #@arreglo=User.paginate(page:params[:page]).find_by_sql(@consulta)
+    @unidades_nombre = @arreglo[0]["columnas"].split(/{|}/)        
     @unidades_arr = Array.new
     @unidades_nombre.each do |un|
       unless un == "" || un == ","
@@ -55,8 +61,6 @@ class InformeGeneralsController < ApplicationController
         end
       end
     end
-    @parametro = "12334553534534423"
-
     @arreglo = @arreglo.paginate(:page => params[:page], :per_page => 10)
     @unidades = Array.new
     #crea la relaciones de los datos
