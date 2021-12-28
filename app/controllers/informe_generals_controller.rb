@@ -35,7 +35,7 @@ class InformeGeneralsController < ApplicationController
     @consulta = "SELECT * from dblink('host=" + host +
                 " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " '," +
                 "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
-                "," + @informe_general.partida.partida.to_s + ", now()::date,1)') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text,resumen text)"
+                "," + @informe_general.partida.partida.to_s + ", now()::date,"+@informe_general.tipo_informe+")') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text,resumen text)"
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
 
     
@@ -82,7 +82,7 @@ class InformeGeneralsController < ApplicationController
     @user = @herramienta.conexion_bd.usuario
     @password = @herramienta.conexion_bd.password
     @dbname = @herramienta.conexion_bd.nombre_herramienta
-  
+    
     case @herramienta.nombre_sistema
     when "Covid_test"
       covid_test_user(@host, @port, @user, @password, @dbname)
@@ -158,6 +158,6 @@ class InformeGeneralsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def informe_general_params
-    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id)
+    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum)
   end
 end

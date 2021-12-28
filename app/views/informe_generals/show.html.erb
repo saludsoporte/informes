@@ -1,193 +1,51 @@
-<div >
-  <% if can? :read, InformeGeneral %>
-    <p id="notice"><%= notice %></p>
-    <div class=" container mb-3">
-      <p>
-        <strong>Nombre:</strong>
-        <%= @informe_general.nombre %>
-      </p>
-      <%= link_to "editar", edit_informe_general_path(@informe_general), class: :"btn btn-sm btn-outline-dark" %> |
-      <%= link_to "regresar", informe_generals_path, class: :"btn btn-sm btn-outline-dark" %>
-    </div>
-    <table class="container table table-dark">
-      <thead>
-        <th>Nombre</th>
-        <th>Partida</th>
-        <th>Nombre de sistema</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @informe_general.usuario_informe_id %></td>
-          <td><%= @informe_general.partida.partida %></td>
-          <td><%= @informe_general.herramientum.nombre_sistema %></td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    <% if @excepcion.nil? %>
-      <table  class="letra table table-striped-sm">
-        <thead class="table-dark " style="font-size:15px">
-          <% @plantilla.each do |pl| %>
-            <% unless pl.dato.nombre.to_s == "columnas" || pl.dato.nombre.to_s == "resumen" %>
-              <th><%= pl.dato.nombre %></th>
-            <% end %>
-          <% end %>
-          <% @unidades_arr.each_with_index do |un, unidad_i| %>
-            <% unless un == "" || un == "," %>
-              <th><%= Unidad.find(un).nombre %> - <strong> <%= Unidad.find(un).fecha %></strong></th>
-            <%end %>
-          <% end%>
-        </thead>
-        <tbody>
-          <% @arreglo.each_with_index do |a, index| %>
-            <% unless index == 0 %>
-              <tr>
-                <% @columnas_cont = 0 %>
-                <% @plantilla.each do |pl| %>
-                  <% if pl.dato.nombre.to_s != "columnas" && pl.dato.nombre.to_s!="resumen" %>
-                    <td style="width:10px">
-                      <% @columnas_cont = @columnas_cont + 1 %>
-                      <%= a[pl.dato.nombre.to_s] %>
-                    </td>
-                  <% else %>
-                    <% @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/) %>
-                    <% contador = 0 %>
-                    <% @arreglo_unidades.each_with_index do |ar, i| %>
-                      <% unless ar == "" || ar == "," %>
-                        <% @unidades.push(ar) %>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                <% end %>
-                <% contador = 0 %>
-                <% @unidades_arr.each_with_index do |un, unidad_i| %>
-                  <% unless un == "" || un == "," %>
-                    <% @arreglo_caducidades = @unidades[contador].split("|") %>
-                    <% if @arreglo_caducidades.count > 0 %>                    
-                      <td >
-                        <div class="row row-cols-2 align-items-start" style="font-size:12px">
-                          <% if @informe_general.herramientum.conexion_bd.nombre_herramienta == "covid_test" %>
-                            <div class="col "><b>Caducado</b></div>
-                              <% if @arreglo_caducidades[1].to_i>=0 && !@arreglo_caducidades[1].nil? &&  @arreglo_caducidades[1]!=""  %>
-                                <div class="col alert-danger" role="alert" ><b> cantidad:</b>  <%= @arreglo_caducidades[1] %>                           
-                              <% else %>
-                                <div class="col alert-danger" role="alert" ></div>
-                              <% end %>
-                            <!-- <b>fecha:</b>  <%# @arreglo_caducidades[0] %> </div>-->
-                            </div>
-                          <% else %>
-                          <% end %>
-                          <div class="col "><b>Por Caducar</b></div>
-                          <% if @arreglo_caducidades[2].to_i>=0 && !@arreglo_caducidades[2].nil? &&  @arreglo_caducidades[2]!=""  %>
-                            <div class="col  alert-warning"><%= @arreglo_caducidades[2] %></div>
-                          <% else %>
-                            <div class="col"><%= @arreglo_caducidades[2]  %></div>
-                          <% end %>        
-                          <div class="row row-col-2">                  
-                            <div class="col" ><b>Buen Estado</b></div>
-                            <div class="col  alert-success "><%= @arreglo_caducidades[3] %></div>                            
-                          </div>   
-                          <div class="row row-col-2">                        
-                            <div class="col "><b>Necesita</b></div>
-                            <% if @arreglo_caducidades[4].to_i!=0 && !@arreglo_caducidades[4].nil? && @arreglo_caducidades[4]!="" %>
-                              <div class="col alert-danger"><%= @arreglo_caducidades[4] %></div>
-                            <% else %>
-                              <div class="col"><%= @arreglo_caducidades[4] %></div>
-                            <% end %>
-                          </div>
-                          
-                        </div>
-                        <div class="container btn-group row">
-                            <button style="font-size:10px"  type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                              Detalles
-                            </button>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Separated link</a></li>
-                            </ul>
-                          </div>
-                        <!--
-                          <p><a style="font-size:10px" class="btn btn-success btn-sm" data-bs-toggle="collapse" href="#multiCollapseExample<%=index%>" role="button" aria-expanded="false" aria-controls="multiCollapseExample<%= index%>">Ver detalles</a></p>                                     
-                        
-                        <div class="row row-cols-2  " style="font-size:12px">
-                          
-                        
-                          <div class="col "><b>Ex. Fisica</b></div>
-                          <%# if @arreglo_caducidades[5].to_i>==0 && !@arreglo_caducidades[5].nil? && @arreglo_caducidades[5]!="" %>
-                            <div class="col alert-warning"><%# @arreglo_caducidades[5] %></div>
-                          <%# else %>
-                            <div class="col "><%# @arreglo_caducidades[5] %></div>
-                          <%# end %>
-                          <div class="col "><b>Extra</b></div>
-                          <%# if @arreglo_caducidades[6].to_i>==0 && !@arreglo_caducidades[6].nil? && @arreglo_caducidades[6]!="" %>
-                            <div class="col alert-success"><%# @arreglo_caducidades[6] %></div>
-                          <%# else %>
-                            <div class="col "><%# @arreglo_caducidades[6] %></div>
-                          <%# end%>
-                          
-                        </div>-->
-                      </td>
-                    <% else %>
-                      <td>
-                        <div class="col border bg-light">No hay datos</div>
-                      </td>
-                    <% end %>
-                    <% contador = contador + 1 %>
-                  <%end %>
-                <% end%>
-                <% @unidades = Array.new %>
-                <% contador = 0 %>
-              </tr>
-              <tr>              
-                <% @columnas=0%>
-                <% if @informe_general.herramientum.nombre_sistema=="Covid_test"%>
-                  <% @columnas=@unidades_arr.count-1 + @plantilla.count %>
-                <% else %>
-                <% end %>
-                <td style="text-align:center" colspan="<%= @columnas%>">                 
-                  <div class="collapse multi-collapse" id="multiCollapseExample<%=index%>">
-                    <div class="row row-cols-<%=@unidades_arr.count%>">
-                      <% @unidades_arr.each do |u| %>
-                        <div class="col">
-                          <strong><%= Unidad.find(u).nombre %></strong>
-                        </div>
-                      <% end %>
-                    </div>
-                      <div class="row row-cols-">
-                        <% @contador_r=0%>
-                        <% @unidad_resumen=a["resumen"].split(/\[|\]/) %>                               
-                        <% @unidad_resumen.each do |r|%>
-                          <% unless r=="" %>
-                            <% @columna=r.split(/{|}/) %>
-                            <div class="col">
-                              <% @columna.each do |c| %>
-                                <% @valor=c.split('|') %>
-                                <% @valor.each do |v|%>
-                                  <% unless v == ","%>
-                                    <%= v %>
-                                  <% end %>
-                                <% end %>
-                                <br>
-                              <% end %>
-                            </div>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>                                     
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
+<% if can? :read, InformeGeneral %>
+  <p id="notice"><%= notice %></p>
+  <div class=" container mb-3">
+    <p>
+      <strong>Nombre:</strong>
+      <%= @informe_general.nombre %>
+    </p>
+    <%= link_to "editar", edit_informe_general_path(@informe_general), class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to "regresar", informe_generals_path, class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+  <table class="container table table-dark">
+    <thead>
+      <th>Id de usuario de la Herramienta</th>
+      <th>Partida</th>
+      <th>Nombre de sistema</th>
+      <% case @informe_general.herramientum.nombre_sistema%>
+      <% when "Covid_test"%>
+      <th>Tipo de Informe</th>
     <% else %>
-      <div class="container form-control"><%= @excepcion %></div>
-    <%end %>
-    <% else %>
-      <h5>No tienes el rol para leer Informes</h5>
+      <td></td>
     <% end %>
-</div>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @informe_general.usuario_informe_id %></td>
+      <td><%= @informe_general.partida.partida %></td>
+      <td><%= @informe_general.herramientum.nombre_sistema %></td>
+      <% case @informe_general.herramientum.nombre_sistema%>
+      <% when "Covid_test"%>
+      <td><%= @informe_general.tipo_informe%></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+</tbody>
+</table>
+<br>
+<% if @excepcion.nil? %>
+  <% case @informe_general.herramientum.nombre_sistema%>
+  <% when "Covid_test" %>
+  <%= render "tabla_covid_test" %>
+<% else %>
+  No hay tabla
+<% end %>
+<% else %>
+  <div class="container form-control"><%= @excepcion %></div>
+<%end %>
+<% else %>
+  <h5>No tienes el rol para leer Informes</h5>
+<% end %>
 <% @obje = @arreglo %>

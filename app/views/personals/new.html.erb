@@ -1,5 +1,7 @@
-<h1>New Personal</h1>
-
-<%= render 'form', personal: @personal %>
-
-<%= link_to 'Back', personals_path %>
+<div class="container">
+  <div class="mb-3">
+    <h3>Nueva entrada</h3>
+    <%= link_to 'regresar', personals_path, class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+  <%= render 'form', personal: @personal %>
+</div>
