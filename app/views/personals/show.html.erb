@@ -1,59 +1,55 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nombre:</strong>
-  <%= @personal.nombre %>
-</p>
-
-<p>
-  <strong>Apellido p:</strong>
-  <%= @personal.apellido_p %>
-</p>
-
-<p>
-  <strong>Apellido m:</strong>
-  <%= @personal.apellido_m %>
-</p>
-
-<p>
-  <strong>Nombre completo:</strong>
-  <%= @personal.nombre_completo %>
-</p>
-
-<p>
-  <strong>Telefono:</strong>
-  <%= @personal.telefono %>
-</p>
-
-<p>
-  <strong>Calle:</strong>
-  <%= @personal.calle %>
-</p>
-
-<p>
-  <strong>Numero:</strong>
-  <%= @personal.numero %>
-</p>
-
-<p>
-  <strong>Colonia:</strong>
-  <%= @personal.colonia %>
-</p>
-
-<p>
-  <strong>Cp:</strong>
-  <%= @personal.cp %>
-</p>
-
-<p>
-  <strong>Curp:</strong>
-  <%= @personal.curp %>
-</p>
-
-<p>
-  <strong>Fecha nacimiento:</strong>
-  <%= @personal.fecha_nacimiento %>
-</p>
-
-<%= link_to 'Edit', edit_personal_path(@personal) %> |
-<%= link_to 'Back', personals_path %>
+<div class="container">
+  <div class="mb-3">
+    <p id="notice"><%= notice %></p>
+    <%= link_to 'Edit', edit_personal_path(@personal) %> |
+    <%= link_to 'Back', personals_path %>
+  </div>
+  <div class="row mb-3 ">
+    <div class="col-sm themed-grid-col"> <strong>Nombre:</strong>
+    </div>
+    <div class="col themed-grid-col"><%= @personal.nombre %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"> <strong>Apellido p:</strong>
+    </div>
+    <div class="col themed-grid-col"><%= @personal.apellido_p %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Apellido m:</strong>
+    </div>
+    <div class="col themed-grid-col"><%= @personal.apellido_m %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Nombre completo:</strong>
+    </div>
+    <div class="col themed-grid-col"><%= @personal.nombre_completo %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Telefono:</strong></div>
+    <div class="col themed-grid-col"> <%= @personal.telefono %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Calle:</strong>  </div>
+    <div class="col themed-grid-col"><%= @personal.calle %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Numero:</strong></div>
+    <div class="col themed-grid-col"><%= @personal.numero %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Colonia:</strong></div>
+    <div class="col themed-grid-col"><%= @personal.colonia %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Cp:</strong></div>
+    <div class="col themed-grid-col"><%= @personal.cp %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Curp:</strong></div>
+    <div class="col themed-grid-col"><%= @personal.curp %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col themed-grid-col"><strong>Fecha nacimiento:</strong></div>
+    <div class="col themed-grid-col"><%= @personal.fecha_nacimiento %></div>
+  </div>
+</div>

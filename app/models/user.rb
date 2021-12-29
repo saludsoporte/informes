@@ -4,8 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  #belongs_to :rol
+  #belongs_to :unidad
   has_many :perfils
+  #belongs_to :personal
   #belongs_to :perfil
   
   validate :validate_username
@@ -43,6 +44,23 @@ class User < ApplicationRecord
     end
   end
 
- 
-  
+  def unidad
+    !self.unidad_id.nil? ? nombre_oracion(Unidad.find(self.unidad_id).nombre) : "Sin unidad asociada"
+  end
+  def area
+    !self.area_id.nil? ? nombre_oracion(Area.find(self.area_id).nombre) : "Sin area asociada"
+  end
+  def departamento
+    !self.departamento_id.nil? ? nombre_oracion(Departamento.find(self.departamento_id).nombre) : "Sin departamento asociado"
+  end
+  def subdireccion
+    !self.subdireccion_id.nil? ? nombre_oracion(Subdireccion.find(self.subdireccion_id).nombre) : "Sin subdireccion asociada"
+  end
+  def direccion
+    !self.direccion_id.nil? ? nombre_oracion(Direccion.find(self.direccion_id).nombre) : "Sin direccion asociada"
+  end  
+
+  def nombre_oracion(nombre)
+    nombre.titleize
+  end
 end

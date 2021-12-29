@@ -1,5 +1,43 @@
-
-
-<%= form_for(@user) do |f| %>
-    
-<% end %>
+<div class="container">
+  <h3>Editar datos del usuario</h3>
+  <%= link_to "Regresar", @user, class: :"btn btn-sm btn-outline-dark"%> |
+  <%= link_to "Editar", edit_user_path(@user), class: :"btn btn-sm btn-outline-dark"%>
+</div>
+<div class="container">
+  <%= form_for(@user) do |f| %>
+    <div class="row row-cols-2 row-cols g-2 ">
+      <div class="col">
+        <label>Email: </label>
+        <div class="p-3 border bg-light">
+          <%= f.email_field :email, class: :"form-control" %></div>
+      </div>
+      <div class="col">
+        <label>Nombre de Usuario: </label>
+        <div class="p-3 border bg-light"><%= f.text_field :username,class: :"form-control" %></div>
+      </div>
+      <div class="col">
+        <label>Unidad: </label>
+        <div class="p-3 border bg-light"><%= f.select(:unidad,Unidad.all.collect {|u| [u.nombre.titleize,u.id]},{include_blank:true,selected:@user.unidad_id},class: :"unidad form-control ") %></div>
+      </div>
+      <div class="col">
+        <label>Area: </label>
+        <div class="p-3 border bg-light"> <%= f.select(:area,Area.all.collect {|u| [u.nombre,u.id]},{include_blank:true,selected:@user.area_id},class: :" form-control area ") %></div>
+      </div>
+      <div class="col">
+        <label>Dirección: </label>
+        <div class="p-3 border bg-light"><%= f.select(:direccin,Direccion.all.collect {|u| [u.nombre,u.id]},{include_blank:true,selected:@user.direccion_id},class: :"direccion form-control  ")  %></div>
+      </div>
+      <div class="col">
+        <label>Subdirección: </label>
+        <div class="p-3 border bg-light"><%=f.select(:subdireccion,Subdireccion.all.collect {|u| [u.nombre,u.id]},{include_blank:true,selected:@user.subdireccion_id},class: :"subdireccion form-control  ") %></div>
+      </div>
+      <div class="col">
+        <label>Departamento: </label>
+        <div class="p-3 border bg-light"><%=f.select(:departamento,Departamento.all.collect {|u| [u.nombre,u.id]},{include_blank:true,selected:@user.departamento_id},class: :"departamento form-control  ") %></div>
+      </div>
+    </div><br>
+    <div class="mb-3">
+      <%= f.submit "Guardar" ,class: :"btn btn-sm btn-success"  %>
+    </div>
+  <% end %>
+</div>

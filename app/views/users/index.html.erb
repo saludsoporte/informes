@@ -22,7 +22,7 @@
                         <td>
                             <% if u.personal_id.nil? %>
                                 Sin datos personales
-                            <% else %>
+                            <% else %>                                
                                 <%= link_to "Datos Personales" , personal_path(u.personal_id),class: :"btn btn-sm btn-light", title: :"ver información del usuario" %>
                             <% end %>
                         </td>

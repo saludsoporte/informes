@@ -1,2 +1,38 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container">
+  <h3>Datos del usuario</h3>
+  <%= link_to "Regresar", users_path, class: :"btn btn-sm btn-outline-dark"%> |
+  <%= link_to "Editar", edit_user_path(@user), class: :"btn btn-sm btn-outline-dark"%>
+</div>
+<div class="container">
+  <div class="row row-cols-2 row-cols g-2 ">
+    <div class="col">
+    <label>Email: </label>
+      <div class="p-3 border bg-light">        
+        <%= @user.email %></div>
+    </div>
+    <div class="col">
+    <label>Nombre de Usuario: </label>
+      <div class="p-3 border bg-light"><%= @user.username %></div>
+    </div>
+    <div class="col">
+    <label>Unidad: </label>
+      <div class="p-3 border bg-light"><%= @user.unidad %></div>
+    </div>
+    <div class="col">
+    <label>Area: </label>
+      <div class="p-3 border bg-light"> <%= @user.area %></div>
+    </div>
+    <div class="col">
+    <label>Dirección: </label>
+      <div class="p-3 border bg-light"><%= @user.direccion %></div>
+    </div>
+    <div class="col">
+    <label>Subdirección: </label>
+      <div class="p-3 border bg-light"><%= @user.subdireccion %></div>
+    </div>
+    <div class="col">
+    <label>Departamento: </label>
+      <div class="p-3 border bg-light"><%= @user.departamento %></div>
+    </div>
+  </div>
+</div>

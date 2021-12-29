@@ -9,6 +9,7 @@ import "../stylesheets/sidebars"
 import "../packs/sidebars.js"
 import "../stylesheets/navbar"
 import "../stylesheets/headers"
+import "../stylesheets/grid"
 import "../packs/perfils"
 import "../packs/herramientum"
 import "../packs/plantillas"
@@ -25,3 +26,38 @@ require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
+import $ from 'jquery'
+$(document).on('turbolinks:load', function() {
+    $('.unidad').select2({
+        placeholder: "unidad",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+    $('.area').select2({
+        placeholder: "area",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+    $('.direccion').select2({
+        placeholder: "direccion",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+    $('.subdireccion').select2({
+        placeholder: "subdireccion",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+    $('.departamento').select2({
+        placeholder: "departamento",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+
+
+})

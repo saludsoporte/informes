@@ -22,37 +22,48 @@
     <%= form.label :"Apellido Materno",for: :apellido_m %>
   </div>
   <div class="field form-floating ">
-    <%= form.text_field :telefono ,class: :"form-control", placeholder: :"Telefono"%>
+    <%= form.text_field :telefono,minlength:10,maxlength:10,:only_integer=>true,class: :"telefono form-control", placeholder: :"Telefono",:onkeypress=>"if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"%>
     <%= form.label :telefono,for: :telefono %>
   </div>
   <div class="mb-3">
     <h3 >Domicilio</h3>
   </div>
-  <div class="field form-floating">
-    <%= form.text_field :calle ,class: :"form-control", placeholder: :"Calle"%>
-    <%= form.label :calle,for: :calle %>
+  <div class="row g-2 ">
+    <div class="col field form-floating">
+      <%= form.text_field :calle ,class: :"form-control", placeholder: :"Calle"%>
+      <%= form.label :calle,for: :calle %>
+    </div>
+    <div class="col  field form-floating">
+      <%= form.text_field :numero,class: :"form-control",placeholder: :"Numero" %>
+      <%= form.label :numero,for: :numero %>
+    </div>
   </div>
-  <div class="field form-floating">
-    <%= form.label :numero %>
-    <%= form.text_field :numero %>
+  <div class="row g-2">
+    <div class=" col field form-floating">
+      <%= form.text_field :colonia,class: :"form-control",placeholder: :"Colonia" %>
+      <%= form.label :colonia,for: :colonia %>
+    </div>
+    <div class=" col field form-floating">
+      <%= form.text_field  :cp,maxlength:5,class: :"cp form-control",placeholder: :"Codigo Postal",:onkeypress=>"if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"%>
+      <%= form.label :"codigo postal",for: :cp %>
+    </div>
   </div>
-  <div class="field form-floating">
-    <%= form.label :colonia %>
-    <%= form.text_field :colonia %>
+  <div class="row g-2">
+    <div class="col">
+      <div  class="form-floating">
+        <%= form.text_field :curp,minlength:18,maxlength:18,class: :"form-control form-control-sm",placeholder: :"Curp" %>
+        <%= form.label :curp,for: :curp %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating">
+        <%= form.date_field :fecha_nacimiento,class: :"form-control form-control-sm" %>
+        <%= form.label :fecha_nacimiento,for: :fecha_nacimiento %>
+      </div>
+    </div>
   </div>
-  <div class="field form-floating">
-    <%= form.label :cp %>
-    <%= form.number_field :cp %>
-  </div>
-  <div class="field form-floating">
-    <%= form.label :curp %>
-    <%= form.text_field :curp %>
-  </div>
-  <div class="field form-floating">
-    <%= form.label :fecha_nacimiento %>
-    <%= form.date_select :fecha_nacimiento %>
-  </div>
+  <br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Guardar personal", class: :"btn btn-sm btn-success" %>
   </div>
 <% end %>
