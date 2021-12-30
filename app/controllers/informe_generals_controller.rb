@@ -49,8 +49,8 @@ class InformeGeneralsController < ApplicationController
           @unidad_in = Unidad.create([
             nombre: @cad_nombre_f[0],
             fecha: @cad_nombre_f[1],
-            entidad_id: 25,
-            tipo_unidad_id: 5,
+            entidad_id:Entidad.find(24),
+            tipo_unidad_id:TipoUnidad.find(5),
           ])
           @unidad_in.save
           @unidades_arr.push(@unidad_in.id)
@@ -61,7 +61,7 @@ class InformeGeneralsController < ApplicationController
         end
       end
     end
-    @arreglo = @arreglo.paginate(:page => params[:page], :per_page => 10)
+    @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
     @unidades = Array.new
     #crea la relaciones de los datos
 

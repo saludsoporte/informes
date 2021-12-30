@@ -3,7 +3,7 @@ class UnidadsController < ApplicationController
 
   # GET /unidads or /unidads.json
   def index
-    @unidads = Unidad.all
+    @unidads = Unidad.paginate(page:params[:page]).all
   end
 
   # GET /unidads/1 or /unidads/1.json
@@ -22,7 +22,7 @@ class UnidadsController < ApplicationController
   # POST /unidads or /unidads.json
   def create
     @unidad = Unidad.new(unidad_params)
-
+    @unidad.tipo_unidad=TipoUnidad.find(5)
     respond_to do |format|
       if @unidad.save
         format.html { redirect_to @unidad, notice: "Unidad was successfully created." }

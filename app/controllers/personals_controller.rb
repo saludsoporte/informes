@@ -22,7 +22,7 @@ class PersonalsController < ApplicationController
   # POST /personals or /personals.json
   def create
     @personal = Personal.new(personal_params)
-
+    @personal.nombre_completo=@personal.nombre+" "+@personal.apellido_p+" "+@personal.apellido_m
     respond_to do |format|
       if @personal.save
         format.html { redirect_to @personal, notice: "Personal was successfully created." }

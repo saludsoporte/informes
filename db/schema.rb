@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_164936) do
+ActiveRecord::Schema.define(version: 2021_12_30_180454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -208,11 +208,17 @@ ActiveRecord::Schema.define(version: 2021_12_27_164936) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "clues"
-    t.text "domicilio"
     t.string "telefono", limit: 10
     t.bigint "tipo_unidad_id"
     t.bigint "entidad_id"
     t.date "fecha"
+    t.string "calle"
+    t.string "numero_ext"
+    t.string "numero_int"
+    t.string "colonia"
+    t.string "entre_calles_1"
+    t.string "entre_calles_2"
+    t.string "codigo_postal"
     t.index ["entidad_id"], name: "index_unidads_on_entidad_id"
     t.index ["tipo_unidad_id"], name: "index_unidads_on_tipo_unidad_id"
   end
