@@ -5,8 +5,12 @@ class InformeGeneralsController < ApplicationController
   # GET /informe_generals or /informe_generals.json
   def index
     @informe_generals = InformeGeneral.paginate(page: params[:page]).all
+    
     # @info=InformeGeneral.accessible_by(current_ability)
     # authorize! :read, @informe_generals
+  end
+  def descargar_archivo
+    send_file "/home/debian/Descargas/qr-code(2).png" ,disposition: 'attachment'    
   end
 
   # GET /informe_generals/1 or /informe_generals/1.json
@@ -158,6 +162,6 @@ class InformeGeneralsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def informe_general_params
-    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum)
+    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum,:pdf)
   end
 end
