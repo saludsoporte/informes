@@ -4,12 +4,13 @@ class InformeGeneralsController < ApplicationController
   #load_and_authorize_resource
   # GET /informe_generals or /informe_generals.json
   def index
-    @informe_generals = InformeGeneral.paginate(page: params[:page]).all
+    @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id)
     
     # @info=InformeGeneral.accessible_by(current_ability)
     # authorize! :read, @informe_generals
   end
   def descargar_archivo
+    
     send_file "/home/debian/Descargas/qr-code(2).png" ,disposition: 'attachment'    
   end
 
@@ -133,6 +134,7 @@ class InformeGeneralsController < ApplicationController
 
   # PATCH/PUT /informe_generals/1 or /informe_generals/1.json
   def update
+    
     respond_to do |format|
       if @informe_general.update(informe_general_params)
         format.html { redirect_to @informe_general, notice: "Informe general was successfully updated." }

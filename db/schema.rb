@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_30_180454) do
+ActiveRecord::Schema.define(version: 2022_01_03_210310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_12_30_180454) do
     t.integer "tipo_informacion"
     t.integer "referencia"
     t.integer "memorandum"
+    t.string "pdf"
     t.index ["herramientum_id"], name: "index_informe_generals_on_herramientum_id"
     t.index ["partida_id"], name: "index_informe_generals_on_partida_id"
     t.index ["user_id"], name: "index_informe_generals_on_user_id"
@@ -238,6 +239,7 @@ ActiveRecord::Schema.define(version: 2021_12_30_180454) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "personal_id"
+    t.string "avatar"
     t.index ["area_id"], name: "index_users_on_area_id"
     t.index ["departamento_id"], name: "index_users_on_departamento_id"
     t.index ["direccion_id"], name: "index_users_on_direccion_id"
