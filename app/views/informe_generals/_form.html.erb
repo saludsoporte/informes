@@ -10,10 +10,10 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.file_field :pdf %>
+    <%# form.file_field :pdf %>
   </div>
   <div class="mb-3">
-    <%= form.text_field :nombre ,hidden: :true %>
+    <%= form.text_field :nombre %>
   </div>
   <div class="mb-3 form-floating">
     <%= form.text_field :user_id ,value:current_user.id ,class: :"form-control",placeholder: :"Usuario",hidden: :true %>

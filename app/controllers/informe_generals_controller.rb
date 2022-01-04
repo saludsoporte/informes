@@ -113,13 +113,13 @@ class InformeGeneralsController < ApplicationController
   # POST /informe_generals or /informe_generals.json
   def create
     @herr = Herramientum.find(informe_general_params[:herramientum_id])
-    informe_general_params[:nombre] = @herr.nombre_sistema
+    #informe_general_params[:nombre] = @herr.nombre_sistema
 
-    logger.debug "/*/*/*****************" + @herr.nombre_sistema.to_s
-    logger.debug "/*/*/*****************" + informe_general_params[:nombre].to_s
+    #logger.debug "/*/*/*****************" + @herr.nombre_sistema.to_s
+    #logger.debug "/*/*/*****************" + informe_general_params[:nombre].to_s
 
     @informe_general = InformeGeneral.new(informe_general_params)
-    @informe_general.nombre = @herr.nombre_sistema
+    #@informe_general.nombre = @herr.nombre_sistema
     @informe_general.usuario_informe_id=params[:usuario]
     respond_to do |format|
       if @informe_general.save
