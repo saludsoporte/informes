@@ -33,9 +33,9 @@
           <td><%= personal.cp %></td>
           <td><%= personal.curp %></td>
           <td><%= personal.fecha_nacimiento %></td>
-          <td><%= link_to 'Show', personal %></td>
-          <td><%= link_to 'Edit', edit_personal_path(personal) %></td>
-          <td><%= link_to 'Destroy', personal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'ver', personal, class: :"btn btn-sm btn-light" %></td>
+          <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_personal_path(personal) %></td>
+          <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), personal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

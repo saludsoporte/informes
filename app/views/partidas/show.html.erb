@@ -2,27 +2,28 @@
   <p id="notice"><%= notice %></p>
   <%= link_to 'Editar', edit_partida_path(@partida),class: :"btn btn-sm btn-outline-dark" %> |
   <%= link_to 'Regresar', partidas_path,class: :"btn btn-sm btn-outline-dark" %>
-  <p>
-    <strong>Partida:</strong>
-    <%= @partida.partida %>
-  </p>
-  <p>
-  <strong>Indice:</strong>
-  <%= @partida.indice %>
-  </p>
-
-  <p>
-    <strong>Cog2011:</strong>
-    <%= @partida.cog2011 %>
-  </p>
-
-  <p>
-    <strong>Descripcion:</strong>
-    <%= @partida.descripcion %>
-  </p>
-
-  <p>
-    <strong>Descripcion2:</strong>
-    <%= @partida.descripcion2 %>
-  </p>
-</div>  
+  <div class="row g-2">
+    <div class="col form-floating">
+      <div id="partida" class="form-control"><%= @partida.partida %></div>
+      <label for="partida"><strong>Partida:</strong></label>
+    </div>
+    <div class="col form-floating">
+      <div id="indice" class="form-control"><%= @partida.indice %></div>
+      <label for="indice"><strong>Indice:</strong></label>
+    </div>
+    <div class="col form-floating">
+      <div id="cog" class="form-control"><%= @partida.cog2011 %></div>
+      <label for="cog"><strong>Cog2011:</strong></label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col form-floating">
+      <div id="desripcion" class="form-control"><%= @partida.descripcion %></div>
+      <label for="descripcion">  <strong>Descripcion:</strong></label>
+    </div>
+    <div class="col form-floating">
+      <div id="desc" class="form-control"><%= @partida.descripcion2 %></div>
+      <label for="desc"><strong>Descripcion2:</strong></label>
+    </div>
+  </div>
+</div>

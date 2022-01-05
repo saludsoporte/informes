@@ -1,55 +1,59 @@
 <div class="container">
   <div class="mb-3">
     <p id="notice"><%= notice %></p>
-    <%= link_to 'Edit', edit_personal_path(@personal) %> |
-    <%= link_to 'Back', personals_path %>
+    <%= link_to 'Editar', edit_personal_path(@personal) ,class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'Regresar', personals_path, class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <div class="row mb-3 ">
-    <div class="col-sm themed-grid-col"> <strong>Nombre:</strong>
+  <h3>Datos Personales</h3>
+  <div class=" form-floating "  >
+    <div id="nombre" class="form-control" placeholder="Nombre"><%= @personal.nombre %></div>
+    <label for="nombre"> <strong>Nombre:</strong></label>
+  </div>
+  <div class="form-floating">
+    <div id="apellido_p" class="form-control" placeholder="Apellido Paterno"><%= @personal.apellido_p %></div>
+    <label for="apellido_p"> <strong>Apellido Paterno:</strong>   </label>
+  </div>
+  <div class="form-floating">
+    <div id="apellido_m" class="form-control" placeholder="Apellido Materno"><%= @personal.apellido_m %></div>
+    <label for="apellido_m"> <strong>Apellido Materno:</strong>   </label>
+  </div>
+  <div class="form-floating">
+    <div id="n_comp" class="form-control" placeholder="Nombre Completo"><%= @personal.nombre_completo %></div>
+    <label for="n_comp" ><strong>Nombre completo:</strong></label>
+  </div>
+  <div class="form-floating">
+    <div id="telefono" class="form-control" placeholder="Telefono"><%= @personal.telefono %></div>
+    <label for="telefono"><strong>Telefono:</strong></label>
+  </div>
+  <h3>Domicilio</h3>
+  <div class="row g-2">
+    <div class="col form-floating">
+      <div id="calle" class="form-control" placeholder="Calle"><%= @personal.calle %></div>
+      <label for="calle"><strong>Calle:</strong></label>
     </div>
-    <div class="col themed-grid-col"><%= @personal.nombre %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"> <strong>Apellido p:</strong>
+    <div class="col form-floating">
+      <div id="numero" class="form-control" placeholder="Numero"><%= @personal.numero %></div>
+      <label for="numero"><strong>Numero:</strong></label>
     </div>
-    <div class="col themed-grid-col"><%= @personal.apellido_p %></div>
   </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Apellido m:</strong>
+  <div class="row g-2">
+    <div class="col form-floating">
+      <div id="colonia" class="form-control" placeholder="Colonia"><%= @personal.colonia %></div>
+      <label for="colonia"><strong>Colonia:</strong></label>
     </div>
-    <div class="col themed-grid-col"><%= @personal.apellido_m %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Nombre completo:</strong>
+    <div class="col form-floating">
+      <div id="cp" class="form-control" placeholder="CP"><%= @personal.cp %></div>
+      <label for="cp"><strong>Codigo Postal:</strong></label>
     </div>
-    <div class="col themed-grid-col"><%= @personal.nombre_completo %></div>
   </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Telefono:</strong></div>
-    <div class="col themed-grid-col"> <%= @personal.telefono %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Calle:</strong>  </div>
-    <div class="col themed-grid-col"><%= @personal.calle %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Numero:</strong></div>
-    <div class="col themed-grid-col"><%= @personal.numero %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Colonia:</strong></div>
-    <div class="col themed-grid-col"><%= @personal.colonia %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Cp:</strong></div>
-    <div class="col themed-grid-col"><%= @personal.cp %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Curp:</strong></div>
-    <div class="col themed-grid-col"><%= @personal.curp %></div>
-  </div>
-  <div class="row mb-3">
-    <div class="col themed-grid-col"><strong>Fecha nacimiento:</strong></div>
-    <div class="col themed-grid-col"><%= @personal.fecha_nacimiento %></div>
+  <div class="row g-2">
+    <div class="col form-floating">
+      <div id="curp" class="form-control" placeholder="Curp"><%= @personal.curp %></div>
+      <label for="curp"><strong>CURP:</strong></label>
+    </div>
+    <div class="col form-floating">
+      <div id="fecha_nacimiento" class="form-control" placeholder="Fecha Nacimiento"><%= @personal.fecha_nacimiento %></div>
+      <label for="fecha_nacimiento"><strong>Fecha Nacimiento:</strong></label>
+    </div>
   </div>
 </div>

@@ -11,12 +11,11 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @conexion_bds.each do |conexion_bd| %>
       <tr>
         <td><%= conexion_bd.nombre_herramienta %></td>
-        <td><%= link_to 'Ver', conexion_bd %></td>
+        <td><%= link_to 'Ver', conexion_bd,class: :"btn btn-sm btn-light" %></td>
         <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_conexion_bd_path(conexion_bd) %></td>
         <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), conexion_bd, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
       </tr>

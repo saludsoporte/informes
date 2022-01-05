@@ -1,29 +1,31 @@
 <% if can? :read, Perfil %>
-<p id="notice"><%= notice %></p>
-<div class="container">
-  <div class="row">
-    <div class="col-sm"><h4>Catalago perfiles</h4></div>
-    <div class="col-sm"><%= link_to 'crear nuevo perfil', new_perfil_path,style: :"float:right" ,class: :"btn btn-sm btn-success" %></div>
-  </div>
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Usuario</th>
-        <th>Rol</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @perfils.each do |perfil| %>
+  <p id="notice"><%= notice %></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h4>Catalago perfiles</h4>
+      </div>
+      <div class="col-sm"><%= link_to 'crear nuevo perfil', new_perfil_path,style: :"float:right" ,class: :"btn btn-sm btn-success" %></div>
+    </div>
+    <table class="table table-dark table-striped">
+      <thead>
         <tr>
-          <td><%= perfil.user.username %></td>
-          <td><%= perfil.rol.nombre %></td>
-          <td><%= link_to 'Ver', perfil %></td>
-          <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_perfil_path(perfil) %></td>
-          <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), perfil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th colspan="3"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @perfils.each do |perfil| %>
+          <tr>
+            <td><%= link_to perfil.user.username,perfil,class: :"btn btn-sm btn-light" %></td>
+            <td><%= perfil.rol.nombre %></td>
+            <td><%= link_to 'Ver', perfil, class: :"btn btn-sm btn-light" %></td>
+            <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_perfil_path(perfil) %></td>
+            <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), perfil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>

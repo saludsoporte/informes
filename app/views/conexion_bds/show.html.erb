@@ -4,30 +4,25 @@
     <%= link_to 'Editar', edit_conexion_bd_path(@conexion_bd),class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'Regresar', conexion_bds_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <div class="row">
-    <div class="col mb-3">
-      <p>  
-      <strong>Herramienta:</strong>
-      <%= @conexion_bd.nombre_herramienta %>
-      </p>
+  <div class="row g-2">
+    <div class="col mb-3 form-floating">
+      <div id="herr" class="form-control"><%= @conexion_bd.nombre_herramienta %></div>
+      <label for="herr"><strong>Herramienta:</strong></label>
     </div>
-    <div class="col mb-3">
-      <p>  
-      <strong>Puerto:</strong>
-      <%= @conexion_bd.puerto %>
-      </p>
-    </div>
-    <div class="col mb-3">
-      <p>  
-      <strong>Host:</strong>
-      <%= @conexion_bd.host %>
-      </p>
-    </div>
-    <div class="col mb-3">
-      <p>  
-      <strong>Usuario</strong>
-      <%= @conexion_bd.usuario %>
-      </p>
+    <div class="col mb-3 form-floating">
+      <div id="port" class="form-control"><%= @conexion_bd.puerto %></div>
+      <label for="port"><strong>Puerto:</strong></label>
     </div>
   </div>
+  <div class="row g-2">
+    <div class="col mb-3 form-floating">
+      <div id="host" class="form-control"><%= @conexion_bd.host %></div>
+      <label for="host"> <strong>Host:</strong></label>
+    </div>
+    <div class="col mb-3 form-floating">
+      <div id="user" class="form-control"><%= @conexion_bd.usuario %></div>
+      <label for="user">  <strong>Usuario</strong></label>
+    </div>
+  </div>
+</div>
 </div>

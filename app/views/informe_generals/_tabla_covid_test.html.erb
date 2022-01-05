@@ -49,30 +49,32 @@
               <% @arreglo_caducidades = @unidades[contador].split("|") %>
               <% if @arreglo_caducidades.count > 0 %>
                 <td >
-                  <div class="row " style="font-size:12px">
-                    <% if @arreglo_caducidades[1].to_i>0 && !@arreglo_caducidades[1].nil? &&  @arreglo_caducidades[1]!=""  %>
-                      <div class="col border bg-light "><b>Caducado</b></div>
-                      <div class="col alert-danger" role="alert" > <%= @arreglo_caducidades[1] %></div>
-                    <% end %>
-                    <!-- <b>fecha:</b>  <%# @arreglo_caducidades[0] %> </div>-->
-                  </div>
-                  <div class="row  " style="font-size:12px">
-                    <% if @arreglo_caducidades[2].to_i>0 && !@arreglo_caducidades[2].nil? &&  @arreglo_caducidades[2]!=""  %>
-                      <div class="col border bg-light "><b>Por Caducar</b></div>
-                      <div class="col  alert-warning"><%= @arreglo_caducidades[2] %></div>
-                    <% end %>
-                  </div>
-                  <div class="row  " style="font-size:12px">
-                    <% if @arreglo_caducidades[3].to_i>0 && !@arreglo_caducidades[3].nil? &&  @arreglo_caducidades[3]!=""  %>
-                      <div class="col border bg-light" ><b>Buen Estado</b></div>
-                      <div class="col  alert-success "><%= @arreglo_caducidades[3] %></div>
-                    <% end %>
-                  </div>
-                  <div class="row  " style="font-size:12px">
-                    <% if @arreglo_caducidades[4].to_i>0 && !@arreglo_caducidades[4].nil? && @arreglo_caducidades[4]!="" %>
-                      <div class="col border bg-light"><b>Necesita</b></div>
-                      <div class="col alert-info"><%= @arreglo_caducidades[4] %></div>
-                    <% end %>
+                  <div class="container">
+                    <div class="row " style="font-size:12px">
+                      <% if @arreglo_caducidades[1].to_i>0 && !@arreglo_caducidades[1].nil? &&  @arreglo_caducidades[1]!=""  %>
+                        <div class="col border bg-light "><b>Caducado</b></div>
+                        <div class="col alert-danger" role="alert" > <%= @arreglo_caducidades[1] %></div>
+                      <% end %>
+                      <!-- <b>fecha:</b>  <%# @arreglo_caducidades[0] %> </div>-->
+                    </div>
+                    <div class="row  " style="font-size:12px">
+                      <% if @arreglo_caducidades[2].to_i>0 && !@arreglo_caducidades[2].nil? &&  @arreglo_caducidades[2]!=""  %>
+                        <div class="col border bg-light "><b>Por Caducar</b></div>
+                        <div class="col  alert-warning"><%= @arreglo_caducidades[2] %></div>
+                      <% end %>
+                    </div>
+                    <div class="row  " style="font-size:12px">
+                      <% if @arreglo_caducidades[3].to_i>0 && !@arreglo_caducidades[3].nil? &&  @arreglo_caducidades[3]!=""  %>
+                        <div class="col border bg-light" ><b>Buen Estado</b></div>
+                        <div class="col  alert-success "><%= @arreglo_caducidades[3] %></div>
+                      <% end %>
+                    </div>
+                    <div class="row  " style="font-size:12px">
+                      <% if @arreglo_caducidades[4].to_i>0 && !@arreglo_caducidades[4].nil? && @arreglo_caducidades[4]!="" %>
+                        <div class="col border bg-light"><b>Necesita</b></div>
+                        <div class="col alert-info"><%= @arreglo_caducidades[4] %></div>
+                      <% end %>
+                    </div>
                   </div>
                   <div class="row " style="font-size:12px">
                     <div class="col-sm ">
