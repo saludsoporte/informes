@@ -4,14 +4,14 @@
     <%= link_to 'editar', edit_plantilla_path(@plantilla),class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'regresar', plantillas_path,class: :"btn btn-sm btn-outline-dark"  %>
   </div>
-  <div class="row">
-    <div class="col">
-      <strong>Herramienta:</strong>
-      <%= @plantilla.herramientum.nombre_sistema %>
-    </div>    
-    <div class="col">
-      <strong>Dato:</strong>
-      <%= @plantilla.dato.nombre %>  
+  <div class="row " >
+    <div class="col form-floating">
+      <div id="herr" class="form-control"><%= @plantilla.herramientum.nombre_sistema %></div>
+      <label for="herr"><strong>Herramienta:</strong></label>
     </div>
-  </div>  
+    <div class="col form-floating">
+      <div id="dato" class="form-control"><%= @plantilla.dato.nombre %></div>
+      <label for="dato"><strong>Dato:</strong></label>
+    </div>
+  </div>
 </div>

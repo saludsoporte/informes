@@ -4,14 +4,14 @@
     <%= link_to 'Editar', edit_herramientum_path(@herramientum),class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'Regresar', herramienta_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <div class="row" >
-    <div class="col">
-      <strong>Conexion de base de datos:</strong>
-      <%= @herramientum.conexion_bd.nombre_herramienta %>
-  </div>
-    <div class="col">
-      <strong>Nombre del sistema</strong>
-      <%= @herramientum.nombre_sistema %>
+  <div class="row " >
+    <div class="col form-floating">
+      <div class="form-control" id="dat"><%= @herramientum.conexion_bd.nombre_herramienta %></div>
+      <label for="dat"><strong>Conexion de base de datos:</strong></label>
+    </div>
+    <div class="col form-floating">
+      <div class="form-control" id="sis"><%= @herramientum.nombre_sistema %></div>
+      <label for="sis"><strong>Nombre del sistema</strong></label>
     </div>
   </div>
 </div>
