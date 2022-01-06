@@ -4,10 +4,19 @@ class InformeGeneralsController < ApplicationController
   #load_and_authorize_resource
   # GET /informe_generals or /informe_generals.json
   def index
-    @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id)
-    
+
+    if params[:herr_id].nil?
+      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id)
+    else
+      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id,herramientum_id:params[:herr_id])
+    end
     # @info=InformeGeneral.accessible_by(current_ability)
     # authorize! :read, @informe_generals
+  end
+
+  def buscar_informe
+    @herramienta=params[:herramientum_id]
+    redirect_to informe_generals_path(herr_id:@herramienta)
   end
   def descargar_archivo
     

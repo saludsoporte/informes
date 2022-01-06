@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_210310) do
+ActiveRecord::Schema.define(version: 2022_01_06_211002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 2022_01_03_210310) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "nombre_sistema"
     t.index ["conexion_bd_id"], name: "index_herramienta_on_conexion_bd_id"
+  end
+
+  create_table "informe_ctrl_docums", force: :cascade do |t|
+    t.date "fecha_doc"
+    t.bigint "herramientum_id", null: false
+    t.string "nombre_informe"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["herramientum_id"], name: "index_informe_ctrl_docums_on_herramientum_id"
+    t.index ["user_id"], name: "index_informe_ctrl_docums_on_user_id"
   end
 
   create_table "informe_generals", force: :cascade do |t|
@@ -251,6 +262,8 @@ ActiveRecord::Schema.define(version: 2022_01_03_210310) do
   end
 
   add_foreign_key "herramienta", "conexion_bds"
+  add_foreign_key "informe_ctrl_docums", "herramienta"
+  add_foreign_key "informe_ctrl_docums", "users"
   add_foreign_key "informe_generals", "herramienta"
   add_foreign_key "informe_generals", "partidas"
   add_foreign_key "informe_generals", "users"

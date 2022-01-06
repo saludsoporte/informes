@@ -8,36 +8,37 @@
     <%= link_to "editar", edit_informe_general_path(@informe_general), class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to "regresar", informe_generals_path, class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  
   <%# if @informe_general.pdf.attached? %>
-    <!-- <image src="<%#{} url_for(@informe_general.pdf) %>" height=200> -->
-    <%# link_to @informe_general.pdf.filename, rails_blob_path(@informe_general.pdf,disposition:'attachment') ,class: :"btn btn-sm btn-outline-dark"%>
-    <%# end%>
-    <table class="container table table-dark">
-      <thead>
-        <th>Id de usuario de la Herramienta</th>
-        <th>Partida</th>
-        <th>Nombre de sistema</th>
-        <% case @informe_general.herramientum.nombre_sistema%>
-        <% when "Covid_test"%>
-        <th>Tipo de Informe</th>
-      <% else %>
-        <td></td>
-      <% end %>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @informe_general.usuario_informe_id %></td>
-        <td><%= @informe_general.partida.partida %></td>
-        <td><%= @informe_general.herramientum.nombre_sistema %></td>
-        <% case @informe_general.herramientum.nombre_sistema%>
-        <% when "Covid_test"%>
-        <td><%= @informe_general.tipo_informe%></td>
-      <% else %>
-        <td></td>
-      <% end %>
-    </tr>
-  </tbody>
+  <!-- <image src="<%#{} url_for(@informe_general.pdf) %>" height=200> -->
+  <%# link_to @informe_general.pdf.filename, rails_blob_path(@informe_general.pdf,disposition:'attachment') ,class: :"btn btn-sm btn-outline-dark"%>
+  <%# end%>
+  <table class="container table table-dark" style="text-align:center">
+    <thead>
+      <th>Nombre del Informe</th>
+      <th>Id de usuario de la Herramienta</th>
+      <th>Partida</th>
+      <th>Nombre de sistema</th>
+      <% case @informe_general.herramientum.nombre_sistema%>
+      <% when "Covid_test"%>
+      <th>Tipo de Informe</th>
+    <% else %>
+      <td></td>
+    <% end %>
+  </thead>
+  <tbody style="text-align:center">
+    <tr>
+      <td><%= @informe_general.nombre %></td>
+      <td><%= @informe_general.usuario_informe_id %></td>
+      <td><%= @informe_general.partida.partida %></td>
+      <td><%= @informe_general.herramientum.nombre_sistema %></td>
+      <% case @informe_general.herramientum.nombre_sistema%>
+      <% when "Covid_test"%>
+      <td><%= @informe_general.tipo_informe%></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+</tbody>
 </table>
 <br>
 <% if @excepcion.nil? %>

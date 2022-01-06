@@ -1,0 +1,37 @@
+<%= form_with(model: informe_ctrl_docum) do |form| %>
+  <% if informe_ctrl_docum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(informe_ctrl_docum.errors.count, "error") %> prohibited this informe_ctrl_docum from being saved:</h2>
+
+      <ul>
+        <% informe_ctrl_docum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :fecha_doc %>
+    <%= form.date_select :fecha_doc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :herramientum_id %>
+    <%= form.text_field :herramientum_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nombre_informe %>
+    <%= form.text_field :nombre_informe %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,45 +1,51 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
-  <div class="container div-padding row">
-    <div class="col-sm">
-      <h4>Informe General</h4>
+  <%= form_with url: informe_generals_buscar_informe_path, method: :get do |f| %>
+    <div class="row row-cols-3">
+      <div class="col">
+        <h4>Informe General</h4>
+      </div>
+      <div class="col-g2 row">
+        <label>Filtrar por sistema</label>
+        <div class="col">
+          <%= f.select(:herramientum_id,Herramientum.all.collect{|h| [h.nombre_sistema,h.id]},{include_blank:true,selected:0},class: :"form-control herramientas")%>
+        </div>
+        <div class="col">
+          <%= f.submit "buscar", class: :"btn btn-sm btn-outline-dark" %>
+        </div>
+      </div>
+      <div class="col"><%= link_to 'Nuevo Informe General', new_informe_general_path,class: :"color-letra btn btn-sm btn-success", style: :"float: right;" %></div>
     </div>
-    <div class="col-sm"></div>
-    <div class="col-sm"><%= link_to 'Nuevo Informe General', new_informe_general_path,class: :"color-letra btn btn-sm btn-success", style: :"float: right;" %></div>
-  </div>
-
-<%# link_to "Descargar prueba", informe_generals_descargar_archivo_path , class: :"btn btn-sm btn-outline-dark"%>
-
-
-<%# form_for @informe_generals, url: informe_generals_path, html: { multipart: true } do |form| %>
-  <%# form.file_field :pdf %>
-  <%# form.submit %>
-<%# end %>
-
-
-  <% if can? :read, InformeGeneral %>
-    <table class="table table-stripedless table-dark">
-      <thead class="table-dark">
-        <tr>
-          <th>Nombre</th>
-          <th>Fecha de Creación</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @informe_generals.each do |informe_general| %>
-          <tr>
-            <td><%= link_to informe_general.nombre,informe_general_path(informe_general),class: :"btn btn-sm btn-light" %></td>
-            <td><%= informe_general.created_at %></td>
-            <td><%= link_to 'Ver', informe_general,class: :"btn btn-sm btn-light" %></td>
-            <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_informe_general_path(informe_general) %></td>
-            <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), informe_general, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <h5>No tienes los permisos necesarios</h5>
   <% end %>
-  <% @obj = @informe_generals %>
-</div>
+  <br>
+  <%# link_to "Descargar prueba", informe_generals_descargar_archivo_path , class: :"btn btn-sm btn-outline-dark"%>
+  <%# form_for @informe_generals, url: informe_generals_path, html: { multipart: true } do |form| %>
+    <%# form.file_field :pdf %>
+    <%# form.submit %>
+    <%# end %>
+    <% if can? :read, InformeGeneral %>
+      <table class="table table-stripedless table-dark">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Fecha de Creación</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @informe_generals.each do |informe_general| %>
+            <tr>
+              <td><%= link_to informe_general.nombre,informe_general_path(informe_general),class: :"btn btn-sm btn-light" %></td>
+              <td><%= informe_general.created_at %></td>
+              <td><%= link_to 'Ver', informe_general,class: :"btn btn-sm btn-light" %></td>
+              <td><%= link_to raw("#{image_tag('pencil-square.svg')} Editar"), edit_informe_general_path(informe_general) %></td>
+              <td><%= link_to raw("#{image_tag('trash.svg')} Eliminar"), informe_general, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <h5>No tienes los permisos necesarios</h5>
+    <% end %>
+    <% @obj = @informe_generals %>
+  </div>

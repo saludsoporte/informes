@@ -3,12 +3,11 @@
     <button class="navbar-toggler boton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <%= image_tag 'menu_book_white_24dp' %>
     </button>
-   
-    <a class="navbar-brand" style="position:absolute;left:80px;color: azure;" href="#">Informes Generales</a>       
+    <a class="navbar-brand" style="position:absolute;left:80px;color: azure;" href="#">Informes Generales</a>
     <% if current_user%>
       <p class="navbar-brand"  style="color: azure; position:absolute;left:300px;top:25px" >Usuario: <%= link_to current_user.username , user_path(current_user.id)%></p>
     <% else %>
-    <% end %> 
+    <% end %>
     <%= render "partials/imagen_logo" %>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
@@ -16,57 +15,60 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <form class="d-flex">         
+        <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
           <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <%= link_to raw("#{image_tag("house-door.svg")} Inicio"),root_path,class: :"nav-link active","aria-current": :"page" %>
-          </li>  
+            <%= link_to raw("#{image_tag("house-door.svg")} Inicio"),"",class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown",role: :"button","data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
+            <ul class="dropdown-menu" aria-labelledy="offcanvasNavbarDropdown">
+              <li><%= link_to "Informe General",root_path,class: :"dropdown-item","aria-current": :"page"%></li>
+              <li><hr class="nav-item-divider"></li>
+              <li><%= link_to "Informe Control Documental",informe_ctrl_docums_path,class: :"dropdown-item","aria-current": :"page" %></li>
+            </ul>
+          </li>
           <li class="nav-item dropdown">
-            <%= link_to raw("#{image_tag("person-bounding-box.svg")} Personal"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <%= link_to raw("#{image_tag("person-bounding-box.svg")} Personal"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
               <li>
                 <%= link_to "Catalógo de Usuarios",users_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li> 
+              </li>
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li>
                 <%= link_to "Catalógo de Personal",personals_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li>    
+              </li>
             </ul>
-          </li>   
-
+          </li>
           <li class="nav-item dropdown">
-            <%= link_to raw("#{image_tag("cms.png",size:"16x16")} Herramientas"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <%= link_to raw("#{image_tag("cms.png",size:"16x16")} Herramientas"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
               <li>
                 <%= link_to "Catalógo de Herramientas",herramienta_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li> 
+              </li>
               <li>
                 <hr class="dropdown-divider">
-              </li>                          
+              </li>
               <li>
                 <%= link_to "Plantillas",plantillas_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li> 
+              </li>
               <li>
                 <%= link_to "Datos",datos_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li>  
+              </li>
               <li>
                 <hr class="dropdown-divider">
-              </li>     
+              </li>
               <li>
                 <%= link_to "Partidas",partidas_path,class: :"dropdown-item","aria-current": :"page" %>
-              </li>               
+              </li>
             </ul>
-          </li>   
-
+          </li>
           <li class="nav-item dropdown">
-            <%= link_to  raw("#{image_tag("gear.svg")} Configuración"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>           
+            <%= link_to  raw("#{image_tag("gear.svg")} Configuración"), "", class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown" ,role: :"button" ,"data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><%= link_to "Perfiles",perfils_path,class: :"dropdown-item"%></li>             
+              <li><%= link_to "Perfiles",perfils_path,class: :"dropdown-item"%></li>
               <li><hr class="dropdown-divider"></li>
               <li><%= link_to "Roles",rols_path,class: :"dropdown-item" %></li>
               <li><hr class="dropdown-divider"></li>

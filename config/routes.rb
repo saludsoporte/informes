@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :informe_ctrl_docums
   resources :relacion_entrada_unidads
   resources :partidas
   get 'users/index'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get "plantillas/cargar_plantilla", to: "plantillas#cargar_plantilla"
   get "informe_generals/cargar_usuarios_h", to: "informe_generals#cargar_usuarios_h"
   get "informe_generals/descargar_archivo", to: "informe_generals#descargar_archivo"
+  get "informe_generals/buscar_informe", to: "informe_generals#buscar_informe"
   devise_for :users
   
   root "informe_generals#index"

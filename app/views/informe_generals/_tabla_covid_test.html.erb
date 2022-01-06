@@ -1,4 +1,4 @@
-<table  class="letra table table-striped-sm">
+<table  class="letra table table-striped-sm" >
   <thead class="table-dark " style="font-size:15px">
     <% @plantilla.each do |pl| %>
       <% unless pl.dato.nombre.to_s == "columnas" || pl.dato.nombre.to_s == "resumen" %>
@@ -101,26 +101,6 @@
                     </div>
                   </div>
                 </div>
-                <!--
-                          <p><a style="font-size:10px" class="btn btn-success btn-sm" data-bs-toggle="collapse" href="#multiCollapseExample<%=index%>" role="button" aria-expanded="false" aria-controls="multiCollapseExample<%= index%>">Ver detalles</a></p>                                     
-                        
-                        <div class="row row-cols-2  " style="font-size:12px">
-                          
-                        
-                          <div class="col "><b>Ex. Fisica</b></div>
-                          <%# if @arreglo_caducidades[5].to_i>==0 && !@arreglo_caducidades[5].nil? && @arreglo_caducidades[5]!="" %>
-                            <div class="col alert-warning"><%# @arreglo_caducidades[5] %></div>
-                          <%# else %>
-                            <div class="col "><%# @arreglo_caducidades[5] %></div>
-                          <%# end %>
-                          <div class="col "><b>Extra</b></div>
-                          <%# if @arreglo_caducidades[6].to_i>==0 && !@arreglo_caducidades[6].nil? && @arreglo_caducidades[6]!="" %>
-                            <div class="col alert-success"><%# @arreglo_caducidades[6] %></div>
-                          <%# else %>
-                            <div class="col "><%# @arreglo_caducidades[6] %></div>
-                          <%# end%>
-                          
-                        </div>-->
               </td>
             <% else %>
               <td>

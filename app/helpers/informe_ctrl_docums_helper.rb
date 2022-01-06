@@ -1,0 +1,2 @@
+module InformeCtrlDocumsHelper
+end

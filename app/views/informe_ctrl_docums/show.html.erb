@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha doc:</strong>
+  <%= @informe_ctrl_docum.fecha_doc %>
+</p>
+
+<p>
+  <strong>Herramientum:</strong>
+  <%= @informe_ctrl_docum.herramientum_id %>
+</p>
+
+<p>
+  <strong>Nombre informe:</strong>
+  <%= @informe_ctrl_docum.nombre_informe %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @informe_ctrl_docum.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_informe_ctrl_docum_path(@informe_ctrl_docum) %> |
+<%= link_to 'Back', informe_ctrl_docums_path %>
