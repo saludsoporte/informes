@@ -2,7 +2,6 @@
   <% if informe_ctrl_docum.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(informe_ctrl_docum.errors.count, "error") %> prohibited this informe_ctrl_docum from being saved:</h2>
-
       <ul>
         <% informe_ctrl_docum.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,28 +9,27 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :fecha_doc %>
-    <%= form.date_select :fecha_doc %>
+  <div class="row row-cols-2">
+    <%= form.text_field :user_id,value:current_user.id,id: :u,class: :"form-control",readonly:true ,hidden:true%>
+    <div class="form-floating">
+      <div class="form-control"><%= current_user.login %></div>
+      <label for="u">Usuario</label>
+    </div>
+    <% @herr=Herramientum.find_by(nombre_sistema:"Control Documental")%>
+    <div class="form-floating">
+      <%= form.text_field :herramientum_id,value:@herr.id ,readonly: :true,id: :h, class: :"form-control"%>
+      <%= form.label :"Id Herramienta",for: :"h"%>
+    </div>
+    <div class="form-floating">
+      <%= form.text_field :nombre_informe,id: :n,class: :"form-control"%>
+      <%= form.label :nombre_informe,for: :n%>
+    </div>
+    <div class="form-floating">
+      <%= form.date_field :fecha_doc ,id: :"fecha",class: :"form-control" %>
+      <%= form.label :"Fecha de Consulta de Documentos",for: :"fecha" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :herramientum_id %>
-    <%= form.text_field :herramientum_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nombre_informe %>
-    <%= form.text_field :nombre_informe %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="mb-3"><br>
+    <%= form.submit "Guardar Entrada", class: :"btn btn-sm btn-success" %>
   </div>
 <% end %>

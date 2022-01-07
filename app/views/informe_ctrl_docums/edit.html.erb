@@ -1,6 +1,8 @@
-<h1>Editing Informe Ctrl Docum</h1>
-
-<%= render 'form', informe_ctrl_docum: @informe_ctrl_docum %>
-
-<%= link_to 'Show', @informe_ctrl_docum %> |
-<%= link_to 'Back', informe_ctrl_docums_path %>
+<div class="container">
+  <div class="mb-3">
+    <h3>Editando entrada de Informe</h3>
+    <%= link_to 'Ver', @informe_ctrl_docum,class: :"btn btn-sm btn-outline-dark" %> |
+    <%= link_to 'Regresar', informe_ctrl_docums_path,class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+  <%= render 'form', informe_ctrl_docum: @informe_ctrl_docum %>
+</div>

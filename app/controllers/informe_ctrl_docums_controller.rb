@@ -8,6 +8,28 @@ class InformeCtrlDocumsController < ApplicationController
 
   # GET /informe_ctrl_docums/1 or /informe_ctrl_docums/1.json
   def show
+    logger.debug "**************************"
+    logger.debug "**************************"+@informe_ctrl_docum.herramientum_id.to_s
+    @herramienta = Herramientum.find(@informe_ctrl_docum.herramientum_id)
+    @host = @herramienta.conexion_bd.host
+    @port = @herramienta.conexion_bd.puerto
+    @user = @herramienta.conexion_bd.usuario
+    @password = @herramienta.conexion_bd.password
+    @dbname = @herramienta.conexion_bd.nombre_herramienta
+    
+    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s)
+
+  end
+
+  def listar_documentos(host,port,user,password,dbname,fecha)
+    @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
+    " password="+password+"','select * from documentos.anexos where fecha_doc=''"+fecha+"''') "+
+    " as newTable(fecha_doc date,id_uade integer,entrada boolean,nombre_archivo text,"+
+    "id_tipo_anexo integer,id_anexo integer,descripcion character varying,"+
+    "id_docum_serial integer,id_docum character varying,sellado boolean) "
+    logger.debug "*//////////////////////////////**************"+@consulta.to_s
+    @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
+    @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
   end
 
   # GET /informe_ctrl_docums/new

@@ -1,6 +1,7 @@
 class Herramientum < ApplicationRecord
   belongs_to :conexion_bd
   has_many :plantillas
+  has_many :informe_ctrl_docum
   #belongs_to :dato
   self.per_page = 10
 

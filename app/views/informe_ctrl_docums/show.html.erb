@@ -1,24 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <div class="mb-3">
+    <h3>Entrada de Informe </h3>
+    <%= link_to 'Editar', edit_informe_ctrl_docum_path(@informe_ctrl_docum),class: :"btn btn-sm btn-outline-dark"%> |
+    <%= link_to 'Regresar', informe_ctrl_docums_path,class: :"btn btn-sm btn-outline-dark" %>
+  </div>
+  <div class="row row-cols-2">
+    <div class="form-floating col">
+      <div id="u" class="form-control"><%= @informe_ctrl_docum.user.login%></div>
+      <label for="u" >Usuario</label>
+    </div>
+    <div class="form-floating col">
+      <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_doc %></div>
+      <label for="f">Fecha Documento</label>
+    </div>
+    <div class="form-floating col">
+      <div id="h" class="form-control"><%= @informe_ctrl_docum.herramientum.nombre_sistema %></div>
+      <label for="h">Herramienta</label>
+    </div>
+    <div class="form-floating col">
+      <div id="i" class="form-control"><%= @informe_ctrl_docum.nombre_informe %></div>
+      <label for="i">Nombre del Informe</label>
+    </div>
+  </div>
 
-<p>
-  <strong>Fecha doc:</strong>
-  <%= @informe_ctrl_docum.fecha_doc %>
-</p>
+   <%= @arreglo%>
 
-<p>
-  <strong>Herramientum:</strong>
-  <%= @informe_ctrl_docum.herramientum_id %>
-</p>
-
-<p>
-  <strong>Nombre informe:</strong>
-  <%= @informe_ctrl_docum.nombre_informe %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @informe_ctrl_docum.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_informe_ctrl_docum_path(@informe_ctrl_docum) %> |
-<%= link_to 'Back', informe_ctrl_docums_path %>
+</div>
+<% @obje = @arreglo %>
