@@ -23,8 +23,35 @@
       <label for="i">Nombre del Informe</label>
     </div>
   </div>
-
-   <%= @arreglo%>
-
+  <div>
+    <br>
+    <table class="table table-dark ">
+      <thead >
+        <th>Serial del Documento</th>
+        <th>Nombre Archivo</th>
+        <th>Descripción</th>
+        <th>Descarga</th>
+        <th>Subida</th>
+      </thead>
+      <tbody>
+        <% @arreglo.each do |a| %>
+          <tr>
+            <td><%= a["id_docum_serial"]%></td>
+            <td><%= a["nombre_archivo"]!="" ? a["nombre_archivo"] : "No hay pdf guardado"  %></td>
+            <td><%= a["descripcion"]%></td>
+            <td>
+              <% unless a["nombre_archivo"]=="" %>
+                <%= link_to "Descargar", informe_ctrl_docums_descargar_archivo_path(id:params[:id],nombre:a["nombre_archivo"]) , class: :"btn btn-sm btn-light"%>            </td>
+              <% end %>
+            <td>
+              <% unless a["nombre_archivo"]!="" %>
+                <%= link_to "Subir", "",class: :"btn btn-sm btn-light"%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 <% @obje = @arreglo %>

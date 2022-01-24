@@ -10,12 +10,33 @@ class PdfUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    @fecha=Time.parse(model.update_at.to_s)
+    @fecha=Time.parse(model.updated_at.to_s)
     
-    if @fecha.month == 1
+    case @fecha.month 
+    when 1  
       "/home/debian/Archivos/enero/"
-    else
+    when 2 
       "/home/debian/Archivos/febrero/"
+    when 3  
+      "/home/debian/Archivos/marzo/"
+    when 4 
+      "/home/debian/Archivos/abril/"
+    when 5  
+      "/home/debian/Archivos/mayo/"
+    when 6 
+      "/home/debian/Archivos/junio/"
+    when 7  
+      "/home/debian/Archivos/julio/"
+    when 8 
+      "/home/debian/Archivos/agosto/"
+    when 9  
+      "/home/debian/Archivos/septiembre/"
+    when 10 
+      "/home/debian/Archivos/octubre/"
+    when 11  
+      "/home/debian/Archivos/noviembre/"
+    else
+      "/home/debian/Archivos/diciembre/"       
     end
     #uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end

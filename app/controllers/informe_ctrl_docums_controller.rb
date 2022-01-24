@@ -26,10 +26,43 @@ class InformeCtrlDocumsController < ApplicationController
     " password="+password+"','select * from documentos.anexos where fecha_doc=''"+fecha+"''') "+
     " as newTable(fecha_doc date,id_uade integer,entrada boolean,nombre_archivo text,"+
     "id_tipo_anexo integer,id_anexo integer,descripcion character varying,"+
-    "id_docum_serial integer,id_docum character varying,sellado boolean) "
+    "id_docum_serial integer,id_docum character varying,sellado boolean) order by id_docum "
     logger.debug "*//////////////////////////////**************"+@consulta.to_s
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
     @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
+  end
+
+  def descargar_archivo    
+    @fecha=Time.parse(InformeCtrlDocum.find(params[:id]).updated_at.to_s)
+    @mes=""
+    case @fecha.month 
+    when 1  
+      @mes="01"
+    when 2 
+      @mes="febrero"
+    when 3  
+      @mes="marzo"
+    when 4 
+      @mes="abril"
+    when 5  
+      @mes="mayo"
+    when 6 
+      @mes="junio"
+    when 7  
+      @mes="julio"
+    when 8 
+      @mes="agosto"
+    when 9  
+      @mes="septiembre"
+    when 10 
+      @mes="octubre"
+    when 11  
+      @mes="noviembre"
+    else
+      @mes="diciembre"
+    end
+    send_file "/mnt/respaldos/Archivos_control_docum_respaldo/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
+    #redirect_to informe_ctrl_docum_path(params[:id])
   end
 
   # GET /informe_ctrl_docums/new

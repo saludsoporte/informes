@@ -18,10 +18,7 @@ class InformeGeneralsController < ApplicationController
     @herramienta=params[:herramientum_id]
     redirect_to informe_generals_path(herr_id:@herramienta)
   end
-  def descargar_archivo
-    
-    send_file "/home/debian/Descargas/qr-code(2).png" ,disposition: 'attachment'    
-  end
+  
 
   # GET /informe_generals/1 or /informe_generals/1.json
   def show
