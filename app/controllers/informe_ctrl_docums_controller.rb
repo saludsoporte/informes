@@ -23,13 +23,18 @@ class InformeCtrlDocumsController < ApplicationController
 
   def listar_documentos(host,port,user,password,dbname,fecha)
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
-    " password="+password+"','select * from documentos.anexos where fecha_doc=''"+fecha+"''') "+
-    " as newTable(fecha_doc date,id_uade integer,entrada boolean,nombre_archivo text,"+
-    "id_tipo_anexo integer,id_anexo integer,descripcion character varying,"+
-    "id_docum_serial integer,id_docum character varying,sellado boolean) order by id_docum "
-    logger.debug "*//////////////////////////////**************"+@consulta.to_s
+    " password="+password+"','select doc.folio_entrada, an.id_docum, an.fecha_doc,an.nombre_archivo,an.descripcion,an.id_docum_serial,doc.asunto from documentos.anexos as an,documentos.documento as doc "+
+    " where an.fecha_doc=''"+fecha+"'' and an.fecha_doc = doc.fecha_doc and an.id_docum_serial = doc.id_docum_serial "+
+    " and an.fecha_doc = doc.fecha_doc and an.id_docum_serial = doc.id_docum_serial "+
+    " and an.id_docum = doc.id_docum order by an.id_docum,an.id_docum_serial,an.descripcion ') "+
+    " as newTable(folio_entrada character varying,id_docum integer,fecha_doc date,nombre_archivo text,descripcion character varying, id_docum_serial integer, asunto text) "
+
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
-    @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
+    if @arreglo.count < 10     
+      @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>1)
+    else  
+      @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
+    end
   end
 
   def descargar_archivo    
@@ -62,6 +67,8 @@ class InformeCtrlDocumsController < ApplicationController
       @mes="diciembre"
     end
     send_file "/mnt/respaldos/Archivos_control_docum_respaldo/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
+    #send_file "/home/tomcat/ArchivosControlDocumental/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
+    
     #redirect_to informe_ctrl_docum_path(params[:id])
   end
 
