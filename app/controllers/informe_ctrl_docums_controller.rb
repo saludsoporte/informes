@@ -17,23 +17,34 @@ class InformeCtrlDocumsController < ApplicationController
     @password = @herramienta.conexion_bd.password
     @dbname = @herramienta.conexion_bd.nombre_herramienta
     
-    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s)
+    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s)
 
   end
 
-  def listar_documentos(host,port,user,password,dbname,fecha)
+  def listar_documentos(host,port,user,password,dbname,fecha,f_ini,f_fin)
+    if @informe_ctrl_docum.rango
+      @fecha="ane.fecha_doc >=''"+f_ini+"'' and ane.fecha_doc<=''"+f_fin+"''"
+    else
+      @fecha="ane.fecha_doc=''"+fecha+"''"
+    end
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
-    " password="+password+"','select doc.folio_entrada, an.id_docum, an.fecha_doc,an.nombre_archivo,an.descripcion,an.id_docum_serial,doc.asunto from documentos.anexos as an,documentos.documento as doc "+
-    " where an.fecha_doc=''"+fecha+"'' and an.fecha_doc = doc.fecha_doc and an.id_docum_serial = doc.id_docum_serial "+
-    " and an.fecha_doc = doc.fecha_doc and an.id_docum_serial = doc.id_docum_serial "+
-    " and an.id_docum = doc.id_docum order by an.id_docum,an.id_docum_serial,an.descripcion ') "+
-    " as newTable(folio_entrada character varying,id_docum integer,fecha_doc date,nombre_archivo text,descripcion character varying, id_docum_serial integer, asunto text) "
+    " password="+password+"','select ane.fecha_doc,ane.nombre_archivo,ane.descripcion,ane.id_docum_serial,doc.asunto,doc.id_docum,doc.folio_entrada"+
+    " from documentos.anexos as ane,documentos.documento as doc  "+
+    " where "+@fecha+" and ane.id_docum_serial=doc.id_docum_serial')  "+
+    #" order by an.id_docum,an.id_docum_serial,an.descripcion ') "+
+    "as newTable(fecha_doc date,nombre_archivo character varying,descripcion character varying,id_docum_serial integer,"+
+    "asunto character varying, id_docum character varying,folio_entrada character varying)"+
+    "order by id_docum_serial asc"
+    #@consulta="select * from dblink(')"
+
+    logger.debug "-**/************************************/------- "+@consulta.to_s
 
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
-    if @arreglo.count < 10     
-      @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>1)
-    else  
+    if @arreglo.count > 10     
       @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
+      @sin_pagina=false
+    else 
+      @sin_pagina=true
     end
   end
 
@@ -126,6 +137,6 @@ class InformeCtrlDocumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def informe_ctrl_docum_params
-      params.require(:informe_ctrl_docum).permit(:fecha_doc, :herramientum_id, :nombre_informe, :user_id)
+      params.require(:informe_ctrl_docum).permit(:rango,:fecha_ini,:fecha_fin,:fecha_doc, :herramientum_id, :nombre_informe, :user_id)
     end
 end

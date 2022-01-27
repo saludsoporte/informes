@@ -55,4 +55,6 @@
     </table>
   </div>
 </div>
-<% @obje = @arreglo %>
+<% unless @sin_pagina %>
+  <% @obje = @arreglo %>
+<% end %>

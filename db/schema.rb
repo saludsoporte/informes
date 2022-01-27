@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_211002) do
+ActiveRecord::Schema.define(version: 2022_01_26_161628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 2022_01_06_211002) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "fecha_ini"
+    t.date "fecha_fin"
+    t.boolean "rango", default: false
     t.index ["herramientum_id"], name: "index_informe_ctrl_docums_on_herramientum_id"
     t.index ["user_id"], name: "index_informe_ctrl_docums_on_user_id"
   end

@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="row row-cols-2">
+  <div class="row row-cols-3">
     <%= form.text_field :user_id,value:current_user.id,id: :u,class: :"form-control",readonly:true ,hidden:true%>
     <div class="form-floating">
       <div class="form-control"><%= current_user.login %></div>
@@ -24,12 +24,31 @@
       <%= form.text_field :nombre_informe,id: :n,class: :"form-control"%>
       <%= form.label :nombre_informe,for: :n%>
     </div>
-    <div class="form-floating">
+  </div><br>
+  <div>
+    <label>Rango </label>
+    <label class="switch">      
+      <%= form.check_box :rango ,id: :"rango" %>
+      <span class="slider round">&nbsp;sí&nbsp;&nbsp;&nbsp;&nbsp;no</span>
+    </label>
+  </div>
+  <br>
+  <div class="row row-cols-3">
+    <div class="form-floating" id="fecha_doc">
       <%= form.date_field :fecha_doc ,id: :"fecha",class: :"form-control" %>
       <%= form.label :"Fecha de Consulta de Documentos",for: :"fecha" %>
+    </div>
+    <div class="form-floating" id="fecha_ini">
+      <%= form.date_field :fecha_ini ,id: :"f_ini",class: :"form-control" %>
+      <%= form.label :"Fecha de Inicio ",for: :"fecha" %>
+    </div>
+    <div class="form-floating" id="fecha_fin">
+      <%= form.date_field :fecha_fin ,id: :"f_fin",class: :"form-control" %>
+      <%= form.label :"Fecha de Fin",for: :"fecha" %>
     </div>
   </div>
   <div class="mb-3"><br>
     <%= form.submit "Guardar Entrada", class: :"btn btn-sm btn-success" %>
   </div>
 <% end %>
+<%= javascript_pack_tag "informe_ctrl_docums.js" %>
