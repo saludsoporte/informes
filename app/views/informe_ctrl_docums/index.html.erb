@@ -4,13 +4,12 @@
     <h3>Informe Control Documental</h3>
     <%= link_to 'Nueva entrada de informe', new_informe_ctrl_docum_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-       
   <table class="container table table-dark">
     <thead>
       <tr>
         <th>Nombre informe</th>
         <th>Fecha de Consulta</th>
-        <th>Herramienta</th>        
+        <th>Herramienta</th>
         <th>User</th>
         <th colspan="3"></th>
       </tr>
@@ -19,12 +18,17 @@
       <% @informe_ctrl_docums.each do |informe_ctrl_docum| %>
         <tr>
           <td><%= link_to informe_ctrl_docum.nombre_informe,informe_ctrl_docum,class: :"btn btn-sm btn-light" %></td>
-          <td><%= informe_ctrl_docum.fecha_doc %></td>
-          <td><%= informe_ctrl_docum.herramientum.nombre_sistema %></td>        
+          <td>
+            <% if informe_ctrl_docum.rango %>
+              <%= informe_ctrl_docum.fecha_ini %> - <%= informe_ctrl_docum.fecha_fin %>
+            <% else %>
+              <%= informe_ctrl_docum.fecha_doc %></td>
+            <% end %>            
+          <td><%= informe_ctrl_docum.herramientum.nombre_sistema %></td>
           <td><%= informe_ctrl_docum.user.login %></td>
           <td><%= link_to 'Ver', informe_ctrl_docum,class: :"btn btn-sm btn-light" %></td>
           <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_informe_ctrl_docum_path(informe_ctrl_docum) %></td>
-          <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), informe_ctrl_docum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), informe_ctrl_docum, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
         </tr>
       <% end %>
     </tbody>

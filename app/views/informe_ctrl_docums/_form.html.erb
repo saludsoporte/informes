@@ -24,16 +24,18 @@
       <%= form.text_field :nombre_informe,id: :n,class: :"form-control"%>
       <%= form.label :nombre_informe,for: :n%>
     </div>
-  </div><br>
+  </div>
+  <br>
   <div>
     <label>Rango </label>
-    <label class="switch">      
+    <label class="switch">
       <%= form.check_box :rango ,id: :"rango" %>
       <span class="slider round">&nbsp;sí&nbsp;&nbsp;&nbsp;&nbsp;no</span>
     </label>
   </div>
   <br>
   <div class="row row-cols-3">
+   
     <div class="form-floating" id="fecha_doc">
       <%= form.date_field :fecha_doc ,id: :"fecha",class: :"form-control" %>
       <%= form.label :"Fecha de Consulta de Documentos",for: :"fecha" %>

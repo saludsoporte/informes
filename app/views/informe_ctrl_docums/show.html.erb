@@ -11,10 +11,6 @@
       <label for="u" >Usuario</label>
     </div>
     <div class="form-floating col">
-      <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_doc %></div>
-      <label for="f">Fecha Documento</label>
-    </div>
-    <div class="form-floating col">
       <div id="h" class="form-control"><%= @informe_ctrl_docum.herramientum.nombre_sistema %></div>
       <label for="h">Herramienta</label>
     </div>
@@ -22,18 +18,35 @@
       <div id="i" class="form-control"><%= @informe_ctrl_docum.nombre_informe %></div>
       <label for="i">Nombre del Informe</label>
     </div>
+    <% if @informe_ctrl_docum.rango %>
+      <div class="form-floating col">
+      </div>
+      <div class="form-floating col">
+        <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_ini %></div>
+        <label for="f">Fecha Inicial</label>
+      </div>
+      <div class="form-floating col">
+        <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_fin %></div>
+        <label for="f">Fecha Final</label>
+      </div>
+    <% else %>
+      <div class="form-floating col">
+        <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_doc %></div>
+        <label for="f">Fecha Documento</label>
+      </div>
+    <% end %>
   </div>
   <div>
     <br>
     <table class="table table-dark ">
       <thead >
-      <th>Folio de Entrada</th>
+        <th>Folio de Entrada</th>
         <th>Id docum</th>
         <th>Asunto</th>
         <th>Serial del Documento</th>
         <th>Nombre Archivo</th>
         <th>Descripción</th>
-        <th>Descarga</th>        
+        <th>Descarga</th>
       </thead>
       <tbody>
         <% @arreglo.each do |a| %>

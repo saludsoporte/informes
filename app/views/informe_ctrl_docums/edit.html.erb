@@ -4,5 +4,19 @@
     <%= link_to 'Ver', @informe_ctrl_docum,class: :"btn btn-sm btn-outline-dark" %> |
     <%= link_to 'Regresar', informe_ctrl_docums_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
+  <% if @informe_ctrl_docum.rango %>
+    <script>
+      $("#fecha_doc").hide();
+      $("#fecha_ini").show();
+      $("#fecha_fin").show();
+      $("#fecha").val("");
+    </script>
+  <% else %>
+    <script>
+      $("#fecha_doc").show();
+      $("#fecha_ini").hide();
+      $("#fecha_fin").hide();
+    </script>
+  <% end %>
   <%= render 'form', informe_ctrl_docum: @informe_ctrl_docum %>
 </div>
