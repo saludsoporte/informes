@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tabla User Ids</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Herramientum</th>
+      <th>Id user</th>
+      <th>Nombre herramienta</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tabla_user_ids.each do |tabla_user_id| %>
+      <tr>
+        <td><%= tabla_user_id.user_id %></td>
+        <td><%= tabla_user_id.herramientum_id %></td>
+        <td><%= tabla_user_id.id_user %></td>
+        <td><%= tabla_user_id.nombre_herramienta %></td>
+        <td><%= link_to 'Show', tabla_user_id %></td>
+        <td><%= link_to 'Edit', edit_tabla_user_id_path(tabla_user_id) %></td>
+        <td><%= link_to 'Destroy', tabla_user_id, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tabla User', new_tabla_user_id_path %>

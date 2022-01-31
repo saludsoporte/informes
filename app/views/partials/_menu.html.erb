@@ -1,9 +1,9 @@
 <nav class="navbar navbar-light bg-dark p-2   ">
   <div class="container-fluid">
     <button class="navbar-toggler boton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <%= image_tag 'menu_book_white_24dp' %>
-    </button>
-    <a class="navbar-brand" style="position:absolute;left:80px;color: azure;" href="#">Informes Generales</a>
+      <%= image_tag 'menu_book_white_24dp' %> <a class="navbar-brand" style="position:absolute;left:60px;color: azure;font-size:13px"> Menú</a>
+    </button>   
+    <a class="navbar-brand" style="position:absolute;left:110px;color: azure;" href="#">Informes Generales</a>
     <% if current_user%>
       <p class="navbar-brand"  style="color: azure; position:absolute;left:300px;top:25px" >Usuario: <%= link_to current_user.username , user_path(current_user.id)%></p>
     <% else %>
@@ -21,7 +21,7 @@
         </form>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <%= link_to raw("#{image_tag("house-door.svg")} Inicio"),"",class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown",role: :"button","data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
+            <%= link_to raw("#{image_tag("house-door.svg")} Informes"),"",class: :"nav-link dropdown-toggle",id: :"offcanvasNavbarDropdown",role: :"button","data-bs-toggle": :"dropdown","aria-expanded": :"false" %>
             <ul class="dropdown-menu" aria-labelledy="offcanvasNavbarDropdown">
               <li><%= link_to "Informe General",root_path,class: :"dropdown-item","aria-current": :"page"%></li>
               <li><hr class="nav-item-divider"></li>

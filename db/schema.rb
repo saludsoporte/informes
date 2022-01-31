@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_26_161628) do
+ActiveRecord::Schema.define(version: 2022_01_31_220202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -211,6 +211,17 @@ ActiveRecord::Schema.define(version: 2022_01_26_161628) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tabla_user_ids", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "herramientum_id", null: false
+    t.string "id_user"
+    t.string "nombre_herramienta"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["herramientum_id"], name: "index_tabla_user_ids_on_herramientum_id"
+    t.index ["user_id"], name: "index_tabla_user_ids_on_user_id"
+  end
+
   create_table "tipo_unidads", force: :cascade do |t|
     t.string "abreviatura"
     t.string "nombre"
@@ -283,6 +294,8 @@ ActiveRecord::Schema.define(version: 2022_01_26_161628) do
   add_foreign_key "relacion_entrada_unidads", "unidads"
   add_foreign_key "relacion_herramienta", "herramienta"
   add_foreign_key "relacion_herramienta", "informe_generals"
+  add_foreign_key "tabla_user_ids", "herramienta"
+  add_foreign_key "tabla_user_ids", "users"
   add_foreign_key "unidads", "entidads"
   add_foreign_key "unidads", "tipo_unidads"
   add_foreign_key "users", "personals"

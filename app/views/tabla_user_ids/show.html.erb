@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @tabla_user_id.user_id %>
+</p>
+
+<p>
+  <strong>Herramientum:</strong>
+  <%= @tabla_user_id.herramientum_id %>
+</p>
+
+<p>
+  <strong>Id user:</strong>
+  <%= @tabla_user_id.id_user %>
+</p>
+
+<p>
+  <strong>Nombre herramienta:</strong>
+  <%= @tabla_user_id.nombre_herramienta %>
+</p>
+
+<%= link_to 'Edit', edit_tabla_user_id_path(@tabla_user_id) %> |
+<%= link_to 'Back', tabla_user_ids_path %>

@@ -26,7 +26,7 @@
             <% end %>            
           <td><%= informe_ctrl_docum.herramientum.nombre_sistema %></td>
           <td><%= informe_ctrl_docum.user.login %></td>
-          <td><%= link_to 'Ver', informe_ctrl_docum,class: :"btn btn-sm btn-light" %></td>
+          <td><%= link_to 'Ver', informe_ctrl_docum_path(informe_ctrl_docum.id),class: :"btn btn-sm btn-light" %></td>
           <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_informe_ctrl_docum_path(informe_ctrl_docum) %></td>
           <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), informe_ctrl_docum, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
         </tr>

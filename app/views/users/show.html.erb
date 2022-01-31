@@ -6,33 +6,36 @@
 <div class="container">
   <div class="row row-cols-2 row-cols g-2 ">
     <div class="col">
-    <label>Email: </label>
-      <div class="p-3 border bg-light">        
+      <label>Email: </label>
+      <div class="p-3 border bg-light">
         <%= @user.email %></div>
     </div>
     <div class="col">
-    <label>Nombre de Usuario: </label>
+      <label>Nombre de Usuario: </label>
       <div class="p-3 border bg-light"><%= @user.username %></div>
     </div>
     <div class="col">
-    <label>Unidad: </label>
+      <label>Unidad: </label>
       <div class="p-3 border bg-light"><%= @user.unidad %></div>
     </div>
     <div class="col">
-    <label>Area: </label>
+      <label>Area: </label>
       <div class="p-3 border bg-light"> <%= @user.area %></div>
     </div>
     <div class="col">
-    <label>Dirección: </label>
+      <label>Dirección: </label>
       <div class="p-3 border bg-light"><%= @user.direccion %></div>
     </div>
     <div class="col">
-    <label>Subdirección: </label>
+      <label>Subdirección: </label>
       <div class="p-3 border bg-light"><%= @user.subdireccion %></div>
     </div>
     <div class="col">
-    <label>Departamento: </label>
+      <label>Departamento: </label>
       <div class="p-3 border bg-light"><%= @user.departamento %></div>
+    </div>
+    <div class="col">
+      <%= link_to "Agregar Usuarios de Herramienta",   %>
     </div>
   </div>
 </div>

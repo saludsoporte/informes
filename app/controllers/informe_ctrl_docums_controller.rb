@@ -2,7 +2,7 @@ class InformeCtrlDocumsController < ApplicationController
   before_action :set_informe_ctrl_docum, only: %i[ show edit update destroy ]
 
   # GET /informe_ctrl_docums or /informe_ctrl_docums.json
-  def index
+  def index    
     @informe_ctrl_docums = InformeCtrlDocum.all
   end
 
@@ -17,11 +17,21 @@ class InformeCtrlDocumsController < ApplicationController
     @password = @herramienta.conexion_bd.password
     @dbname = @herramienta.conexion_bd.nombre_herramienta
     
-    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s)
+    if params[:serial].nil?
+      serial=""
+    else
+      serial=" ane.id_docum_serial ="+params[:serial]+" and "
+    end       
+    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s,serial)
 
   end
 
-  def listar_documentos(host,port,user,password,dbname,fecha,f_ini,f_fin)
+  def buscar_serial
+    @informe=InformeCtrlDocum.find(params[:id])
+    redirect_to informe_ctrl_docum_path(@informe.id,serial:params[:serial])
+  end
+  
+  def listar_documentos(host,port,user,password,dbname,fecha,f_ini,f_fin,serial)
     if @informe_ctrl_docum.rango
       @fecha="ane.fecha_doc >=''"+f_ini+"'' and ane.fecha_doc<=''"+f_fin+"''"
     else
@@ -30,7 +40,7 @@ class InformeCtrlDocumsController < ApplicationController
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
     " password="+password+"','select ane.fecha_doc,ane.nombre_archivo,ane.descripcion,ane.id_docum_serial,doc.asunto,doc.id_docum,doc.folio_entrada"+
     " from documentos.anexos as ane,documentos.documento as doc  "+
-    " where "+@fecha+" and ane.id_docum_serial=doc.id_docum_serial')  "+
+    " where "+@fecha+" and "+serial+" ane.id_docum_serial=doc.id_docum_serial')  "+
     #" order by an.id_docum,an.id_docum_serial,an.descripcion ') "+
     "as newTable(fecha_doc date,nombre_archivo character varying,descripcion character varying,id_docum_serial integer,"+
     "asunto character varying, id_docum character varying,folio_entrada character varying)"+

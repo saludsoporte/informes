@@ -5,6 +5,23 @@
     <%= link_to 'Editar', edit_informe_ctrl_docum_path(@informe_ctrl_docum),class: :"btn btn-sm btn-outline-dark"%> |
     <%= link_to 'Regresar', informe_ctrl_docums_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
+  <%= form_with url:informe_ctrl_docums_buscar_serial_path, method: :get do |f| %>
+    <div class="row g-3 align-items-center">
+      <div class="col-auto">
+        <label class="col-form-label">Buscar por Serial</label>
+      </div>
+      <div class="col-auto">
+        <%= f.number_field  :serial ,min:0, class: :"form-control" %>
+        <%= f.text_field :id,value:params[:id],hidden:true  %>
+      </div>
+      <div class="col-auto">
+        <%= f.submit "Buscar" , class: :"btn btn-sm btn-success" %>
+      </div>
+      <div class="col-auto">
+        <%= link_to "Limpiar busqueda", informe_ctrl_docum_path(params[:id]) , class: :"btn btn-sm btn-success" %>
+      </div>
+    </div>
+  <% end %><br>
   <div class="row row-cols-2">
     <div class="form-floating col">
       <div id="u" class="form-control"><%= @informe_ctrl_docum.user.login%></div>
@@ -36,14 +53,15 @@
       </div>
     <% end %>
   </div>
+  <br>
   <div>
     <br>
     <table class="table table-dark ">
       <thead >
         <th>Folio de Entrada</th>
         <th>Id docum</th>
-        <th>Asunto</th>
         <th>Serial del Documento</th>
+        <th>Asunto</th>
         <th>Nombre Archivo</th>
         <th>Descripción</th>
         <th>Descarga</th>
@@ -53,8 +71,8 @@
           <tr>
             <td><%= a["folio_entrada"] %></td>
             <td><%= a["id_docum"] %></td>
-            <td><%= a["asunto"] %></td>
             <td><%= a["id_docum_serial"]%></td>
+            <td><%= a["asunto"] %></td>
             <td><%= a["nombre_archivo"]!="" ? a["nombre_archivo"] : "No hay pdf guardado"  %></td>
             <td><%= a["descripcion"]%></td>
             <td>

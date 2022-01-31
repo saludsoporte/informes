@@ -1,0 +1,2 @@
+module TablaUserIdsHelper
+end
