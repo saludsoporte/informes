@@ -1,5 +1,18 @@
+<script>
+import $ from 'jquery'
+$(document).on('turbolinks:load', function() {
+alert("Adasdasd");
+    $('.select_user').select2({
+        placeholder: "Seleccione una herramienta",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
+
+})
+</script>
 <% if !@arreglo.nil? %>
-    <select id="select_arr" name="usuario" class="select form-control" >
+    <select id="select_arr" name="usuario" class="select_user form-control" >
         <% @arreglo.each do |a| %>
             <option value="<%= a["id_usuario"] %>">Id: <%= a["id_usuario"] %> - Login: <%= a["login"] %></option>            
         <% end %>

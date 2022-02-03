@@ -34,8 +34,20 @@
       <label>Departamento: </label>
       <div class="p-3 border bg-light"><%= @user.departamento %></div>
     </div>
-    <div class="col">
-      <%= link_to "Agregar Usuarios de Herramienta",   %>
-    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div >    
+    Para agregar usuarios, seleccione una Herramienta en el caja de opciones.
+    <br>
+    <%= form_with url:users_cargar_herramienta_path,id: :form, method: :get do |f| %>
+      <%= f.text_field :user_id,value: :"#{params[:id]}",hidden:true %>
+      <div class="row">
+        <div class="col" style="width:50px"> <%= f.select(:herramientum_id,Herramientum.all.collect{|herr|[herr.nombre_sistema,herr.id]},{include_blank:true},id: :select_herr,class: :"herramientas_to_user form-select ") %></div>
+        <div class="col">          
+        <%= f.submit "Crear Usuario" ,id: :submit,class: :"btn btn-sm btn-success" %></div>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -15,8 +15,10 @@ import "../packs/herramientum"
 import "../packs/plantillas"
 import "../packs/partidas"
 import "../packs/informe_generals"
+import "../packs/user"
 import 'select2'
 import 'select2/dist/css/select2.css'
+import 'popper.js'
 //import Rails from "@rails/ujs"
 //import Turbolinks from "turbolinks"
 //import * as ActiveStorage from "@rails/activestorage"
@@ -28,6 +30,11 @@ require("@rails/activestorage").start();
 require("channels");
 import $ from 'jquery'
 $(document).on('turbolinks:load', function() {
+
+    $('#myModal').on('shown.bs.modal', function() {
+        $('#myInput').trigger('focus')
+    })
+
 
     $("#rango").on('change', function() {
         //alert($("#rango").prop('checked'));
@@ -80,5 +87,11 @@ $(document).on('turbolinks:load', function() {
         remove: true
     });
 
+    $('usuarios_id').select2({
+        placeholder: "user",
+        allowClear: true,
+        clear: true,
+        remove: true
+    })
 
 })
