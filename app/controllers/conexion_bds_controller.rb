@@ -69,6 +69,6 @@ class ConexionBdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def conexion_bd_params
-      params.require(:conexion_bd).permit(:nombre_herramienta,:puerto,:host,:usuario,:password)
+      params.require(:conexion_bd).permit(:nombre_herramienta,:puerto,:host,:usuario,:password,:tabla_user)
     end
 end

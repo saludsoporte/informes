@@ -12,12 +12,17 @@
   <div class="form-floating">
     <%= form.text_field :user_id,value: :"#{params[:user].to_s}", class: :"form-control", placeholder: :"Login", hidden:true%>
   </div>
-  
-  <%= form.text_field :herramientum_id, value:Herramientum.find(params[:herramienta]).nombre_sistema,class: :"form-control", readonly:true %>      
-  <div class="form-control">
-    <%= form.label :id_user %>
-    <%= form.text_field :id_user %>
-  </div>  
+  <%= form.text_field :herramientum_id, value:params[:herramienta],class: :"form-control", hidden:true%>
+  <% if !params[:herramienta].nil? %>
+  <input type="text" value="<%=Herramientum.find(params[:herramienta]).nombre_sistema%>" class="form-control"  readonly="true">
+  <%# form.select(:user_id, @arreglo.collect {|n| [n["nombre"],n["id_personal"]]},{},class: :"select_user form-control") %>
+ 
+    <select class="select_user form-control" name="select_user">
+      <% @arreglo .each do |ar|%>        
+        <option value="<%= ar["id_persona"] %>"><%= ar["nombre"] %></option>
+      <% end %>
+    </select>
+   <% end %>
   <div class="actions">
     <%= form.submit %>
   </div>
