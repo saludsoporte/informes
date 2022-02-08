@@ -1,9 +1,9 @@
 <div class="container">
   <h3>Nueva entrada de Id de usuarios</h3>
-  <% if params[:user].nil?%>
+  <% if params[:user_id].nil?%>
     <%= link_to 'Regresar', tabla_user_ids_path,class: :"btn btn-sm btn-outline-dark" %>
   <% else %>
-    <%= link_to 'Regresar', user_path(params[:user]),class: :"btn btn-sm btn-outline-dark" %>
+    <%= link_to 'Regresar', user_path(params[:user_id]),class: :"btn btn-sm btn-outline-dark" %>
   <% end %>
   <%= render 'form', tabla_user_id: @tabla_user_id %>
 </div>

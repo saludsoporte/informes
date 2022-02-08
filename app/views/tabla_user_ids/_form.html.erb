@@ -1,3 +1,4 @@
+<% @herramienta=Herramientum.find(params[:herramienta])%>
 <%= form_with(model: tabla_user_id) do |form| %>
   <% if tabla_user_id.errors.any? %>
     <div id="error_explanation">
@@ -10,20 +11,37 @@
     </div>
   <% end %>
   <div class="form-floating">
-    <%= form.text_field :user_id,value: :"#{params[:user].to_s}", class: :"form-control", placeholder: :"Login", hidden:true%>
+    <%= form.text_field :user_id,value: :"#{params[:user_id].to_s}", class: :"form-control", placeholder: :"Login",hidden:true%>
   </div>
-  <%= form.text_field :herramientum_id, value:params[:herramienta],class: :"form-control", hidden:true%>
-  <% if !params[:herramienta].nil? %>
-  <input type="text" value="<%=Herramientum.find(params[:herramienta]).nombre_sistema%>" class="form-control"  readonly="true">
-  <%# form.select(:user_id, @arreglo.collect {|n| [n["nombre"],n["id_personal"]]},{},class: :"select_user form-control") %>
- 
-    <select class="select_user form-control" name="select_user">
-      <% @arreglo .each do |ar|%>        
-        <option value="<%= ar["id_persona"] %>"><%= ar["nombre"] %></option>
-      <% end %>
-    </select>
-   <% end %>
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+  <div class="row row-cols-2">
+    <div class="col">
+      <label>Herramieta Seleccionada </label>
+    </div>
+    <%= form.text_field :herramientum_id, value:params[:herramienta],class: :"form-control", hidden:true%>
+    <% if !params[:herramienta].nil? %>
+      <div class="col">
+        <input type="text" value="<%=Herramientum.find(params[:herramienta]).nombre_sistema%>" class="form-control"  readonly="true">
+        <%# form.select(:user_id, @arreglo.collect {|n| [n["nombre"],n["id_personal"]]},{},class: :"select_user form-control") %>
+      </div>
+      <div class="col">
+        <label>Usuarios de la herramienta</label>
+      </div>
+      <div class="col">
+        <select class="select_user form-control" name="select_user">
+          <% @arreglo.each do |ar|%>
+            <% case @herramienta.nombre_sistema %>
+            <% when "Control Documental" %>
+              <option value="<%= ar["id_persona"].to_s+"|"+ar["nombre"].to_s %>"><%= ar["nombre"] %></option>
+            <% when "Covid","Covid_test" %>
+              <option value="<%= ar["id_usuario"].to_s+"|"+ar["login"].to_s %>"><%= ar["login"] %></option>
+            <% end %>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+  <div class="col">
+    <%= form.submit "Guardar entrada ",class: :"btn btn-sm btn-success" %>
   </div>
+</div>
 <% end %>
