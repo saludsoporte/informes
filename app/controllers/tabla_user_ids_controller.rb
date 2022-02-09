@@ -37,8 +37,7 @@ class TablaUserIdsController < ApplicationController
     @consulta="SELECT * from dblink('host="+@host+" port="+@port+
     " user="+@user+" password="+@password+" dbname="+@dbname+" ', "+
     "'select "+@select+" from "+@herramienta.conexion_bd.tabla_user.to_s+"')  "+
-    " as newTable("+@tabla+")"    
-   
+    " as newTable("+@tabla+")"       
     logger.debug "*****************************************  "+@consulta
     @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
   end

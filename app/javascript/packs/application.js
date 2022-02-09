@@ -17,6 +17,7 @@ import "../packs/partidas"
 import "../packs/informe_generals"
 import "../packs/user"
 import "../packs/tabla_users"
+import "../packs/informe_ctrl_docums"
 import 'select2'
 import 'select2/dist/css/select2.css'
 import 'popper.js'

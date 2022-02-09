@@ -27,7 +27,12 @@
       <div id="u" class="form-control"><%= @informe_ctrl_docum.user.login%></div>
       <label for="u" >Usuario</label>
     </div>
-    <div class="form-floating col">
+    <div class="form-floating col">    
+      <input value=<%= @informe_ctrl_docum.herramientum.id%> id="herra_id" hidden="true">  
+      <input value=<%= @informe_ctrl_docum.id %> id="informe_id" hidden="true" >
+      <input value=<%= @informe_ctrl_docum.fecha_ini %> id="fecha_ini" hidden="true" >
+      <input value=<%= @informe_ctrl_docum.fecha_fin %> id="fecha_fin" hidden="true" >
+      <input value=<%= @informe_ctrl_docum.fecha_doc %> id="fecha_doc" hidden="true" >
       <div id="h" class="form-control"><%= @informe_ctrl_docum.herramientum.nombre_sistema %></div>
       <label for="h">Herramienta</label>
     </div>
@@ -35,9 +40,11 @@
       <div id="i" class="form-control"><%= @informe_ctrl_docum.nombre_informe %></div>
       <label for="i">Nombre del Informe</label>
     </div>
-    <% if @informe_ctrl_docum.rango %>
-      <div class="form-floating col">
-      </div>
+    <div class="form-floating col">
+      <div id="i" class="form-control"><%= TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id).nombre_user.titleize %></div>
+      <label for="i">Usuario de la Herramienta</label>
+    </div>
+    <% if @informe_ctrl_docum.rango %>      
       <div class="form-floating col">
         <div id="f" class="form-control"><%= @informe_ctrl_docum.fecha_ini %></div>
         <label for="f">Fecha Inicial</label>
@@ -52,40 +59,15 @@
         <label for="f">Fecha Documento</label>
       </div>
     <% end %>
-  </div>
-  <br>
-  <div>
-    <br>
-    <table class="table table-dark ">
-      <thead >
-        <th>Folio de Entrada</th>
-        <th>Id docum</th>
-        <th>Serial del Documento</th>
-        <th>Asunto</th>
-        <th>Nombre Archivo</th>
-        <th>Descripción</th>
-        <th>Descarga</th>
-      </thead>
-      <tbody>
-        <% @arreglo.each do |a| %>
-          <tr>
-            <td><%= a["folio_entrada"] %></td>
-            <td><%= a["id_docum"] %></td>
-            <td><%= a["id_docum_serial"]%></td>
-            <td><%= a["asunto"] %></td>
-            <td><%= a["nombre_archivo"]!="" ? a["nombre_archivo"] : "No hay pdf guardado"  %></td>
-            <td><%= a["descripcion"]%></td>
-            <td>
-              <% unless a["nombre_archivo"]=="" %>
-                <%= link_to "Descargar", informe_ctrl_docums_descargar_archivo_path(id:params[:id],nombre:a["nombre_archivo"]) , class: :"btn btn-sm btn-light"%>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  </div> <br>
+  <select id="select" class="select_user form-control" name="select_user">
+    <% @arreglo_propietario.each do |ar|%>
+      <option value="<%= ar["id_persona"].to_s %>"><%= ar["acceso_a"].to_s+" => "+ar["nombre"].to_s.titleize %></option>
+    <% end %>
+  </select>
+    <div id="parcial"></div>
 </div>
-<% unless @sin_pagina %>
+<%# unless @sin_pagina %>
+<%= @sin_pagina%>
   <% @obje = @arreglo %>
-<% end %>
+<%# end %>

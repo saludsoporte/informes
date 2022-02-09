@@ -1,3 +1,17 @@
+<% if @informe_ctrl_docum.rango %>
+    <script>
+      $("#fecha_doc").hide();
+      $("#fecha_ini").show();
+      $("#fecha_fin").show();
+      $("#fecha").val("");
+    </script>
+  <% else %>
+    <script>
+      $("#fecha_doc").show();
+      $("#fecha_ini").hide();
+      $("#fecha_fin").hide();
+    </script>
+  <% end %>
 <div class="container">
   <div class="mb-3">
     <h3>Nueva entrada de informe Control Documental</h3>

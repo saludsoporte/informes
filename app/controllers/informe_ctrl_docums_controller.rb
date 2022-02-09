@@ -22,8 +22,17 @@ class InformeCtrlDocumsController < ApplicationController
     else
       serial=" ane.id_docum_serial ="+params[:serial]+" and "
     end       
-    listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s,serial)
+   # listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s,serial)
+    buscar_propietarios(@host,@port,@user,@password,@dbname)
+  end
 
+  def buscar_propietarios(host,port,user,password,dbname)
+    @proper=TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id)
+    @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
+    " password="+password+"','SELECT b.acceso_a,u.id_persona,u.nombre FROM carpetas.acceso_buzones as b,"+
+    "catalogos.personas_usuarios as u where b.usuario=''"+@proper.usuario+"'' and b.acceso_a=u.usuario') "+
+    "as newTable(acceso_a character varying,id_persona integer,nombre character varying)"
+    @arreglo_propietario=ActiveRecord::Base.connection.execute(@consulta).to_a
   end
 
   def buscar_serial
@@ -31,7 +40,19 @@ class InformeCtrlDocumsController < ApplicationController
     redirect_to informe_ctrl_docum_path(@informe.id,serial:params[:serial])
   end
   
-  def listar_documentos(host,port,user,password,dbname,fecha,f_ini,f_fin,serial)
+  def listar_documentos
+    @informe_ctrl_docum=InformeCtrlDocum.find(params[:informe_id])
+    @herramienta = Herramientum.find(params[:herramienta_id])
+    host = @herramienta.conexion_bd.host
+    port = @herramienta.conexion_bd.puerto
+    user = @herramienta.conexion_bd.usuario
+    password = @herramienta.conexion_bd.password
+    dbname = @herramienta.conexion_bd.nombre_herramienta
+    fecha=params[:fecha].to_s
+    f_ini=params[:f_ini].to_s
+    f_fin=params[:f_fin].to_s
+    serial=params[:serial].to_s
+
     if @informe_ctrl_docum.rango
       @fecha="ane.fecha_doc >=''"+f_ini+"'' and ane.fecha_doc<=''"+f_fin+"''"
     else
@@ -53,9 +74,12 @@ class InformeCtrlDocumsController < ApplicationController
     if @arreglo.count > 10     
       @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
       @sin_pagina=false
+      logger.debug "///////////////////////////"
     else 
       @sin_pagina=true
     end
+
+    render :partial => "partials/documentos_por_user" , :obj => @arreglo 
   end
 
   def descargar_archivo    
