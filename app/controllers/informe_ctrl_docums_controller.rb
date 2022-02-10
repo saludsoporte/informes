@@ -22,7 +22,10 @@ class InformeCtrlDocumsController < ApplicationController
     else
       serial=" ane.id_docum_serial ="+params[:serial]+" and "
     end       
-   # listar_documentos(@host,@port,@user,@password,@dbname,@informe_ctrl_docum.fecha_doc.to_s,@informe_ctrl_docum.fecha_ini.to_s,@informe_ctrl_docum.fecha_fin.to_s,serial)
+    if params[:carga]
+      logger.debug "434343434343434343434"
+      listar_documentos
+    end
     buscar_propietarios(@host,@port,@user,@password,@dbname)
   end
 
@@ -36,12 +39,13 @@ class InformeCtrlDocumsController < ApplicationController
   end
 
   def buscar_serial
-    @informe=InformeCtrlDocum.find(params[:id])
+    @informe=InformeCtrlDocum.find(params[:informe_id])
+    logger.debug "222222222222222222222222222222"
     redirect_to informe_ctrl_docum_path(@informe.id,serial:params[:serial])
   end
   
   def listar_documentos
-    @informe_ctrl_docum=InformeCtrlDocum.find(params[:informe_id])
+    @informe_ctrl_docum=InformeCtrlDocum.find(params[:id])
     @herramienta = Herramientum.find(params[:herramienta_id])
     host = @herramienta.conexion_bd.host
     port = @herramienta.conexion_bd.puerto
@@ -49,8 +53,8 @@ class InformeCtrlDocumsController < ApplicationController
     password = @herramienta.conexion_bd.password
     dbname = @herramienta.conexion_bd.nombre_herramienta
     fecha=params[:fecha].to_s
-    f_ini=params[:f_ini].to_s
-    f_fin=params[:f_fin].to_s
+    f_ini=params[:fecha_ini].to_s
+    f_fin=params[:fecha_fin].to_s
     serial=params[:serial].to_s
 
     if @informe_ctrl_docum.rango
@@ -79,7 +83,11 @@ class InformeCtrlDocumsController < ApplicationController
       @sin_pagina=true
     end
 
-    render :partial => "partials/documentos_por_user" , :obj => @arreglo 
+    #render :partial => "partials/documentos_por_user" , :obj => @arreglo    
+  end
+
+  def cargarArchivos
+    redirect_to informe_ctrl_docum_path(params[:informe_id],carga:true)
   end
 
   def descargar_archivo    

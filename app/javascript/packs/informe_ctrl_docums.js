@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function() {
         var fecha = $("#fecha").val();
         var f_ini = $("#fecha_ini").val();
         var f_fin = $("#fecha_fin").val();
-        listar_documentos(id_user, h_id, inf, fecha, f_ini, f_fin);
+        // listar_documentos(id_user, h_id, inf, fecha, f_ini, f_fin);
 
     });
 
