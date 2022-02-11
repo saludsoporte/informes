@@ -5,38 +5,21 @@
     <%= link_to 'Editar', edit_informe_ctrl_docum_path(@informe_ctrl_docum),class: :"btn btn-sm btn-outline-dark"%> |
     <%= link_to 'Regresar', informe_ctrl_docums_path,class: :"btn btn-sm btn-outline-dark" %>
   </div>
-  <%= form_with url:informe_ctrl_docums_buscar_serial_path, method: :get do |f| %>
-    <div class="row g-3 align-items-center">
-      <div class="col-auto">
-        <label class="col-form-label">Buscar por Serial</label>
-      </div>
-      <div class="col-auto">
-        <%= f.number_field  :serial ,min:0, class: :"form-control" %>
-        <%= f.text_field :id,value:params[:id],hidden:true  %>
-      </div>
-      <div class="col-auto">
-        <%= f.submit "Buscar" , class: :"btn btn-sm btn-success" %>
-      </div>
-      <div class="col-auto">
-        <%= link_to "Limpiar busqueda", informe_ctrl_docum_path(params[:id]) , class: :"btn btn-sm btn-success" %>
-      </div>
-    </div>
-  <% end %><br>
-  <div class="row row-cols-2">
-    <div class="form-floating col">
-      <div id="u" class="form-control"><%= @informe_ctrl_docum.user.login%></div>
+  <div class="row g-3 align-items-center" style="font-size:15px">
+    <div class="form-floating col" >
+      <div id="u" class="form-control" style="font-size:12px"><%= @informe_ctrl_docum.user.login%></div>
       <label for="u" >Usuario</label>
     </div>
     <div class="form-floating col">
-      <div id="h" class="form-control"><%= @informe_ctrl_docum.herramientum.nombre_sistema %></div>
+      <div id="h" class="form-control" style="font-size:12px"><%= @informe_ctrl_docum.herramientum.nombre_sistema %></div>
       <label for="h">Herramienta</label>
     </div>
-    <div class="form-floating col">
-      <div id="i" class="form-control"><%= @informe_ctrl_docum.nombre_informe %></div>
+    <div class="form-floating col"  style="font-size:11px">
+      <div id="i" class="form-control" style="font-size:12px"><%= @informe_ctrl_docum.nombre_informe %></div>
       <label for="i">Nombre del Informe</label>
     </div>
-    <div class="form-floating col">
-      <div id="i" class="form-control"><%= TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id).nombre_user.titleize %></div>
+    <div class="form-floating col"  style="font-size:11px">
+      <div id="i" class="form-control" style="font-size:12px"><%= TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id).nombre_user.titleize %></div>
       <label for="i">Usuario de la Herramienta</label>
     </div>
     <% if @informe_ctrl_docum.rango %>
@@ -63,18 +46,51 @@
     <%= f.text_field :fecha_fin,value:@informe_ctrl_docum.fecha_fin, hidden:"true" %>
     <%= f.text_field :fecha_doc,value:@informe_ctrl_docum.fecha_doc, hidden:"true" %>
     <div class="row g-3 align-items-center">
-      <div class="col-auto"><%= f.select(:id_persona,@arreglo_propietario.collect{|ar|[ar["acceso_a"]+" => "+ar["nombre"].to_s.titleize,ar["acceso_a"]]},{include_blank:true}, id: :"select",class: :"select_user form-select ")%>
-      </div>
-      <div class="col-auto"><%= f.submit "Cargar Usuarios",class: :"btn btn-sm btn-success" %>
+      <div class="col-auto"><%= f.select(:id_persona,@arreglo_propietario.collect{|ar|[ar["acceso_a"]+" => "+ar["nombre"].to_s.titleize,ar["id_persona"]]},{include_blank:true,selected:params[:id_persona]}, id: :"select",class: :"select_user form-select ")%>      </div>
+      <div class="col-auto">Serial(opcional) </div>
+      <div class="col-auto"> <%= f.number_field  :serial ,min:0, class: :"form-control" %> </div>
+      <div class="col-auto"><%= f.submit "Buscar",class: :"btn btn-sm btn-success" %>
       </div>
     </div>
   <% end %>
+  <br>
   <!-- <select id="select" class="select_user form-control" name="select_user">
     <%# @arreglo_propietario.each do |ar|%>
       <option value="<%# ar["id_persona"].to_s %>"><%# ar["acceso_a"].to_s+" => "+ar["nombre"].to_s.titleize %></option>
     <%# end %>
   </select> -->
-  <div id="parcial"></div>
+  <%if params[:carga] %>
+    <table class="table table-dark " style="font-size:13px">
+      <thead >
+        <th>Fecha Documento</th>
+        <th>Folio de Entrada</th>
+        <th>Id docum</th>
+        <th>Serial del Documento</th>
+        <th>Asunto</th>
+        <th>Nombre Archivo</th>
+        <th>Descripción</th>
+        <th>Descarga</th>
+      </thead>
+      <tbody>
+        <% @arreglo.each do |a| %>
+          <tr>
+            <td><%= a["fecha_doc"]%></td>
+            <td><%= a["folio_entrada"] %></td>
+            <td><%= a["id_docum"] %></td>
+            <td><%= a["id_docum_serial"]%></td>
+            <td><%= a["asunto"] %></td>
+            <td><%= a["nombre_archivo"]!="" ? a["nombre_archivo"] : "No hay pdf guardado"  %></td>
+            <td><%= a["descripcion"]%></td>
+            <td>
+              <% unless a["nombre_archivo"]=="" %>
+                <%= link_to "Descargar", informe_ctrl_docums_descargar_archivo_path(id:params[:id],nombre:a["nombre_archivo"],fecha_doc:a["fecha_doc"]) , class: :"btn btn-sm btn-light"%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
 <% unless @sin_pagina %>
   <% @obje = @arreglo %>

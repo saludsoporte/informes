@@ -20,7 +20,7 @@ class InformeCtrlDocumsController < ApplicationController
     if params[:serial].nil?
       serial=""
     else
-      serial=" ane.id_docum_serial ="+params[:serial]+" and "
+      serial=" an.id_docum_serial ="+params[:serial]+" and "
     end       
     if params[:carga]
       logger.debug "434343434343434343434"
@@ -39,33 +39,47 @@ class InformeCtrlDocumsController < ApplicationController
   end
 
   def buscar_serial
-    @informe=InformeCtrlDocum.find(params[:informe_id])
-    logger.debug "222222222222222222222222222222"
-    redirect_to informe_ctrl_docum_path(@informe.id,serial:params[:serial])
+    @informe=InformeCtrlDocum.find(params[:id])
+     
+    if params[:carga]=true 
+      logger.debug "222222222222222222222222222222" 
+      redirect_to informe_ctrl_docum_path(@informe.id,serial:params[:serial],carga:true,id_persona:params[:id_persona])
+    end
+
+    
   end
   
   def listar_documentos
     @informe_ctrl_docum=InformeCtrlDocum.find(params[:id])
-    @herramienta = Herramientum.find(params[:herramienta_id])
+    @herramienta = @informe_ctrl_docum.herramientum
     host = @herramienta.conexion_bd.host
     port = @herramienta.conexion_bd.puerto
     user = @herramienta.conexion_bd.usuario
     password = @herramienta.conexion_bd.password
     dbname = @herramienta.conexion_bd.nombre_herramienta
-    fecha=params[:fecha].to_s
-    f_ini=params[:fecha_ini].to_s
-    f_fin=params[:fecha_fin].to_s
-    serial=params[:serial].to_s
+    fecha=@informe_ctrl_docum.fecha_doc
+    f_ini=@informe_ctrl_docum.fecha_ini
+    f_fin=@informe_ctrl_docum.fecha_fin
+    
 
     if @informe_ctrl_docum.rango
-      @fecha="ane.fecha_doc >=''"+f_ini+"'' and ane.fecha_doc<=''"+f_fin+"''"
+      @fecha="an.fecha_doc >=''"+f_ini.to_s+"'' and an.fecha_doc<=''"+f_fin.to_s+"''"
     else
-      @fecha="ane.fecha_doc=''"+fecha+"''"
+      @fecha="an.fecha_doc=''"+fecha.to_s+"''"
     end
+
+    if params[:serial]!=''
+      serial=" an.id_docum_serial="+params[:serial]+" and "
+    else
+      serial=""
+    end
+
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
-    " password="+password+"','select ane.fecha_doc,ane.nombre_archivo,ane.descripcion,ane.id_docum_serial,doc.asunto,doc.id_docum,doc.folio_entrada"+
-    " from documentos.anexos as ane,documentos.documento as doc  "+
-    " where "+@fecha+" and "+serial+" ane.id_docum_serial=doc.id_docum_serial')  "+
+    " password="+password+"','select distinct an.fecha_doc,an.nombre_archivo,an.descripcion,an.id_docum_serial,"+
+    " doc.asunto,doc.id_docum,doc.folio_entrada "+
+    " FROM documentos.destinatarios as de inner join documentos.documento as doc on de.id_docum_serial=doc.id_docum_serial "+
+    " inner join documentos.anexos as an on doc.id_docum_serial=an.id_docum_serial	"+
+    " where "+@fecha.to_s+" and de.id_personal="+params[:id_persona]+" and "+serial.to_s+" an.id_docum_serial=doc.id_docum_serial')  "+
     #" order by an.id_docum,an.id_docum_serial,an.descripcion ') "+
     "as newTable(fecha_doc date,nombre_archivo character varying,descripcion character varying,id_docum_serial integer,"+
     "asunto character varying, id_docum character varying,folio_entrada character varying)"+
@@ -87,37 +101,38 @@ class InformeCtrlDocumsController < ApplicationController
   end
 
   def cargarArchivos
-    redirect_to informe_ctrl_docum_path(params[:informe_id],carga:true)
+    
+    redirect_to informe_ctrl_docum_path(params[:informe_id],carga:true,id_persona:params[:id_persona],serial:params[:serial])
   end
 
   def descargar_archivo    
-    @fecha=Time.parse(InformeCtrlDocum.find(params[:id]).updated_at.to_s)
+    @fecha=Time.parse(params[:fecha_doc].to_s)
     @mes=""
     case @fecha.month 
     when 1  
       @mes="01"
     when 2 
-      @mes="febrero"
+      @mes="02"
     when 3  
-      @mes="marzo"
+      @mes="03"
     when 4 
-      @mes="abril"
+      @mes="04"
     when 5  
-      @mes="mayo"
+      @mes="05"
     when 6 
-      @mes="junio"
+      @mes="06"
     when 7  
-      @mes="julio"
+      @mes="07"
     when 8 
-      @mes="agosto"
+      @mes="08"
     when 9  
-      @mes="septiembre"
+      @mes="09"
     when 10 
-      @mes="octubre"
+      @mes="10"
     when 11  
-      @mes="noviembre"
+      @mes="11"
     else
-      @mes="diciembre"
+      @mes="12"
     end
     send_file "/mnt/respaldos/Archivos_control_docum_respaldo/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
     #send_file "/home/tomcat/ArchivosControlDocumental/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
