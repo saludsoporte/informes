@@ -1,20 +1,18 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
   <%= form_with url: informe_generals_buscar_informe_path, method: :get do |f| %>
-    <div class="row row-cols-3">
-      <div class="col">
+    <div class="row g-3 align-items-center">
+      <div class="col-auto">
         <h4>Informe General</h4>
       </div>
-      <div class="col-g2 row">
-        <label>Filtrar por sistema</label>
-        <div class="col">
-          <%= f.select(:herramientum_id,Herramientum.all.collect{|h| [h.nombre_sistema,h.id]},{include_blank:true,selected:0},class: :"form-control herramientas")%>
-        </div>
-        <div class="col">
-          <%= f.submit "buscar", class: :"btn btn-sm btn-outline-dark" %>
-        </div>
+      <div class="col-auto">Filtrar por sistema</div>
+      <div class="col-auto">
+        <%= f.select(:herramientum_id,Herramientum.all.collect{|h| [h.nombre_sistema,h.id]},{include_blank:true,selected:0},class: :"form-control herramientas")%>
       </div>
-      <div class="col"><%= link_to 'Nuevo Informe General', new_informe_general_path,class: :"color-letra btn btn-sm btn-success", style: :"float: right;" %></div>
+      <div class="col-auto">
+        <%= f.submit "buscar", class: :"btn btn-sm btn-outline-dark" %>
+      </div>
+      <div class="col-auto"><%= link_to 'Nuevo Informe General', new_informe_general_path,class: :"color-letra btn btn-sm btn-success", style: :"float: right;" %></div>
     </div>
   <% end %>
   <br>
@@ -22,7 +20,7 @@
   <%# form_for @informe_generals, url: informe_generals_path, html: { multipart: true } do |form| %>
     <%# form.file_field :pdf %>
     <%# form.submit %>
-  <%# end %>
+    <%# end %>
     <% if can? :read, InformeGeneral %>
       <table class="table table-stripedless table-dark">
         <thead class="table-dark">
