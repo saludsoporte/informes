@@ -8,12 +8,19 @@ class TablaUserIdsController < ApplicationController
 
   # GET /tabla_user_ids/1 or /tabla_user_ids/1.json
   def show
+
   end
 
   # GET /tabla_user_ids/new
   def new
     @tabla_user_id = TablaUserId.new
+    generarArreglo
+    
+  end
+
+  def generarArreglo
     @herramienta=Herramientum.find(params[:herramienta])
+    logger.debug "*/*/*-/*-/-*/-/-/-/--/- "+@herramienta.nombre_sistema.to_s
     @host = @herramienta.conexion_bd.host
     @port = @herramienta.conexion_bd.puerto
     @user = @herramienta.conexion_bd.usuario
@@ -25,6 +32,8 @@ class TablaUserIdsController < ApplicationController
     case @herramienta.nombre_sistema
     when "Covid","Covid_test"
       @select =covid_meta
+    when "Control Documental"
+      @select=ctrldocum_meta
     end
     case @herramienta.nombre_sistema
     when "Control Documental"
@@ -34,14 +43,29 @@ class TablaUserIdsController < ApplicationController
     when "Sesalud"   
     end    
 
-    @consulta="SELECT * from dblink('host="+@host+" port="+@port+
-    " user="+@user+" password="+@password+" dbname="+@dbname+" ', "+
-    "'select "+@select+" from "+@herramienta.conexion_bd.tabla_user.to_s+"')  "+
-    " as newTable("+@tabla+")"       
-    logger.debug "*****************************************  "+@consulta
-    @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    case @herramienta.nombre_sistema
+    when "Control Documental"
+      @where=ctrldocum_where
+    when "Covid_test","Covid"
+      @tabla=covid
+    when "Sesalud"   
+    end    
+    
+    if @tabla!=""
+      @consulta="SELECT * from dblink('host="+@host+" port="+@port+
+      " user="+@user+" password="+@password+" dbname="+@dbname+" ', "+
+      "'select "+@select+" from "+@herramienta.conexion_bd.tabla_user.to_s+" "+@where+"')  "+
+      " as newTable("+@tabla+")"       
+      logger.debug "*****************************************  "+@consulta
+      @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    end
   end
-
+  def ctrldocum_meta
+    @columnas="id_persona,nombre,puesto,titulo,direccion,contrasena,usuario"
+  end
+  def ctrldocum_where
+    @condicion="where usuario is not  null and contrasena is not  null and usuario != '''' "
+  end
   def ctrldocum_tabla
     @columnas=" id_persona integer, nombre character varying,puesto character varying,titulo character varying,direccion character varying,contrasena character varying,"+
     " usuario character varying "
@@ -50,16 +74,22 @@ class TablaUserIdsController < ApplicationController
   def Sesalud
     
   end
-
   def covid
     @columnas="id_usuario integer,id_unidad integer,curp character varying,login character varying"
   end
+
   def covid_meta
     @columnas="id_usuario,id_unidad,curp,login"
   end
-
+  def covid_where
+    @condicion="where login is not null"
+  end
+  def covid_tabla
+    @columnas=" id_usuario integer,id_unidad integer,curp character varying,login character varying,rol character varying,fecha_agr date"
+  end
   # GET /tabla_user_ids/1/edit
   def edit
+    generarArreglo
   end
 
   # POST /tabla_user_ids or /tabla_user_ids.json

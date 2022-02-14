@@ -8,4 +8,6 @@ $(document).on('turbolinks:load', function() {
         remove: true
     });
 
+    $('.select_user').val('').trigger("change");
+
 })

@@ -28,7 +28,7 @@
     <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
   </div>
   <div class="mb-3">
-    <%= form.select(:herramientum_id,Herramientum.all.collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas_informe") %>
+    <%= form.select(:herramientum_id,Herramientum.where("nombre_sistema != 'Control Documental'").collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas_informe") %>
   </div>
   <div class="mb-3 form-floating">
     <%= form.number_field :tipo_informe,value:1,min:1, max:5,id: :tipo,class: :"form-control", placeholder: :"Info Datos" %>
