@@ -10,7 +10,8 @@
         <th>Nombre informe</th>
         <th>Fecha de Consulta</th>
         <th>Herramienta</th>
-        <th>User</th>
+        <th>Usuario de la Herramienta</th>
+        <th>Creado por</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -22,9 +23,11 @@
             <% if informe_ctrl_docum.rango %>
               <%= informe_ctrl_docum.fecha_ini %> - <%= informe_ctrl_docum.fecha_fin %>
             <% else %>
-              <%= informe_ctrl_docum.fecha_doc %></td>
-            <% end %>            
+              <%= informe_ctrl_docum.fecha_doc %>
+            <% end %>
+          </td>
           <td><%= informe_ctrl_docum.herramientum.nombre_sistema %></td>
+          <td><%= TablaUserId.find_by(user_id:informe_ctrl_docum.user_id,herramientum_id:informe_ctrl_docum.herramientum.id).nombre_user %></td>
           <td><%= informe_ctrl_docum.user.login %></td>
           <td><%= link_to 'Ver', informe_ctrl_docum_path(informe_ctrl_docum.id),class: :"btn btn-sm btn-light" %></td>
           <td><%= link_to raw("#{image_tag("pencil-square.svg")} Editar"), edit_informe_ctrl_docum_path(informe_ctrl_docum) %></td>
