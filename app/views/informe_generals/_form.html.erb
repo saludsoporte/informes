@@ -9,36 +9,28 @@
       </ul>
     </div>
   <% end %>
-  <div class="mb-3">
-    <%# form.file_field :pdf %>
+  <div>Creado por: <%= current_user.username%> Usuario: <%= %> </div>
+  <div class="row ">
+    <%= form.text_field :user_id ,value:current_user.id ,id: :"usuario",class: :"form-control",placeholder: :"Usuario",hidden:true%>
+    <%= form.label :"Usuario actual",for: :usuario,hidden: :true %>
+    <div class="form-floating" >
+      <%= form.text_field :nombre,id: :nombre_i, id: :"nombre_i",class: :"form-control",placeholder: :"Nombre del Informe" %>
+      <%= form.label :"Nombre del informe",for: :nombre_i %>
+    </div>
+    <div class="col">
+      <%= form.label :"Tipo de Información",for: :tipo %>
+      <%= form.number_field :tipo_informe,value:1,min:1, max:5,id: :tipo,class: :"form-control", placeholder: :"Info Datos" %>
+    </div>
+    <div class="col" style="padding-top:25px;">
+      <%= form.select(:herramientum_id,Herramientum.where("nombre_sistema != 'Control Documental'").collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas_informe") %>
+    </div>
+    <div class="col" style="padding-top:25px;">
+      <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
+    </div>
+    <div  id="parcial">
+      <%= render :partial => "select_usuarios" , :obj => @arreglo %>
+    </div>
   </div>
-  <div class="mb-3 form-floating" >
-    <%= form.text_field :nombre,id: :nombre_i,class: :"form-control",placeholder: :"Nombre del Informe" %>
-    <%= form.label :"Nombre del informe",for: :nombre_i %>
-  </div>
-  <div class="mb-3 form-floating">
-    <%= form.text_field :user_id ,value:current_user.id ,class: :"form-control",placeholder: :"Usuario",hidden: :true %>
-    <%= form.label :"Usuario actual",for: :nombre %>
-  </div>
-  <div class="mb-3 form-floating">
-    <%# form.number_field :usuario_informe_id ,value:0, min:0 ,class: :"form-control",placeholder: :"Id de Usuario"%>
-    <%# form.label :"Id de usuario del Informe",for: :nombre %>
-  </div>
-  <div class="mb-3">
-    <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
-  </div>
-  <div class="mb-3">
-    <%= form.select(:herramientum_id,Herramientum.where("nombre_sistema != 'Control Documental'").collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas_informe") %>
-  </div>
-  <div class="mb-3 form-floating">
-    <%= form.number_field :tipo_informe,value:1,min:1, max:5,id: :tipo,class: :"form-control", placeholder: :"Info Datos" %>
-    <%= form.label :"Tipo de Información",for: :tipo %>
-  </div>
-  <div  id="parcial">
-    <%= render :partial => "select_usuarios" , :obj => @arreglo %>
-  </div>
-  <br>
-  <br>
   <br>
   <br>
   <div class="actions">

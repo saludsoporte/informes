@@ -7,7 +7,7 @@
       </div>
       <div class="col-auto">Filtrar por sistema</div>
       <div class="col-auto">
-        <%= f.select(:herramientum_id,Herramientum.all.collect{|h| [h.nombre_sistema,h.id]},{include_blank:true,selected:0},class: :"form-control herramientas")%>
+        <%= f.select(:herramientum_id,Herramientum.where("nombre_sistema != 'Control Documental'").all.collect{|h| [h.nombre_sistema,h.id]},{include_blank:true,selected:0},class: :"form-control herramientas")%>
       </div>
       <div class="col-auto">
         <%= f.submit "buscar", class: :"btn btn-sm btn-outline-dark" %>

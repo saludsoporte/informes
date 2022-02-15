@@ -34,21 +34,26 @@ class TablaUserIdsController < ApplicationController
       @select =covid_meta
     when "Control Documental"
       @select=ctrldocum_meta
+    when "Sesalud"
+      @select=sesalud_meta
     end
+
     case @herramienta.nombre_sistema
     when "Control Documental"
       @tabla=ctrldocum_tabla
     when "Covid_test","Covid"
-      @tabla=covid
-    when "Sesalud"   
+      @tabla=covid_tabla
+    when "Sesalud" 
+      @tabla=sesalud_tabla  
     end    
 
     case @herramienta.nombre_sistema
     when "Control Documental"
       @where=ctrldocum_where
     when "Covid_test","Covid"
-      @tabla=covid
+      @where=covid_where
     when "Sesalud"   
+      @where=sesalud_where
     end    
     
     if @tabla!=""
@@ -71,15 +76,18 @@ class TablaUserIdsController < ApplicationController
     " usuario character varying "
   end
 
-  def Sesalud
+  def sesalud_meta
+    @columnas="id_personal,login,serial_atencion,fecha_agr"
+  end
+  def sesalud_where
+    @condicion="where login is not null "
+  end
+  def sesalud_tabla
+    @columnas="id_personal integer,login character varying,serial_atencion integer,fecha_agr date"
+  end
     
-  end
-  def covid
-    @columnas="id_usuario integer,id_unidad integer,curp character varying,login character varying"
-  end
-
   def covid_meta
-    @columnas="id_usuario,id_unidad,curp,login"
+    @columnas="id_usuario,id_unidad,curp,login,rol,fecha_agr"
   end
   def covid_where
     @condicion="where login is not null"
