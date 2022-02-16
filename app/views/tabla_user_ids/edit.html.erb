@@ -1,7 +1,7 @@
 <div class="container">
   <h3>Editando entrada</h3>
   <%= link_to 'Ver', @tabla_user_id, class: :"btn btn-sm btn-outline-dark" %> |
-  <%= link_to 'Regresar', tabla_user_ids_path, class: :"btn btn-sm btn-outline-dark" %>
+  <%= link_to 'Regresar', user_path(params[:user_id]), class: :"btn btn-sm btn-outline-dark" %>
   <% @edit=true%>
   <%= render 'form', tabla_user_id: @tabla_user_id %>
 </div>

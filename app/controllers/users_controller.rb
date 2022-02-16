@@ -7,6 +7,17 @@ class UsersController < ApplicationController
   end
 
   def show
+    @consulta=""
+    @lista_user = TablaUserId.where(user_id:params[:id])
+    @lista_user.each_with_index do |l,i|
+      if i==@lista_user.count-1
+        @consulta=@consulta.to_s+l.herramientum_id.to_s
+      else
+        @consulta=@consulta.to_s+l.herramientum_id.to_s+","
+      end
+    end
+    logger.debug "******************* //////"+@consulta.to_s
+    @herramientas=Herramientum.where("id not in (#{@consulta}) ")
   end
 
   def edit

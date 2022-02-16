@@ -39,20 +39,26 @@
 <br>
 <div class="container">
   <div >
-    Para agregar usuarios, seleccione una Herramienta en el caja de opciones.
-    <br>
-    <%= form_with url:users_cargar_herramienta_path,id: :form, method: :get do |f| %>
-      <%= f.text_field :user_id,value: :"#{params[:id]}",hidden:true %>
-      <div class="row">
-        <div class="col" style="width:50px"> <%= f.select(:herramientum_id,Herramientum.all.collect{|herr|[herr.nombre_sistema,herr.id]},{include_blank:true},id: :select_herr,class: :"herramientas_to_user form-select ") %></div>
-        <div class="col">
-          <%= f.submit "Crear Usuario" ,id: :submit,class: :"btn btn-sm btn-success" %></div>
+    <% if @herramientas.count!=0%>
+      Para agregar usuarios, seleccione una Herramienta en el caja de opciones.
+      <br>
+      <%= form_with url:users_cargar_herramienta_path,id: :form, method: :get do |f| %>
+        <%= f.text_field :user_id,value: :"#{params[:id]}",hidden:true %>
+        <div class="row">
+          <div class="col" style="width:50px"> <%= f.select(:herramientum_id,@herramientas.collect{|herr|[herr.nombre_sistema,herr.id]},{include_blank:true},id: :select_herr,class: :"herramientas_to_user form-select ") %></div>
+          <div class="col">
+            <%= f.submit "Crear Usuario" ,id: :submit,class: :"btn btn-sm btn-success" %></div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="row" >
+        <div class="col">Ya tiene un usuario por herramienta disponibles</div>
       </div>
     <% end %>
   </div>
-</div><br>
+</div>
+<br>
 <div class="container">
-  <% @lista_user = TablaUserId.where(user_id:params[:id])%>
   <% unless @lista_user.nil? %>
     <table class="table ">
       <thead class="table-dark">
@@ -62,11 +68,12 @@
       </thead>
       <tbody>
         <% @lista_user.each do |l|%>
-        <tr>
-          <td><%= l.nombre_herramienta %></td>
-          <td><%= l.nombre_user %></td>
-          <td><%= link_to "Editar",edit_tabla_user_id_path(l.id,herramienta:l.herramientum_id),class: :"btn btn-sm btn-outline-dark" %></td>
-        </tr>
+          <tr>
+            <td><%= l.nombre_herramienta %></td>
+            <td><%= l.nombre_user %></td>
+            <td><%= link_to "Editar",edit_tabla_user_id_path(l.id,herramienta:l.herramientum_id,user_id:params[:id]),class: :"btn btn-sm btn-outline-dark" %></td>
+            <td><%= link_to raw("#{image_tag("trash.svg")} Eliminar"), tabla_user_id_path(l.id),method: :delete,data:{confirm:"¿Esta seguro?"},class: :"btn btn-sm btn-danger" %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>

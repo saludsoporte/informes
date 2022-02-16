@@ -27,28 +27,29 @@
       <div class="col">
         <label>Usuarios de la herramienta</label>
       </div>
-      <div class="col">     
+      <div class="col">
         <select class="select_user form-control" name="select_user">
           <% @arreglo.each do |ar|%>
             <% @id=ar["id_persona"]%>
             <% case @herramienta.nombre_sistema %>
             <% when "Control Documental" %>
-            <% if @edit && (@id ==tabla_user_id.id_user.to_i) %>               
-              <option value="<%= ar["id_persona"].to_s+"|"+ar["nombre"].to_s %>" selected=true ><%= @id.to_s+" :"+ar["usuario"]+" *> "+ar["nombre"] %></option>             
+            <% if @edit && (@id ==tabla_user_id.id_user.to_i) %>
+              <option value="<%= ar["id_persona"].to_s+"|"+ar["nombre"].to_s+"|"+ar["usuario"].to_s %>" selected=true ><%= @id.to_s+" :"+ar["usuario"]+" *> "+ar["nombre"] %></option>
             <% else %>
-              <option value="<%= ar["id_persona"].to_s+"|"+ar["nombre"].to_s %>"><%= @id.to_s+" :"+ ar["usuario"]+" => "+ar["nombre"] %></option>
+              <option value="<%= ar["id_persona"].to_s+"|"+ar["nombre"].to_s+"|"+ar["usuario"].to_s %>"><%= @id.to_s+" :"+ ar["usuario"]+" => "+ar["nombre"] %></option>
             <% end %>
             <% when "Covid","Covid_test" %>
-              <option value="<%= ar["id_usuario"].to_s+"|"+ar["login"].to_s %>"><%= ar["login"] %></option>
+            <option value="<%= ar["id_usuario"].to_s+"|"+ar["login"].to_s %>"><%= ar["login"] %></option>
             <% when "Sesalud" %>
-              <option value="<%= ar["id_personal"].to_s+"|"+ar["login"].to_s %>"><%= ar["login"] %></option>              
+            <option value="<%= ar["id_personal"].to_s+"|"+ar["login"].to_s %>"><%= ar["login"] %></option>
           <% end %>
         <% end %>
       </select>
-    </div>
-  <% end %>
-  <div class="col">
-    <%= form.submit "Guardar entrada ",class: :"btn btn-sm btn-success" %>
+     
   </div>
+<% end %>
+<div class="col">
+  <%= form.submit "Guardar entrada ",class: :"btn btn-sm btn-success" %>
+</div>
 </div>
 <% end %>

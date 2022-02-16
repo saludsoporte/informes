@@ -9,7 +9,15 @@
       </ul>
     </div>
   <% end %>
-  <div>Creado por: <%= current_user.username%> Usuario: <%= %> </div>
+  <div class="col"><b>Creado por: <%= current_user.username%></b></div>
+  <div class="row row-cols-2">
+    <div class="col"><b>Herramienta:</b></div>
+    <div class="col"><b>Usuarios:</b></div>
+    <% TablaUserId.where(user_id:current_user.id).each do |t|%>
+      <div class="col"><%= t.nombre_herramienta %></div>
+      <div class="col"><%= t.usuario %></div>
+    <% end %>
+  </div>
   <div class="row ">
     <%= form.text_field :user_id ,value:current_user.id ,id: :"usuario",class: :"form-control",placeholder: :"Usuario",hidden:true%>
     <%= form.label :"Usuario actual",for: :usuario,hidden: :true %>
@@ -28,7 +36,7 @@
       <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
     </div>
     <div  id="parcial">
-      <%= render :partial => "select_usuarios" , :obj => @arreglo %>
+      <%# render :partial => "select_usuarios" , :obj => @arreglo %>
     </div>
   </div>
   <br>

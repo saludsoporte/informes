@@ -126,7 +126,18 @@ class InformeGeneralsController < ApplicationController
 
     @informe_general = InformeGeneral.new(informe_general_params)
     #@informe_general.nombre = @herr.nombre_sistema
-    @informe_general.usuario_informe_id=params[:usuario]
+
+    case @herr.nombre_sistema
+    when "Covid","Covid_test"
+      #@select =covid_meta
+      @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user
+   
+    when "Control Documental"
+    when "Sesalud"
+      #@select=sesalud_meta
+    end
+
+    @informe_general.usuario_informe_id=@usuario.to_i
     respond_to do |format|
       if @informe_general.save
         format.html { redirect_to @informe_general, notice: "Informe general was successfully created." }

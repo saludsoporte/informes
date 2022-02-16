@@ -8,14 +8,20 @@ class TablaUserIdsController < ApplicationController
 
   # GET /tabla_user_ids/1 or /tabla_user_ids/1.json
   def show
-
+   
   end
 
   # GET /tabla_user_ids/new
   def new
-    @tabla_user_id = TablaUserId.new
-    generarArreglo
-    
+
+    @busca_h=TablaUserId.find_by(user_id:params[:user_id])
+
+    if @busca_h.nil?
+      @tabla_user_id = TablaUserId.new
+      generarArreglo
+    else
+      redirect_to user_path(params[:user_id])
+    end
   end
 
   def generarArreglo
@@ -101,13 +107,29 @@ class TablaUserIdsController < ApplicationController
   end
 
   # POST /tabla_user_ids or /tabla_user_ids.json
-  def create
+  def create    
+    @nombre_h=Herramientum.find(params[:tabla_user_id][:herramientum_id]).nombre_sistema
     @tabla_user_id = TablaUserId.new(tabla_user_id_params)
     @split=params[:select_user].split("|")
     @id_user=@split[0]
     @nombre_user=@split[1]
     @tabla_user_id.id_user=@id_user
-    @tabla_user_id.nombre_user=@nombre_user
+    @tabla_user_id.nombre_user=@nombre_user    
+
+    logger.debug "23eq12321q3213 -*/*/*//* "+@split[2].to_s
+
+    
+    case @nombre_h
+      when "Control Documental"       
+        @usuario=@split[2]
+      when "Covid","Covid_test,Sesalud"
+        @usuario=@split[1]
+    end
+
+    logger.debug "!???????????????????"+@usuario.to_s
+    @tabla_user_id.usuario=@usuario
+    logger.debug "!???????????????????"+@tabla_user_id.to_s
+
     @tabla_user_id.nombre_herramienta=@tabla_user_id.herramientum.nombre_sistema
     respond_to do |format|
       if @tabla_user_id.save
@@ -150,6 +172,6 @@ class TablaUserIdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tabla_user_id_params
-      params.require(:tabla_user_id).permit(:user_id, :herramientum_id, :id_user, :nombre_herramienta)
+      params.require(:tabla_user_id).permit(:user_id, :herramientum_id, :id_user, :nombre_herramienta,:usuario)
     end
 end

@@ -1,9 +1,9 @@
 import $ from 'jquery'
 $(document).on('turbolinks:load', function() {
-    $('.herramientas_informe').on('change', function() {
-        var herramienta = $("#informe_general_herramientum_id").val();
-        cargar_usuarios(herramienta)
-    });
+    /* $('.herramientas_informe').on('change', function() {
+         var herramienta = $("#informe_general_herramientum_id").val();
+         cargar_usuarios(herramienta)
+     });*/
 
     $('#select_arr').select2({
         placeholder: "Seleccione una usuario",
