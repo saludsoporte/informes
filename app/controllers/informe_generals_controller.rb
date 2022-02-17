@@ -130,8 +130,7 @@ class InformeGeneralsController < ApplicationController
     case @herr.nombre_sistema
     when "Covid","Covid_test"
       #@select =covid_meta
-      @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user
-   
+      @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user   
     when "Control Documental"
     when "Sesalud"
       #@select=sesalud_meta

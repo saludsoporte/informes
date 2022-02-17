@@ -17,7 +17,11 @@ class UsersController < ApplicationController
       end
     end
     logger.debug "******************* //////"+@consulta.to_s
-    @herramientas=Herramientum.where("id not in (#{@consulta}) ")
+    if @lista_user.count!=0
+      @herramientas=Herramientum.where("id not in (#{@consulta}) ")
+    else
+      @herramientas=Herramientum.all
+    end
   end
 
   def edit

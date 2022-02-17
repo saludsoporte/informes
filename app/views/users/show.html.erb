@@ -39,7 +39,7 @@
 <br>
 <div class="container">
   <div >
-    <% if @herramientas.count!=0%>
+    <% if @herramientas.count!=0 %>
       Para agregar usuarios, seleccione una Herramienta en el caja de opciones.
       <br>
       <%= form_with url:users_cargar_herramienta_path,id: :form, method: :get do |f| %>
