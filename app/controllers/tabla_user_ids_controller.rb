@@ -143,10 +143,29 @@ class TablaUserIdsController < ApplicationController
   end
 
   # PATCH/PUT /tabla_user_ids/1 or /tabla_user_ids/1.json
-  def update
+  def update        
+    @split=params[:select_user].split("|")
+    @id_user=@split[0]
+    @nombre_user=@split[1]
+    @tabla_user_id.id_user=@id_user
+    @tabla_user_id.nombre_user=@nombre_user    
+
+    logger.debug "23eq12321q3213 -*/*/*//* "+@split[2].to_s
+
+    
+    case @tabla_user_id.nombre_herramienta
+      when "Control Documental"       
+        @usuario=@split[2]
+      when "Covid","Covid_test,Sesalud"
+        @usuario=@split[1]
+    end
+
+    logger.debug "!???????????????????"+@usuario.to_s
+    @tabla_user_id.usuario=@usuario
+    logger.debug "!???????????????????"+@tabla_user_id.to_s
     respond_to do |format|
       if @tabla_user_id.update(tabla_user_id_params)
-        format.html { redirect_to @tabla_user_id, notice: "Tabla user was successfully updated." }
+        format.html { redirect_to user_path(@tabla_user_id.user_id), notice: "Tabla user was successfully updated." }
         format.json { render :show, status: :ok, location: @tabla_user_id }
       else
         format.html { render :edit, status: :unprocessable_entity }
