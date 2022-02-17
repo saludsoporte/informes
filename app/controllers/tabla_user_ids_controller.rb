@@ -16,7 +16,7 @@ class TablaUserIdsController < ApplicationController
 
     @busca_h=TablaUserId.find_by(user_id:params[:user_id])
 
-    if !@busca_h.nil?
+    if @busca_h.nil?
       @tabla_user_id = TablaUserId.new
       generarArreglo
     else
