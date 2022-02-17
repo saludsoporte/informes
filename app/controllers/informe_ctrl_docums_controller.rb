@@ -136,8 +136,8 @@ class InformeCtrlDocumsController < ApplicationController
     else
       @mes="12"
     end
-    #send_file "/mnt/respaldos/Archivos_control_docum_respaldo/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
-    send_file "/home/tomcat/ArchivosControlDocumental/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
+    send_file "/mnt/respaldos/Archivos_control_docum_respaldo/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
+    #send_file "/home/tomcat/ArchivosControlDocumental/"+@fecha.year.to_s+"/"+@mes+"/"+params[:nombre] ,disposition: 'attachment' 
     
     #redirect_to informe_ctrl_docum_path(params[:id])
   end
