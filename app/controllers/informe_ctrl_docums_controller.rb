@@ -30,11 +30,13 @@ class InformeCtrlDocumsController < ApplicationController
   end
 
   def buscar_propietarios(host,port,user,password,dbname)
-    @proper=TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id)
+    @proper=TablaUserId.find_by(user_id:@informe_ctrl_docum.user_id,herramientum_id:@informe_ctrl_docum.herramientum_id)
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" dbname="+dbname+
     " password="+password+"','SELECT b.acceso_a,u.id_persona,u.nombre FROM carpetas.acceso_buzones as b,"+
     "catalogos.personas_usuarios as u where b.usuario=''"+@proper.usuario+"'' and b.acceso_a=u.usuario') "+
     "as newTable(acceso_a character varying,id_persona integer,nombre character varying)"
+
+    logger.debug "/*/*/*/*/********************* "+@consulta.to_s
     @arreglo_propietario=ActiveRecord::Base.connection.execute(@consulta).to_a
   end
 

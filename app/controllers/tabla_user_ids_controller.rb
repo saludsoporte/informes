@@ -16,7 +16,7 @@ class TablaUserIdsController < ApplicationController
 
     @busca_h=TablaUserId.find_by(user_id:params[:user_id])
 
-    if @busca_h.nil?
+    if !@busca_h.nil?
       @tabla_user_id = TablaUserId.new
       generarArreglo
     else
@@ -157,9 +157,10 @@ class TablaUserIdsController < ApplicationController
 
   # DELETE /tabla_user_ids/1 or /tabla_user_ids/1.json
   def destroy
+    @user=@tabla_user_id.user_id
     @tabla_user_id.destroy
     respond_to do |format|
-      format.html { redirect_to tabla_user_ids_url, notice: "Tabla user was successfully destroyed." }
+      format.html { redirect_to user_path(@user), notice: "Tabla user was successfully destroyed." }
       format.json { head :no_content }
     end
   end
