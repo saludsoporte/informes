@@ -106,8 +106,71 @@ class TablaUserIdsController < ApplicationController
     generarArreglo
   end
 
+  def comprobarContraseña(id_user,usuario,password)
+    @herramienta=Herramientum.find(params[:tabla_user_id][:herramientum_id])
+    logger.debug "*/*/*-/*-/-*/-/-/-/--/- "+@herramienta.nombre_sistema.to_s
+    @host = @herramienta.conexion_bd.host
+    @port = @herramienta.conexion_bd.puerto
+    @user = @herramienta.conexion_bd.usuario
+    @password = @herramienta.conexion_bd.password
+    @dbname = @herramienta.conexion_bd.nombre_herramienta
+    @select=""
+    @tabla=""
+    case @herramienta.nombre_sistema
+    when "Covid","Covid_test","Sesalud"
+      sin_contraseña=true
+      @arreglo=['']
+      logger.debug "dasdasdasdasdasdas   "+@arreglo.count.to_s
+    when "Control Documental"
+      sin_contraseña=false
+      @select=ctrl_user(1,'','','')
+      @where=ctrl_user(2,usuario,id_user,password)
+      @tabla=ctrl_user(3,'','','')    
+    end
+    
+    unless sin_contraseña
+      @consulta="SELECT * from dblink('host="+@host+" port="+@port+
+      " user="+@user+" password="+@password+" dbname="+@dbname+" ', "+
+      "'select "+@select+" from "+@herramienta.conexion_bd.tabla_user.to_s+" "+@where+"')  "+
+      " as newTable("+@tabla+")"       
+      logger.debug "*****************************************  "+@consulta
+      @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    end
+    if @arreglo.count > 0
+      true
+    else
+      if sin_contraseña
+        true
+      else
+        false
+      end
+    end    
+  end
+
+  def covid_user(opcion,user,id,pass)
+    case opcion
+    when 1 #select
+      @datos="id_usuario,login,passwd"
+    when 2 #where
+      @datos=" where usuario=''"+user.to_s+"'' and id_persona="+id.to_s+" and contrasena=''"+pass.to_s+"'' "
+    when 3 #tabla
+      @datos="id_persona integer,contrasena character varying,usuario character varying"
+    end 
+  end
+  
+  def ctrl_user(opcion,user,id,pass)
+    case opcion
+    when 1 #select
+      @datos="id_persona,contrasena,usuario"
+    when 2 #where
+      @datos=" where usuario=''"+user.to_s+"'' and id_persona="+id.to_s+" and contrasena=''"+pass.to_s+"'' "
+    when 3 #tabla
+      @datos="id_persona integer,contrasena character varying,usuario character varying"
+    end 
+  end
+
   # POST /tabla_user_ids or /tabla_user_ids.json
-  def create    
+  def create   
     @nombre_h=Herramientum.find(params[:tabla_user_id][:herramientum_id]).nombre_sistema
     @tabla_user_id = TablaUserId.new(tabla_user_id_params)
     @split=params[:select_user].split("|")
@@ -115,30 +178,33 @@ class TablaUserIdsController < ApplicationController
     @nombre_user=@split[1]
     @tabla_user_id.id_user=@id_user
     @tabla_user_id.nombre_user=@nombre_user    
-
-    logger.debug "23eq12321q3213 -*/*/*//* "+@split[2].to_s
-
+  
     
     case @nombre_h
       when "Control Documental"       
         @usuario=@split[2]
-      when "Covid","Covid_test,Sesalud"
+      when "Covid","Covid_test","Sesalud"
         @usuario=@split[1]
     end
-
-    logger.debug "!???????????????????"+@usuario.to_s
+    logger.debug "23eq12321q3213 -*/*/*//* "+@usuario.to_s
     @tabla_user_id.usuario=@usuario
-    logger.debug "!???????????????????"+@tabla_user_id.to_s
+    if comprobarContraseña(@id_user,@usuario,params[:tabla_user_id][:password])
+      logger.debug "!???????????????????"+@usuario.to_s
+      @tabla_user_id.usuario=@usuario
+      logger.debug "!???????????????????"+@tabla_user_id.to_s
 
-    @tabla_user_id.nombre_herramienta=@tabla_user_id.herramientum.nombre_sistema
-    respond_to do |format|
-      if @tabla_user_id.save
-        format.html { redirect_to user_path(@tabla_user_id.user_id), notice: "Tabla user was successfully created." }
-        format.json { render :show, status: :created, location: @tabla_user_id }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tabla_user_id.errors, status: :unprocessable_entity }
+      @tabla_user_id.nombre_herramienta=@tabla_user_id.herramientum.nombre_sistema
+      respond_to do |format|
+        if @tabla_user_id.save
+          format.html { redirect_to user_path(@tabla_user_id.user_id), notice: "Tabla user was successfully created." }
+          format.json { render :show, status: :created, location: @tabla_user_id }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @tabla_user_id.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to user_path(params[:tabla_user_id][:user_id],error:true)
     end
   end
 
@@ -192,6 +258,6 @@ class TablaUserIdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tabla_user_id_params
-      params.require(:tabla_user_id).permit(:user_id, :herramientum_id, :id_user, :nombre_herramienta,:usuario)
+      params.require(:tabla_user_id).permit(:user_id, :herramientum_id, :id_user, :nombre_herramienta,:usuario,:password)
     end
 end

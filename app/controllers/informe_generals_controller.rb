@@ -37,8 +37,18 @@ class InformeGeneralsController < ApplicationController
         @excepcion="No se ha podido conectar al servidor, revise su conexion"
        logger.debug "****************************** se rescato  "
       end  
+    when "Covid"
+      covid(@host, @port, @user, @password, @dbname)
     when "Sesalud"
     end
+  end
+
+  def covid(@host, @port, @user, @password, @dbname)
+    @consulta = "SELECT * from dblink('host=" + host +
+    " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " '," +
+    "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
+    "," + @informe_general.partida.partida.to_s + ", now()::date,"+@informe_general.tipo_informe+")') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text,resumen text)"
+    @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
   end
 
   def covid_test(host, port, user, password, dbname)
