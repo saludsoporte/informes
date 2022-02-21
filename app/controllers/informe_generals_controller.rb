@@ -38,12 +38,16 @@ class InformeGeneralsController < ApplicationController
        logger.debug "****************************** se rescato  "
       end  
     when "Covid"
-      covid(@host, @port, @user, @password, @dbname)
+      begin
+        covid(@host, @port, @user, @password, @dbname)
+      rescue
+      @excepcion="No esta disponible la función de informe"      
+      end  
     when "Sesalud"
     end
   end
 
-  def covid(@host, @port, @user, @password, @dbname)
+  def covid(host, port, user, password, dbname)
     @consulta = "SELECT * from dblink('host=" + host +
     " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " '," +
     "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
@@ -128,7 +132,17 @@ class InformeGeneralsController < ApplicationController
 
   # POST /informe_generals or /informe_generals.json
   def create
-    @herr = Herramientum.find(informe_general_params[:herramientum_id])
+    unless informe_general_params[:herramientum_id]
+      @herr = Herramientum.find(informe_general_params[:herramientum_id])
+      case @herr.nombre_sistema
+      when "Covid","Covid_test"
+        #@select =covid_meta
+        @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user   
+      when "Control Documental"
+      when "Sesalud"
+        #@select=sesalud_meta
+      end
+    end 
     #informe_general_params[:nombre] = @herr.nombre_sistema
 
     #logger.debug "/*/*/*****************" + @herr.nombre_sistema.to_s
@@ -137,14 +151,7 @@ class InformeGeneralsController < ApplicationController
     @informe_general = InformeGeneral.new(informe_general_params)
     #@informe_general.nombre = @herr.nombre_sistema
 
-    case @herr.nombre_sistema
-    when "Covid","Covid_test"
-      #@select =covid_meta
-      @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user   
-    when "Control Documental"
-    when "Sesalud"
-      #@select=sesalud_meta
-    end
+    
 
     @informe_general.usuario_informe_id=@usuario.to_i
     respond_to do |format|
