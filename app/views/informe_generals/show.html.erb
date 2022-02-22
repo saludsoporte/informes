@@ -41,17 +41,19 @@
 </tbody>
 </table>
 <br>
-<% if @excepcion.nil? %>
-  <% case @informe_general.herramientum.nombre_sistema%>
-  <% when "Covid_test" %>
-  <%= render "tabla_covid_test" %>
-<% else %>
-  No hay tabla
-<% end %>
+<div class="container">
+  <% if @excepcion.nil? %>
+    <% case @informe_general.herramientum.nombre_sistema%>
+    <% when "Covid_test" %>
+    <%= render "tabla_covid_test" %>
+  <% else %>
+    No hay tabla
+  <% end %>
 <% else %>
   <div class="container form-control"><%= @excepcion %></div>
 <%end %>
 <% else %>
   <h5>No tienes el rol para leer Informes</h5>
 <% end %>
+</div>
 <% @obje = @arreglo %>

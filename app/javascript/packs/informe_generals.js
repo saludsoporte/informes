@@ -1,9 +1,11 @@
 import $ from 'jquery'
 $(document).on('turbolinks:load', function() {
-    /* $('.herramientas_informe').on('change', function() {
-         var herramienta = $("#informe_general_herramientum_id").val();
-         cargar_usuarios(herramienta)
-     });*/
+    $('.herramientas_informe').on('change', function() {
+        var herramienta = $("#informe_general_herramientum_id").val();
+        if (herramienta == 2) {
+            $('.partidas').val(-1).trigger("change");
+        }
+    });
 
     $('#select_arr').select2({
         placeholder: "Seleccione una usuario",

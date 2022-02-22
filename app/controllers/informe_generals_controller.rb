@@ -6,9 +6,9 @@ class InformeGeneralsController < ApplicationController
   def index
 
     if params[:herr_id].nil?
-      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id)
+      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id).order(id: :asc)
     else
-      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id,herramientum_id:params[:herr_id])
+      @informe_generals = InformeGeneral.paginate(page: params[:page]).where(user_id:current_user.id,herramientum_id:params[:herr_id]).order(id: :asc)
     end
     # @info=InformeGeneral.accessible_by(current_ability)
     # authorize! :read, @informe_generals
@@ -16,7 +16,11 @@ class InformeGeneralsController < ApplicationController
 
   def buscar_informe
     @herramienta=params[:herramientum_id]
-    redirect_to informe_generals_path(herr_id:@herramienta)
+    if params[:herramientum_id].empty?
+      redirect_to informe_generals_path
+    else
+      redirect_to informe_generals_path(herr_id:@herramienta)
+    end
   end
   
 
@@ -44,7 +48,27 @@ class InformeGeneralsController < ApplicationController
       @excepcion="No esta disponible la función de informe"      
       end  
     when "Sesalud"
+      
+    when "Sesalud Sinba"
+      begin
+        sesalud_sinba(@host,@port,@user,@password,@dbname)
+      rescue
+        @excepcion="No esta disponible la función de informe"      
+      end      
     end
+  end
+
+  def sesalud_sinba(host,port,user,password,dbname)
+    #cosulta para hacer match con las unidades del sistema
+    @consulta=""  
+
+    @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" password="+password+
+    " dbname="+dbname+"','select select nombre as u_apoyo, car.* from atencion.cat_unidades_apoyo as ap inner join 
+    (SELECT unid.clues || ' - '|| unid.nombre as unidad, rcu.* FROM catalogos.cat_unidades as unid inner join
+    (SELECT part.cve_partida || ' - '|| part.nom_partida as partida,  rc.*  FROM inventario.cat_partidas as part inner join
+    (SELECT * from inventario.inventarios_cargas) as rc on rc.cve_partida = part.cve_partida::integer) as rcu
+    on rcu.id_unidad = unid.id_unidad where rcu.id_unidad = 3202 ) as car on car.id_unidad = ap.id_unidad and car.id_unidad_apoyo = ap.id_unidad_apoyo
+    order by id_carga desc'"
   end
 
   def covid(host, port, user, password, dbname)
@@ -62,7 +86,6 @@ class InformeGeneralsController < ApplicationController
                 "'select * from registros.inventarios_informe_caducados_tabla( " + @informe_general.usuario_informe_id.to_s +
                 "," + @informe_general.partida.partida.to_s + ", now()::date,"+@informe_general.tipo_informe+")') as newTable(cveart character varying, partida character varying, desart text, unimed text, presentacion text, precio numeric, columnas text,resumen text)"
     @arreglo = ActiveRecord::Base.connection.execute(@consulta).to_a
-
     
     #@arreglo=User.paginate(page:params[:page]).find_by_sql(@consulta)
     @unidades_nombre = @arreglo[0]["columnas"].split(/{|}/)        
@@ -126,6 +149,8 @@ class InformeGeneralsController < ApplicationController
     render :partial => "select_usuarios" , :obj => @arreglo 
   end
 
+  
+
   # GET /informe_generals/1/edit
   def edit
   end
@@ -140,20 +165,14 @@ class InformeGeneralsController < ApplicationController
         @usuario=TablaUserId.find_by(user_id:current_user.id,herramientum_id:informe_general_params[:herramientum_id]).id_user   
       when "Control Documental"
       when "Sesalud"
+        @informe_general.partida_id=2
         #@select=sesalud_meta
       end
     end 
-    #informe_general_params[:nombre] = @herr.nombre_sistema
-
-    #logger.debug "/*/*/*****************" + @herr.nombre_sistema.to_s
-    #logger.debug "/*/*/*****************" + informe_general_params[:nombre].to_s
-
-    @informe_general = InformeGeneral.new(informe_general_params)
-    #@informe_general.nombre = @herr.nombre_sistema
-
     
-
+    @informe_general = InformeGeneral.new(informe_general_params)
     @informe_general.usuario_informe_id=@usuario.to_i
+
     respond_to do |format|
       if @informe_general.save
         format.html { redirect_to @informe_general, notice: "Informe general was successfully created." }
@@ -197,6 +216,6 @@ class InformeGeneralsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def informe_general_params
-    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum,:pdf)
+    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum,:pdf)    
   end
 end

@@ -1,7 +1,7 @@
 <%= form_with(model: informe_general) do |form| %>
   <% if informe_general.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(informe_general.errors.count, "error") %> prohibited this informe_general from being saved:</h2>
+      <h5><%= pluralize(informe_general.errors.count, "error") %> Ocurrieron errores al intentar crear el informe:</h5>
       <ul>
         <% informe_general.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -9,20 +9,27 @@
       </ul>
     </div>
   <% end %>
-  <div class="col"><b>Creado por: <%= current_user.username%></b></div>
-  <div class="row row-cols-2">
-    <div class="col"><b>Herramienta:</b></div>
-    <div class="col"><b>Usuarios:</b></div>
-    <% TablaUserId.where(user_id:current_user.id).each do |t|%>
-      <div class="col"><%= t.nombre_herramienta %></div>
-      <div class="col"><%= t.usuario %></div>
-    <% end %>
-  </div>
+  <div class="col"><b>Informe Creado por: <%= current_user.username%></b></div>
+  <table class="table" style="font-size:13px">
+    <thead>
+      <th>Herramienta</th>
+      <th>Usuarios del Perfil</th>
+    </thead>
+    <tbody>
+      <% TablaUserId.where(user_id:current_user.id).each do |t| %>
+        <tr>
+          <td><%= t.nombre_herramienta %></td>
+          <td><%= t.usuario %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
   <div class="row ">
     <%= form.text_field :user_id ,value:current_user.id ,id: :"usuario",class: :"form-control",placeholder: :"Usuario",hidden:true%>
     <%= form.label :"Usuario actual",for: :usuario,hidden: :true %>
     <div class="form-floating" >
-      <%= form.text_field :nombre,id: :nombre_i, id: :"nombre_i",class: :"form-control",placeholder: :"Nombre del Informe" %>
+      <%= form.text_field :nombre,id: :nombre_i, id: :"nombre_i",class: :"form-control"%>
       <%= form.label :"Nombre del informe",for: :nombre_i %>
     </div>
     <div class="col">
