@@ -2,11 +2,23 @@ import $ from 'jquery'
 $(document).on('turbolinks:load', function() {
     $('.herramientas_informe').on('change', function() {
         var herramienta = $("#informe_general_herramientum_id").val();
+        if (herramienta == 2 || herramienta == 5) {
+            $('.partidas').val(-1).trigger("change");
+        }
+    });
+    $('.herramientas_informe').on('change', function() {
+        var herramienta = $("#informe_general_herramientum_id").val();
         if (herramienta == 2) {
             $('.partidas').val(-1).trigger("change");
         }
     });
 
+    $('.unidades').select2({
+        placeholder: "Seleccione una unidad",
+        allowClear: true,
+        clear: true,
+        remove: true
+    });
     $('#select_arr').select2({
         placeholder: "Seleccione una usuario",
         allowClear: true,

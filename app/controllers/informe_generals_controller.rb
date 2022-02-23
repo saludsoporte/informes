@@ -49,7 +49,7 @@ class InformeGeneralsController < ApplicationController
       end  
     when "Sesalud"
       
-    when "Sesalud Sinba"
+    when "Sesalud Sinba"      
       begin
         sesalud_sinba(@host,@port,@user,@password,@dbname)
       rescue
@@ -60,15 +60,30 @@ class InformeGeneralsController < ApplicationController
 
   def sesalud_sinba(host,port,user,password,dbname)
     #cosulta para hacer match con las unidades del sistema
-    @consulta=""  
-
+    #@consulta=""  
+    @unidad=Unidad.find(@informe_general.unidad_id)
+    logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      "
     @consulta="select * from dblink('host="+host+" port="+port+" user="+user+" password="+password+
-    " dbname="+dbname+"','select select nombre as u_apoyo, car.* from atencion.cat_unidades_apoyo as ap inner join 
-    (SELECT unid.clues || ' - '|| unid.nombre as unidad, rcu.* FROM catalogos.cat_unidades as unid inner join
-    (SELECT part.cve_partida || ' - '|| part.nom_partida as partida,  rc.*  FROM inventario.cat_partidas as part inner join
-    (SELECT * from inventario.inventarios_cargas) as rc on rc.cve_partida = part.cve_partida::integer) as rcu
-    on rcu.id_unidad = unid.id_unidad where rcu.id_unidad = 3202 ) as car on car.id_unidad = ap.id_unidad and car.id_unidad_apoyo = ap.id_unidad_apoyo
-    order by id_carga desc'"
+    " dbname="+dbname+" ','select nombre as u_apoyo, car.* from atencion.cat_unidades_apoyo as ap inner join "+
+    "(SELECT unid.clues || '' - ''|| unid.nombre as unidad, rcu.* FROM catalogos.cat_unidades as unid inner join"+
+    "(SELECT part.cve_partida || '' - ''|| part.nom_partida as partida,  rc.*  FROM inventario.cat_partidas as part inner join"+
+    "(SELECT * from inventario.inventarios_cargas) as rc on rc.cve_partida = part.cve_partida::integer) as rcu"+
+    " on rcu.id_unidad = unid.id_unidad where unid.clues =''"+@unidad.clues+"'') as car on car.id_unidad = ap.id_unidad and car.id_unidad_apoyo = ap.id_unidad_apoyo"+
+    "order by id_carga desc') as newTable(u_apoyo text,unidad text,partida text,id_unidad integer,id_carga integer"+
+    "cve_partida integer,id_unidad_apoyo integer,fecha_carga date,motivo text,id_usuario,estatus boolean,"+
+    "per_entrega_entra text)"
+   
+    logger.debug "******************************  "+@consulta.to_s
+
+    
+    @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    #@arreglo=[]
+    logger.debug "3333333333 ?????????????????? "+@arreglo.count.to_s
+    adasdas
+    if @arreglo["cve_partida"]!="" && @@informe_generals.partida_id==-1
+      @informe_generals.update(partida_id:@arreglo["cve_partida"])
+    end
+
   end
 
   def covid(host, port, user, password, dbname)
@@ -216,6 +231,6 @@ class InformeGeneralsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def informe_general_params
-    params.require(:informe_general).permit(:nombre, :user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum,:pdf)    
+    params.require(:informe_general).permit(:nombre,:unidad_id,:user_id, :herramientum_id, :partida_id, :usuario_informe_id,:tipo_informe,:tipo_informacion,:referencia,:memorandum,:pdf)    
   end
 end

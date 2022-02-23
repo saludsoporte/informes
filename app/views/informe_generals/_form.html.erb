@@ -42,9 +42,9 @@
     <div class="col" style="padding-top:25px;">
       <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
     </div>
-    <div  id="parcial">
-      <%# render :partial => "select_usuarios" , :obj => @arreglo %>
-    </div>
+    <div class="col" style="padding-top:25px;">
+      <%= form.select(:unidad_id,Unidad.all.collect{|u| [ u.nombre_con_clues,u.id]},{include_blank:true,selected:informe_general.unidad_id},class: :"form-control unidades") %>
+    </div>    
   </div>
   <br>
   <br>

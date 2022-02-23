@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_18_152656) do
+ActiveRecord::Schema.define(version: 2022_02_23_195822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "dblink"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2022_02_18_152656) do
     t.integer "referencia"
     t.integer "memorandum"
     t.string "pdf"
+    t.integer "unidad_id"
     t.index ["herramientum_id"], name: "index_informe_generals_on_herramientum_id"
     t.index ["partida_id"], name: "index_informe_generals_on_partida_id"
     t.index ["user_id"], name: "index_informe_generals_on_user_id"
