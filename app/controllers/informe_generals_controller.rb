@@ -50,11 +50,11 @@ class InformeGeneralsController < ApplicationController
     when "Sesalud"
       
     when "Sesalud Sinba"      
-      begin
+      #begin
         sesalud_sinba(@host,@port,@user,@password,@dbname)
-      rescue
-        @excepcion="No esta disponible la función de informe"      
-      end      
+      #rescue
+      #  @excepcion="No esta disponible la función de informe"      
+      #end      
     end
   end
 
@@ -69,19 +69,35 @@ class InformeGeneralsController < ApplicationController
     "(SELECT part.cve_partida || '' - ''|| part.nom_partida as partida,  rc.*  FROM inventario.cat_partidas as part inner join"+
     "(SELECT * from inventario.inventarios_cargas) as rc on rc.cve_partida = part.cve_partida::integer) as rcu"+
     " on rcu.id_unidad = unid.id_unidad where unid.clues =''"+@unidad.clues+"'') as car on car.id_unidad = ap.id_unidad and car.id_unidad_apoyo = ap.id_unidad_apoyo"+
-    "order by id_carga desc') as newTable(u_apoyo text,unidad text,partida text,id_unidad integer,id_carga integer"+
-    "cve_partida integer,id_unidad_apoyo integer,fecha_carga date,motivo text,id_usuario,estatus boolean,"+
+    " order by id_carga desc') as newTable(u_apoyo text,unidad text,partida text,id_unidad integer,id_carga integer"+
+    " ,cve_partida integer,id_unidad_apoyo integer,fecha_carga date,motivo text,id_usuario integer,estatus boolean,"+
     "per_entrega_entra text)"
    
     logger.debug "******************************  "+@consulta.to_s
-
     
-    @arreglo=ActiveRecord::Base.connection.execute(@consulta).to_a
+    #id_unidad integer,id_carga integer,id_serial integer,id_insumo integer,id_nup integer,
+    #cveart character varying, descripcion text,presentacion text,lote character varying,
+    #caducidad date,cant_entrada integer,fecha_entrada date,programa character varying
+    
+    @arreglo_master=ActiveRecord::Base.connection.execute(@consulta).to_a
     #@arreglo=[]
-    logger.debug "3333333333 ?????????????????? "+@arreglo.count.to_s
-    adasdas
-    if @arreglo["cve_partida"]!="" && @@informe_generals.partida_id==-1
-      @informe_generals.update(partida_id:@arreglo["cve_partida"])
+    logger.debug "8888888888888888 ?????????????????? "+ @arreglo_master.to_s
+    logger.debug "3333333333 ?????????????????? "+ @arreglo_master[0]['cve_partida'].to_s
+    unidad_id=@arreglo_master[0]["id_unidad"]
+    carga_id= @arreglo_master[0]["id_carga"]
+
+    @consulta_2="select * from dblink('host=10.24.1.3 port=57361 user=postgres password=12345 dbname=seg_pac_sinba',
+      'SELECT * FROM inventario.inventarios_cargas_det where id_unidad = #{unidad_id} and id_carga = #{carga_id} order by id_serial')
+      as newTable(id_unidad integer,id_carga integer,id_serial integer,id_insumo integer,id_nup integer,
+      cveart character varying, descripcion text,presentacion text,lote character varying,
+      caducidad date,cant_entrada integer,fecha_entrada date,programa character varying)"
+
+    @arreglo=ActiveRecord::Base.connection.execute(@consulta_2).to_a
+    @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
+    if @arreglo_master[0]["cve_partida"].to_s!="" && @informe_general.partida_id==-1
+      @partida=Partida.find_by(partida:@arreglo_master[0]["cve_partida"].to_i)
+      
+      @informe_general.update(partida_id:@partida.id)
     end
 
   end

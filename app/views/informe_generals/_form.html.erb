@@ -25,25 +25,25 @@
     </tbody>
   </table>
   
-  <div class="row ">
+  <div class="row row-cols-2 row-cols-lg-5 ">
     <%= form.text_field :user_id ,value:current_user.id ,id: :"usuario",class: :"form-control",placeholder: :"Usuario",hidden:true%>
     <%= form.label :"Usuario actual",for: :usuario,hidden: :true %>
     <div class="form-floating" >
       <%= form.text_field :nombre,id: :nombre_i, id: :"nombre_i",class: :"form-control"%>
       <%= form.label :"Nombre del informe",for: :nombre_i %>
-    </div>
-    <div class="col">
-      <%= form.label :"Tipo de Información",for: :tipo %>
-      <%= form.number_field :tipo_informe,value:1,min:1, max:5,id: :tipo,class: :"form-control", placeholder: :"Info Datos" %>
-    </div>
+    </div>   
     <div class="col" style="padding-top:25px;">
       <%= form.select(:herramientum_id,Herramientum.where("nombre_sistema != 'Control Documental'").collect{|h|[h.nombre_sistema,h.id]},{include_blank:true,selected:informe_general.herramientum_id},class: :"form-control herramientas_informe") %>
     </div>
     <div class="col" style="padding-top:25px;">
       <%= form.select(:partida_id,Partida.all.collect{|p| [p.informacion,p.id]},{include_blank:true,selected:informe_general.partida_id},class: :"form-control partidas")%>
     </div>
-    <div class="col" style="padding-top:25px;">
+    <div class="col" style="padding-top:25px;" id="unidad">
       <%= form.select(:unidad_id,Unidad.all.collect{|u| [ u.nombre_con_clues,u.id]},{include_blank:true,selected:informe_general.unidad_id},class: :"form-control unidades") %>
+    </div>
+     <div class="col" id="tipo">
+      <%= form.number_field :tipo_informe,value:1,min:1, max:5,id: :tipo,class: :"form-control", placeholder: :"Info Datos" %>
+      <%= form.label :"Tipo de Información",for: :tipo %>         
     </div>    
   </div>
   <br>

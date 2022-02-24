@@ -1,0 +1,54 @@
+<table class="table " style="text-align:center; font-size:12px">
+  <thead class="table-dark">
+    <th>Apoyo</th>
+    <th>Unidad</th>
+    <th>Partida</th>
+    <th>Id Unidad</th>
+    <th>Unidad de Apoyo</th>
+    <th>Fecha de Carga</th>
+    <th>Motivo</th>   
+  </thead>
+  <tbody>
+    <% @arreglo_master.each do |a| %>
+        <tr>
+            <td><%= a["u_apoyo"] %></td>
+            <td><%= a["unidad"]%></td>
+            <td><%= a["partida"]%></td>
+            <td><%= a["id_unidad"]%></td>
+            <td><%= a["id_unidad_apoyo"]%></td>
+            <td><%= a["fecha_carga"]%></td>
+            <td><%= a["motivo"]%></td>            
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+<table class="table " style="text-align:center; font-size:12px">
+  <thead class="table-dark">
+    <th>Id_serial</th>
+    <th>Id_insumo</th>
+    <th>cveart</th>
+    <th>Descripción</th>
+    <th>Presentación</th>
+    <th>Lote</th>
+    <th>Caducidad</th>   
+    <th>Cantidad Entrada</th>
+    <th>Fecha Entrada</th>
+    <th>Programa</th>
+  </thead>
+  <tbody>
+    <% @arreglo.each do |a| %>
+        <tr>
+            <td><%= a["id_serial"] %></td>
+            <td><%= a["id_insumo"]%></td>
+            <td><%= a["cveart"]%></td>
+            <td><%= a["descripcion"]%></td>
+            <td><%= a["presentacion"]%></td>
+            <td><%= a["lote"]%></td>
+            <td><%= a["caducidad"]%></td>            
+            <td><%= a["cant_entrada"]%></td>            
+            <td><%= a["fecha_entrada"]%></td>            
+            <td><%= a["programa"]%></td>            
+        </tr>
+    <% end %>
+  </tbody>
+</table>

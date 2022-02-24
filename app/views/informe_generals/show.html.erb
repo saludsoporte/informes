@@ -41,14 +41,13 @@
 </tbody>
 </table>
 <br>
-<%= @informe_general.herramientum.nombre_sistema%>
 <div class="container">
   <% if @excepcion.nil? %>
     <% case @informe_general.herramientum.nombre_sistema%>
-    <% when "Sesalud Sinba" %>
-    <%= render "tabla_covid_test" %>
-    <% when "Sesalud Sinba"%>    
-    <%= render "partials/tabla_sinba"%>
+    <% when "Covid","Covid_test" %>
+      <%= render "tabla_covid_test" %>
+    <% when "Sesalud Sinba"%>   
+      <%= render "tabla_sinba"%>
   <% else %>
     No hay tabla
   <% end %>
