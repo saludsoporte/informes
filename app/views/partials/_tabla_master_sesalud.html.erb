@@ -1,0 +1,25 @@
+ 
+<table class="table " style="text-align:center; font-size:12px">
+  <thead class="table-dark">
+    <th>Apoyo</th>
+    <th>Unidad</th>
+    <th>Partida</th>
+    <th>Id Unidad</th>
+    <th>Unidad de Apoyo</th>
+    <th>Fecha de Carga</th>
+    <th>Motivo</th>
+  </thead>
+  <tbody>
+    <% @arreglo_master.each do |a| %>
+      <tr>
+        <td><%= a["u_apoyo"] %></td>
+        <td><%= a["unidad"]%></td>
+        <td><%= a["partida"]%></td>
+        <td><%= a["id_unidad"]%></td>
+        <td><%= a["id_unidad_apoyo"]%></td>
+        <td><%= a["fecha_carga"]%></td>
+        <td><%= a["motivo"]%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

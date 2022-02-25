@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "informe_ctrl_docums/buscar_serial", to: "informe_ctrl_docums#buscar_serial"
   get "users/cargar_herramienta", to: "users#cargar_herramienta"
   get "informe_ctrl_docums/cargarArchivos", to: "informe_ctrl_docums#cargarArchivos"
+  get "informe_generals/detalle_entrada", to: "informe_generals#detalle_entrada"
   devise_for :users
   
   root "informe_generals#index"

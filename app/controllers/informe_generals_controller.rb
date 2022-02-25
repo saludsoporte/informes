@@ -83,23 +83,25 @@ class InformeGeneralsController < ApplicationController
     #@arreglo=[]
     logger.debug "8888888888888888 ?????????????????? "+ @arreglo_master.to_s
     logger.debug "3333333333 ?????????????????? "+ @arreglo_master[0]['cve_partida'].to_s
-    unidad_id=@arreglo_master[0]["id_unidad"]
-    carga_id= @arreglo_master[0]["id_carga"]
+   
+    if @arreglo_master[0]["cve_partida"].to_s!="" && @informe_general.partida_id==-1
+      @partida=Partida.find_by(partida:@arreglo_master[0]["cve_partida"].to_i)      
+      @informe_general.update(partida_id:@partida.id)
+    end
+
+  end
+  
+  def detalle_entrada
+    unidad_id=params[:id_unidad]
+    carga_id=params[:id_carga]
 
     @consulta_2="select * from dblink('host=10.24.1.3 port=57361 user=postgres password=12345 dbname=seg_pac_sinba',
       'SELECT * FROM inventario.inventarios_cargas_det where id_unidad = #{unidad_id} and id_carga = #{carga_id} order by id_serial')
       as newTable(id_unidad integer,id_carga integer,id_serial integer,id_insumo integer,id_nup integer,
       cveart character varying, descripcion text,presentacion text,lote character varying,
       caducidad date,cant_entrada integer,fecha_entrada date,programa character varying)"
-
-    @arreglo=ActiveRecord::Base.connection.execute(@consulta_2).to_a
-    @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
-    if @arreglo_master[0]["cve_partida"].to_s!="" && @informe_general.partida_id==-1
-      @partida=Partida.find_by(partida:@arreglo_master[0]["cve_partida"].to_i)
-      
-      @informe_general.update(partida_id:@partida.id)
-    end
-
+      @arreglo=ActiveRecord::Base.connection.execute(@consulta_2).to_a
+      @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
   end
 
   def covid(host, port, user, password, dbname)
