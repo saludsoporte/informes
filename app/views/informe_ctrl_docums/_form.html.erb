@@ -10,6 +10,8 @@
     </div>
   <% end %>
   <div class="row row-cols-3">
+ 
+
     <%= form.text_field :user_id,value:current_user.id,id: :u,class: :"form-control",readonly:true ,hidden:true%>
     <div class="form-floating">
       <div class="form-control"><%= current_user.login %></div>

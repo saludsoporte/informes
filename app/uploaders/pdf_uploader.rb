@@ -11,33 +11,31 @@ class PdfUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     @fecha=Time.parse(model.updated_at.to_s)
-    
-    case @fecha.month 
-    when 1  
-      "/home/debian/Archivos/enero/"
-    when 2 
-      "/home/debian/Archivos/febrero/"
-    when 3  
-      "/home/debian/Archivos/marzo/"
-    when 4 
-      "/home/debian/Archivos/abril/"
-    when 5  
-      "/home/debian/Archivos/mayo/"
-    when 6 
-      "/home/debian/Archivos/junio/"
-    when 7  
-      "/home/debian/Archivos/julio/"
-    when 8 
-      "/home/debian/Archivos/agosto/"
-    when 9  
-      "/home/debian/Archivos/septiembre/"
-    when 10 
-      "/home/debian/Archivos/octubre/"
-    when 11  
-      "/home/debian/Archivos/noviembre/"
+    case @fecha.month
+    when 1
+      @mes='01'
+    when 2
+      @mes='02'
+    when 3
+      @mes='03'
+    when 4
+      @mes='04'
+    when 5
+      @mes='05'
+    when 6
+      @mes='06'
+    when 7
+      @mes='07'
+    when 8
+      @mes='08'
+    when 9
+      @mes='09'
     else
-      "/home/debian/Archivos/diciembre/"       
+      @mes=@fecha.month    
     end
+
+    "/mnt/servidor_local/ArchivosControlDocumental/#{@fecha.year}/#{@mes}"
+
     #uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 

@@ -26,6 +26,7 @@
   </table>
   
   <div class="row row-cols-2 row-cols-lg-5 ">
+      <%= form.file_field :pdf %>
     <%= form.text_field :user_id ,value:current_user.id ,id: :"usuario",class: :"form-control",placeholder: :"Usuario",hidden:true%>
     <%= form.label :"Usuario actual",for: :usuario,hidden: :true %>
     <div class="form-floating" >
