@@ -34,9 +34,9 @@ class PdfUploader < CarrierWave::Uploader::Base
       @mes=@fecha.month    
     end
 
-    "/mnt/servidor_local/ArchivosControlDocumental/#{@fecha.year}/#{@mes}"
-
+    #"/mnt/servidor_local/ArchivosControlDocumental/#{@fecha.year}/#{@mes}"
     #uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "/mnt/respaldos/ArchivosControlDocumental/#{@fecha.year}/#{@mes}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

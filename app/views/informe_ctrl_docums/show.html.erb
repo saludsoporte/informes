@@ -83,7 +83,7 @@
             <td><%= a["descripcion"]%></td>
             <td>
               <% unless a["nombre_archivo"]=="" %>
-                <%= link_to "Descargar", informe_ctrl_docums_descargar_archivo_path(id:params[:id],nombre:a["nombre_archivo"],fecha_doc:a["fecha_doc"]) , class: :"btn btn-sm btn-light"%>
+                <%= link_to "Descargar", informe_ctrl_docums_descargar_archivo_path(id:params[:id],nombre:a["nombre_archivo"],fecha_doc:a["fecha_doc"]) ,target: :_blank, class: :"btn btn-sm btn-light"%>
               <% end %>
             </td>
           </tr>
