@@ -1,3 +1,37 @@
-<% @arreglo.each do |a|%>
-    <%= a["id_unidad"] %>
-<% end %>
+
+<%= link_to "Regresar al informe", informe_general_path(@informe_general.id) %>
+<table class="table  container">
+    <thead class="table-dark">
+        <th>Id unidad</th>
+        <th>Id Insumo</th>
+        <th>cveart</th>
+        <th>Descripción</th>
+        <th>Presentación</th>
+        <th>Lote</th>
+        <th>Caducidad</th>
+        <th>Can Entrada</th>
+        <th>Fondo</th>
+        <th>Id Nup</th>
+        <th>Programa</th>
+        <th>Fecha Entrada</th>
+    </thead>
+  <tbody>
+    <% @arreglo.each do |a|%>
+      <tr>
+        <td><%= a["id_unidad"] %></td>
+        <td><%= a["id_insumo"]%></td>
+        <td><%= a["cveart"]%></td>
+        <td><%= a["descripcion"]%></td>
+        <td><%= a["presentacion"]%></td>
+        <td><%= a["lote"]%></td>
+        <td><%= a["caducidad"]%></td>
+        <td><%= a["can_entrada"]%></td>
+        <td><%= a["fondo"]%></td>
+        <td><%= a["id_nup"]%></td>
+        <td><%= a["programa"]%></td>
+        <td><%= a["fecha_entrada"]%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% @obje = @arreglo %>
