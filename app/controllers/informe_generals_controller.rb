@@ -109,7 +109,7 @@ class InformeGeneralsController < ApplicationController
     logger.debug "***************/////////////////////// "+@consulta_2.to_s
     @arreglo=ActiveRecord::Base.connection.execute(@consulta_2).to_a
     @arreglo = @arreglo.paginate(:page => params[:page], :per_page =>10)
-    
+    @informe=params[:id]
   end
 
   def covid(host, port, user, password, dbname)

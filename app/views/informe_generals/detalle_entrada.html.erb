@@ -1,20 +1,21 @@
-
-<%= link_to "Regresar al informe", informe_general_path(@informe_general.id) %>
-<table class="table  container">
-    <thead class="table-dark">
-        <th>Id unidad</th>
-        <th>Id Insumo</th>
-        <th>cveart</th>
-        <th>Descripción</th>
-        <th>Presentación</th>
-        <th>Lote</th>
-        <th>Caducidad</th>
-        <th>Can Entrada</th>
-        <th>Fondo</th>
-        <th>Id Nup</th>
-        <th>Programa</th>
-        <th>Fecha Entrada</th>
-    </thead>
+<div class=" container mb-3">
+  <%= link_to "Regresar al informe", informe_general_path(@informe),class: :" btn btn-sm btn-outline-dark"%>
+</div>
+<table class="table container" style="font-size:12px">
+  <thead class=" table-dark">
+    <th>Id unidad</th>
+    <th>Id Insumo</th>
+    <th>cveart</th>
+    <th>Descripción</th>
+    <th>Presentación</th>
+    <th>Lote</th>
+    <th>Caducidad</th>
+    <th>Can Entrada</th>
+    <th>Fondo</th>
+    <th>Id Nup</th>
+    <th>Programa</th>
+    <th>Fecha Entrada</th>
+  </thead>
   <tbody>
     <% @arreglo.each do |a|%>
       <tr>

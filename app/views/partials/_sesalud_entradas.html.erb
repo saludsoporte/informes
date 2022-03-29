@@ -1,6 +1,6 @@
 <div class="container">
   <%= render "partials/tabla_master_sesalud" %>
   <% carga_id= @arreglo_master[0]["id_carga"]%>
-  <%= link_to "Entradas" , informe_generals_detalle_entrada_path(id_unidad:@informe_general.unidad_id,carga_id:carga_id),class: :"btn btn-outline-secondary"%>
+  <%= link_to "Entradas" , informe_generals_detalle_entrada_path(id_unidad:@informe_general.unidad_id,carga_id:carga_id,id:@informe_general.id),class: :"btn btn-outline-secondary"%>
   <button type="button" class="btn btn-outline-secondary">Recetas</button> 
 </div>
