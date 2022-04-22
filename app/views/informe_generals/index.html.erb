@@ -15,13 +15,15 @@
       <div class="col-auto"><%= link_to 'Nuevo Informe General', new_informe_general_path,class: :"color-letra btn btn-sm btn-success", style: :"float: right;" %></div>
     </div>
   <% end %>
+
+  
   <br>
   <%# link_to "Descargar prueba", informe_ctrl_docums_descargar_archivo_path , class: :"btn btn-sm btn-outline-dark"%>
   <%# form_for @informe_generals, url: informe_generals_path, html: { multipart: true } do |form| %>
     <%# form.file_field :pdf %>
     <%# form.submit %>
     <%# end %>
-    <% if can? :read, InformeGeneral %>
+    <% if can? :read, InformeGeneral %>   
       <table class="table table-stripedless table-dark">
         <thead class="table-dark">
           <tr>
@@ -49,5 +51,5 @@
     <% else %>
       <h5>No tienes los permisos necesarios</h5>
     <% end %>
-    <% @obje = @informe_generals %>
+    <%# @obje = @informe_generals %>
   </div>

@@ -17,6 +17,13 @@ gem 'wkhtmltopdf-binary'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'unicorn'
+gem 'spreadsheet'
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
+
+
+
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

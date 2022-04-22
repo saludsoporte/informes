@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   get "plantillas/cargar_plantilla", to: "plantillas#cargar_plantilla"
   get "informe_generals/cargar_usuarios_h", to: "informe_generals#cargar_usuarios_h"
   get "informe_generals/descargar_archivo", to: "informe_generals#descargar_archivo"
+  get "informe_generals/excel", to: "informe_generals#excel"
   get "informe_ctrl_docums/descargar_archivo", to: "informe_ctrl_docums#descargar_archivo"
   get "informe_generals/buscar_informe", to: "informe_generals#buscar_informe"
   get "informe_ctrl_docums/buscar_serial", to: "informe_ctrl_docums#buscar_serial"
   get "users/cargar_herramienta", to: "users#cargar_herramienta"
   get "informe_ctrl_docums/cargarArchivos", to: "informe_ctrl_docums#cargarArchivos"
   get "informe_generals/detalle_entrada", to: "informe_generals#detalle_entrada"
+  
   devise_for :users
   
   root "informe_generals#index"

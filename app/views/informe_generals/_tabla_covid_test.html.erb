@@ -1,3 +1,4 @@
+   <%= link_to raw("#{image_tag("printer.svg")} Descargar a Excel") , informe_generals_excel_path(id:params[:id],fomart:"xlsx"),target: :_blank,class: :"btn btn-sm btn-success"%>
 <table  class="letra table table-striped-sm" >
   <thead class="table-dark " style="font-size:15px">
     <% @plantilla.each do |pl| %>
@@ -119,5 +120,4 @@
   <% end %>
 </tbody>
 </table>
-
 <% @obje=@arreglo %>

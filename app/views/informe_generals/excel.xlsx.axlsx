@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Items") do |sheet|
+  # Create the header row
+  sheet.add_row ["Item Name", "Quantity"]
+  # Create entries for each item
+  @informe.each do |item|
+    sheet.add_row [item]
+    
+  end
+  @arreglo.each_with_index do |a, index|
+  unless index == 0
+  @columnas_cont = 0
+  @plantilla.each do |pl|
+    if pl.dato.nombre.to_s != "columnas" && pl.dato.nombre.to_s!="resumen"
+      @columnas_cont = @columnas_cont + 1 
+        sheet.add_row [a[pl.dato.nombre.to_s]]              
+    else
+      @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/)
+      contador = 0
+      @arreglo_unidades.each_with_index do |ar, i|
+        unless ar == "" || ar == ","
+          @unidades.push(ar)
+        end
+      end
+    end
+  end
+  end
+  end
+end
