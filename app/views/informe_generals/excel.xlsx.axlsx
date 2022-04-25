@@ -1,30 +1,106 @@
 wb = xlsx_package.workbook
-
+ 
 wb.add_worksheet(name: "Items") do |sheet|
-  # Create the header row
-  sheet.add_row ["Item Name", "Quantity"]
-  # Create entries for each item
-  @informe.each do |item|
-    sheet.add_row [item]
-    
-  end
-  @arreglo.each_with_index do |a, index|
-  unless index == 0
-  @columnas_cont = 0
-  @plantilla.each do |pl|
-    if pl.dato.nombre.to_s != "columnas" && pl.dato.nombre.to_s!="resumen"
-      @columnas_cont = @columnas_cont + 1 
-        sheet.add_row [a[pl.dato.nombre.to_s]]              
-    else
-      @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/)
-      contador = 0
-      @arreglo_unidades.each_with_index do |ar, i|
-        unless ar == "" || ar == ","
-          @unidades.push(ar)
+  # Columnas principales
+  array= []
+  array_style= []
+  wb.styles do |s|
+  header_cell = s.add_style bg_color: "EFEFEF", 
+        fg_color: "00", 
+        sz: 14,
+        border:1,
+        alignment: { horizontal: :center }
+  
+    @plantilla.each do |pl|
+        unless pl.dato.nombre.to_s == "columnas" || pl.dato.nombre.to_s == "resumen"
+          array.push(pl.dato.nombre)
+          array_style.push(header_cell)
         end
+    end
+    
+    @unidades_arr.each do |un|
+      unless un == "" || un == ","
+        unidad=Unidad.find(un).nombre.to_s+" - "+Unidad.find(un).fecha.to_s
+        array.push(unidad)
+        
+        6.times do
+          array.push('')
+          array_style.push(header_cell) 
+        end
+        array_style.push(header_cell)      
       end
     end
+  end  
+  
+  sheet.add_row(array,style:array_style)  
+  
+  letra='G'  
+  letra_dos='M'
+  beta=false
+  zeta=false
+  @unidades_arr.length.times do
+    if zeta
+      sheet.merge_cells "A"+letra.to_s+"1:A"+letra_dos.to_s+"1"      
+    else
+      sheet.merge_cells letra.to_s+"1:"+letra_dos.to_s+"1"      
+    end
+   
+    letra=letra_dos.ord + 1
+    letra_dos=letra_dos.ord + 7
+
+    if letra.ord >= 84
+     letra='U'
+     letra_dos='AA'
+     beta =true
+    elsif beta
+      zeta=true
+      letra='B'
+      letra_dos='H'
+      beta=false
+    else
+      letra=letra.chr    
+      letra_dos=letra_dos.chr
+    end
+    
   end
+  wb.styles do |t|
+  header_cell = t.add_style  border:1
+  
+  estilo=[]
+  largo=@unidades_arr.length
+  array=[]
+  @arreglo_excel.each_with_index do |a, index|
+    unless index == 0
+        @columnas_cont = 0
+        @plantilla.each do |pl|
+        if pl.dato.nombre.to_s != "columnas" && pl.dato.nombre.to_s!="resumen"
+          @columnas_cont = @columnas_cont + 1 
+          array.push(a[pl.dato.nombre.to_s])
+        else
+          @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/)
+          contador = 0
+          @arreglo_unidades.each_with_index do |ar, i|
+            contador = 0
+            unless ar == "" || ar == ","
+              celdas_unidad=ar.split('|')
+              celdas_unidad.each do |celda|
+                array.push(celda)
+                estilo.push(header_cell)
+              end
+              if celdas_unidad.length < 7
+                faltantes=7-celdas_unidad.length
+                faltantes.times do
+                  array.push('')
+                  estilo.push(header_cell)
+                end
+              end              
+            end            
+          end
+        end
+      end
+      sheet.add_row(array,style:estilo)
+      array=[]
+    end    
   end
   end
 end

@@ -1,6 +1,10 @@
-   <%= link_to raw("#{image_tag("printer.svg")} Descargar a Excel") , informe_generals_excel_path(id:params[:id],fomart:"xlsx"),target: :_blank,class: :"btn btn-sm btn-success"%>
+<div class="row" >
+  <div class="col"><%= link_to raw("#{image_tag("printer.svg")} Descargar a Excel") , informe_generals_excel_path(id:params[:id],fomart:"xlsx"),target: :_blank,class: :"btn btn-sm btn-success"%></div>
+</div><br>
+
+<div  style="overflow:auto; height:570px">
 <table  class="letra table table-striped-sm" >
-  <thead class="table-dark " style="font-size:15px">
+  <thead class="table-dark  header_fijo" style="font-size:15px;table-layout: fixed;">
     <% @plantilla.each do |pl| %>
       <% unless pl.dato.nombre.to_s == "columnas" || pl.dato.nombre.to_s == "resumen" %>
         <th><%= pl.dato.nombre %></th>
@@ -120,4 +124,5 @@
   <% end %>
 </tbody>
 </table>
+</div>
 <% @obje=@arreglo %>

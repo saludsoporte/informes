@@ -1,0 +1,43 @@
+@arreglo.each_with_index do |a, index|
+  unless index == 0
+  @columnas_cont = 0
+  @plantilla.each do |pl|
+    if pl.dato.nombre.to_s != "columnas" && pl.dato.nombre.to_s!="resumen"
+      @columnas_cont = @columnas_cont + 1 
+        sheet.add_row [a[pl.dato.nombre.to_s]]              
+    else
+      @arreglo_unidades = a[pl.dato.nombre.to_s].split(/{|}|\[|\]/)
+      contador = 0
+      @arreglo_unidades.each_with_index do |ar, i|
+        unless ar == "" || ar == ","
+          @unidades.push(ar)
+        end
+      end
+    end
+  end
+  end
+  end
+
+
+
+    letra='G'  
+  letra_dos='M'
+  zeta=false
+  @unidades_arr.length.times do
+    if zeta
+      sheet.merge_cells "A"+letra.to_s+"1:A"+letra_dos.to_s+"1"
+    else
+      sheet.merge_cells ""+letra.to_s+"1:"+letra_dos.to_s+"1"
+    end
+   
+    letra=letra_dos.ord + 1
+    letra_dos=letra.ord + 6
+    letra=letra.chr    
+    letra_dos=letra_dos.chr
+
+    if letra_dos.ord >=90
+     zeta=true
+     letra='A'
+     letra_dos='G'
+    end
+  end

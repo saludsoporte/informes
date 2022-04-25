@@ -9,6 +9,12 @@
         background-color: #282a2c;
     }
     
+    .header_fijo {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
     .div-padding {
         padding: 10px;
     }
